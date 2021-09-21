@@ -132,24 +132,46 @@ body {
 .main-page {
     display: grid;
     grid-row: auto auto;
-    row-gap: 20vh;
+    row-gap: 5vh;
     padding: 10px;
+}
+
+.form {
+    margin-left: 50vw;
 }
 
 .new-bar {
-    margin-left: 40vw;
+    margin-left: 30vw;
     box-sizing: border-box;
     min-width: 40%;
     max-width: 70%;
-    border: 10px solid black;
+    min-height: 10vh;
+    background: gray;
+    border-radius: 5px 5px 5px 5px;
     padding: 10px;
+    align-self: center;
 }
 
 .old-bar {
-    margin-left: 40vw;
+    margin-left: 30vw;
     box-sizing: border-box;
     min-width: 40%;
     max-width: 70%;
-    border: 10px solid black;
+    min-height: 10vh;
+    background: gray;
+    border-radius: 5px 5px 5px 5px;
     padding: 10px;
+}
+
+#time_info {
+    margin-top: 20px;
+}
+
+#post {
+    word-break:break-all;
+    font-weight: normal;
+    background: rgba(255,255,255,.8);
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 10px 10px 10px 10px;
 }

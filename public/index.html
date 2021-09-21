@@ -41,12 +41,15 @@
         </ul>
     </div>
     <div class="main-page">
-        <div class="new-bar">
-            
+        <div class="form">
+            <form action ="" method="GET">
+                <input id="desc" type="text" placeholder="Description"/>
+                <input id ="submit" type="button" value="SUBMIT" onclick="descSub()"></input>
+            </form>
         </div>
-        <div class="old-bar">
-            
-        </div>
+        <div id='latest' class="new-bar"></div>
+        <div id='older' class="old-bar"></div>
     </div>
+    <script src="./js/main.js"></script>
 </body>
 </html>

@@ -9,8 +9,7 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname + '/public/')))
 
 app.get('/', (req,res) => {
-  //Do AUTH checks here
-  res.redirect(req.baseUrl + '/public/' + req.query);
+
 })
 
 app.listen(port, () => {
