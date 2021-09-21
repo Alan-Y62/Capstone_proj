@@ -1,11 +1,6 @@
 function editRow(button) {
     button.style.display='none';
     button.parentNode.lastChild.style.display ='block';
-    //DOESNT WORK FOR DYNAMICALLY CREATED ONES 
-    //DYNAMIC ROWS
-    //button.parentNode.nextSibling.firstChild.style.display='none';
-    //button.parentNode.nextSibling.lastChild.style.display='block';
-    //HARD CODED ROWS
     button.parentNode.nextSiblingfirstChild.style.display='none';
     button.parentNode.nextSiblinglastChild.style.display='block';
 }

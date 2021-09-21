@@ -10,69 +10,73 @@
     <title>Tenant Viewer</title>
 </head>
 <body>
-    <div class="sidebar close">
-        <div class="logo-details">
-            <i class='bx bx-building-house'></i>
-            <span class="logo_name">Daily Tenant</span>
-        </div>
-        <ul class="nav-links">
-            <li>
-                <a href="index_a.html">
-                    <i class='bx bx-news' ></i>
-                    <span class="link_name">Annoucements</span>
-                </a>
-            </li>
-            <li>
-                <div class="icon-link">
-                    <a href="#">
-                        <i class='bx bx-wrench' ></i>
-                        <span class="link_name">Repairs</span>
-                    </a>
+    <div class="container">
+        <div class="nav-bar">
+            <div class="sidebar close">
+                <div class="logo-details">
+                    <i class='bx bx-building-house'></i>
+                    <span class="logo_name">Daily Tenant</span>
                 </div>
-                <ul class="sub-menu">
-                    <li><a class='link_name' href="#">View Requests</a></li>
-                    <li><a href="repairs.html">View Requests</a></li>
-                    <li><a href="#">View History</a></li>
+                <ul class="nav-links">
+                    <li>
+                        <a href="index_a.html">
+                            <i class='bx bx-news' ></i>
+                            <span class="link_name">Annoucements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="icon-link">
+                            <a href="#">
+                                <i class='bx bx-wrench' ></i>
+                                <span class="link_name">Repairs</span>
+                            </a>
+                        </div>
+                        <ul class="sub-menu">
+                            <li><a class='link_name' href="#">View Requests</a></li>
+                            <li><a href="repairs.html">View Requests</a></li>
+                            <li><a href="#">View History</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="building.html">
+                            <i class='bx bx-message-square-edit' ></i>
+                            <span class="link_name">View building</span>
+                        </a>
+                    </li>
                 </ul>
-            </li>
-            <li>
-                <a href="building.html">
-                    <i class='bx bx-message-square-edit' ></i>
-                    <span class="link_name">View building</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="main">
-        <div class="table_container">
-            <table class="table_t">
-                <caption>My Tenants</caption>
-                <thead>
-                    <tr class="heading">
-                        <th>BUILDING</th>
-                        <th>APT #</th>
-                        <th>TENANT </th>
-                        <th><!-- PLACEHOLDER--></th>
-                        <th><!-- PLACEHOLDER--></th>
-                    </tr>
-                </thead>
-                <tbody class="body">
-                    <tr>
-                        <th><input type="text" id="Building" placeholder="Building"></th>
-                        <th><input type="text" id="APT" placeholder="APT #"></th>
-                        <th><input type="text" id="TENANT" placeholder="TENANT"></th>
-                        <th><button class="btn btn-a" onclick="addNewRow()">ADD TENANT</button></th>
-                        <th><span id="placeholder"></span></th>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="save-changes">
-                <button class="save-table-changes">
-                    SAVE TABLE
-                </button>
+            </div>
+        </div>
+        <div class="main">
+            <div class="table_container">
+                <table class="table_t">
+                    <caption>My Tenants</caption>
+                    <thead>
+                        <tr class="heading">
+                            <th>BUILDING</th>
+                            <th>APT #</th>
+                            <th>TENANT </th>
+                            <th><!-- PLACEHOLDER--></th>
+                            <th><!-- PLACEHOLDER--></th>
+                        </tr>
+                    </thead>
+                    <tbody class="body">
+                        <tr>
+                            <th><input type="text" id="Building" placeholder="Building"></th>
+                            <th><input type="text" id="APT" placeholder="APT #"></th>
+                            <th><input type="text" id="TENANT" placeholder="TENANT"></th>
+                            <th><button class="btn btn-a" onclick="addNewRow()">ADD TENANT</button></th>
+                            <th><span id="placeholder"></span></th>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div id="save-changes">
+                    <button class="save-table-changes">
+                        SAVE TABLE
+                    </button>
+                </div> -->
             </div>
         </div>
     </div>
 </body>
-<script src="app.js"></script>
+<script src="./js/build.js"></script>
 </html>

@@ -7,9 +7,19 @@ caption {
     border-radius: 15px 15px 15px 15px;
 }
 
+.container {
+    width: 100%;
+}
+
+.main {
+    float: right;
+    width: 85vw;
+}
+
 .table_container {
     display: flex;
-    justify-content: center;
+    margin-left: 15vw;
+    margin-top: 5vh;
 }
 
 table {
