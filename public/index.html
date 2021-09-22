@@ -38,6 +38,11 @@
                     <span class="link_name">Message Landlord</span>
                 </a>
             </li>
+            <li>
+                <form action='/logout?_method=DELETE' method="POST">
+                    <button type="submit">Log Out</button>
+                </form>
+            </li>
         </ul>
     </div>
     <div class="main-page">
@@ -47,8 +52,8 @@
                 <input id ="submit" type="button" value="SUBMIT" onclick="descSub()"></input>
             </form>
         </div>
-        <div id='latest' class="new-bar"></div>
-        <div id='older' class="old-bar"></div>
+        <div id='latest' class="new-bar">NEWEST</div>
+        <div id='older' class="old-bar">RECENT</div>
     </div>
     <script src="./js/main.js"></script>
 </body>
