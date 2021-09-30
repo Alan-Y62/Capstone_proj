@@ -1,0 +1,25 @@
+<body>
+    <%- include('partials/sidebar') %>
+    <div class="main-page">
+        <div class="form">
+            <form action ="" method="GET">
+                <input id="desc" type="text" placeholder="Description"/>
+                <input id ="submit" type="button" value="SUBMIT" onclick="descSub()"></input>
+            </form>
+        </div>
+        <div class = 'label'>NEWEST
+            <div id='latest' class="new-bar">
+                <% for(let i=0; i < data.length; i++) { %>
+                <p id='time_info'><%=  data[i].time %></p>
+                <p id='post'><%=  data[i].message %></p>
+                <% } %>
+            </div>
+        </div>
+        <div class = 'label'>RECENT
+            <div id='older' class="old-bar">
+
+            </div>
+        </div>
+    </div>
+</body>
+ 

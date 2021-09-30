@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Annoucements</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+    <div class="sidebar close">
+        <div class="logo-details">
+            <i class='bx bx-building-house'></i>
+            <span class="logo_name">Daily Tenant</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="index_a.html">
+                    <i class='bx bx-news' ></i>
+                    <span class="link_name">Annoucements</span>
+                </a>
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="repairs.html">
+                        <i class='bx bx-wrench' ></i>
+                        <span class="link_name">Repairs</span>
+                    </a>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class='link_name' href="#">Request</a></li>
+                    <li><a href="repairs.html">Request</a></li>
+                    <li><a href="repair_history.html">View History</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="message.html">
+                    <i class='bx bx-message-square-edit' ></i>
+                    <span class="link_name">Message Landlord</span>
+                </a>
+            </li>
+            <li>
+                <form action='/logout?_method=DELETE' method="POST">
+                    <button type="submit">Log Out</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="main-page">
+        <div class="form">
+            <form action ="" method="GET">
+                <input id="desc" type="text" placeholder="Description"/>
+                <input id ="submit" type="button" value="SUBMIT" onclick="descSub()"></input>
+            </form>
+        </div>
+        <div class = 'label'>NEWEST<div id='latest' class="new-bar"></div></div>
+        <div class = 'label'>RECENT</div><div id='older' class="old-bar"></div></div>
+    </div>
+    <script>
+        fetch('random.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("latest");
+            for (var i = 0; i < data.length; i++) {
+                const x = document.createElement('p');
+                x.setAttribute('id','post');
+                const y = document.createElement('p');
+                y.setAttribute('id','time_info');
+                mainContainer.appendChild(x);
+                mainContainer.appendChild(y);
+                x.textContent = data[i].message;
+                y.textContent = data[i].time;
+                mainContainer.insertBefore(y, mainContainer.childNodes[0]);
+                mainContainer.insertBefore(x, mainContainer.childNodes[0]);
+            }
+        }
+    </script>
+</body>
+</html>
