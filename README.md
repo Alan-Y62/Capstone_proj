@@ -1,2 +1,0 @@
-# Capstone_proj
-project
