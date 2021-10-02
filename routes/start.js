@@ -13,18 +13,18 @@ const data = new User({
 
 //data.save();
 
-router.get('/', (req,res) => res.send('Welcome'))
+router.get('/', (req,res) => res.redirect('/login'))
 
-router.get('/login', (req,res) => {
+router.get('/login', checkNotAuthenticated, (req,res) => {
     res.render('login');
 })
 
-router.get('/register', (req,res) => {
+router.get('/register', checkNotAuthenticated, (req,res) => {
     res.render('register', {message: req.flash('message')});
 })
 
 
-router.post('/register',(req,res) =>{
+router.post('/register', checkNotAuthenticated, async (req,res) =>{
     const{name,email,password, c_password} = req.body;
 
     User.findOne({email:email}).then(result => {
@@ -46,7 +46,7 @@ router.post('/register',(req,res) =>{
 })
 
 //Authentication Login
-router.post('/login', (req, res, next) => {
+router.post('/login', checkNotAuthenticated, (req, res, next) => {
     passport.authenticate('local', {
     successRedirect: '/m',
     failureRedirect: '/register',
@@ -56,8 +56,16 @@ router.post('/login', (req, res, next) => {
 
 
 //logout method
-router.post('/logout', (req,res) => {
+router.get('/logout', (req,res) => {
+    req.session.destroy();
     res.redirect('login')
 })
 
 module.exports = router;
+
+function checkNotAuthenticated(req,res,next) {
+    if(req.isAuthenticated()) {
+        return res.redirect('/m')
+    }
+    next()
+}

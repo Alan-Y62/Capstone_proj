@@ -22,11 +22,14 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: false}));
 
+var expiryDate = new Date(Date.now() + 60*60 * 1000)
 //session
 app.use(session({ 
     secret: process.env.SECRET_KEY,
     resave: false, 
-    saveUninitialized: false
+    saveUninitialized: false,
+    secure: true,
+    cookie: {expires: expiryDate}
 }))
 
 //flash
