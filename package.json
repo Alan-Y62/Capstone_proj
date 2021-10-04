@@ -18,8 +18,10 @@
     "express-flash": "0.0.2",
     "express-layout": "^0.1.0",
     "express-session": "^1.17.2",
+    "googleapis": "^88.2.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.7",
+    "nodemailer": "^6.6.5",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0"
   },

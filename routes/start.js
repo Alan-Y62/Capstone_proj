@@ -3,6 +3,7 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const User = require('../model/user')
+const { session } = require('passport')
 
 const data = new User({
     name: 'BOB',
@@ -13,7 +14,10 @@ const data = new User({
 
 //data.save();
 
-router.get('/', (req,res) => res.redirect('/login'))
+router.get('/', (req,res) => 
+{
+    res.render('./login')
+})
 
 router.get('/login', checkNotAuthenticated, (req,res) => {
     res.render('login');
@@ -32,6 +36,10 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
             res.render('register', {message: 'EMAIL EXISTS'});
         }
         else{
+            if(password !== c_password) {
+                res.render('register', {message: 'PASSWORDS DID NOT MATCH'})
+                return
+            }
             const n_user = new User({
                 name, email, password, typeID:'string'
             });
@@ -49,7 +57,7 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
 router.post('/login', checkNotAuthenticated, (req, res, next) => {
     passport.authenticate('local', {
     successRedirect: '/m',
-    failureRedirect: '/register',
+    failureRedirect: '/login',
     failureFlash: true
     })(req, res, next)
 })
@@ -57,7 +65,7 @@ router.post('/login', checkNotAuthenticated, (req, res, next) => {
 
 //logout method
 router.get('/logout', (req,res) => {
-    req.session.destroy();
+    req.session.destroy()
     res.redirect('login')
 })
 

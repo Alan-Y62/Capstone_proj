@@ -1,97 +1,167 @@
-<div class="body-page">
-    <h1>ANNOUNCEMENTS</h1>
-        <div class='sub-container'>
-            <a href="/m/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
-            <form action='/logout' method="GET">
-                <button class="btn btn-primary" type="submit">Log Out</button>
-            </form>
-            <% stuff.reverse().forEach( (a,index) => { %>
-                <% if(index == 0 )  { %>
-                    <div class="latest-header">NEWEST ANNOUNCEMENT
-                        <div class="latest-container">
-                            <p class='sub-a'><%= a.title %></p>
-                            <p class='sub-b'><%= a.body %></p>
-                            <% /* %> <p class='sub-c'><%= a.date %></p> <% */ %>
-                        </div>
-                    </div>
-                        
-                <% } %>
-                <% if(index > 0) { %>
-                    <div class="post">
-                    
-                    <p class='sub-a'><%= a.title %></p>
-                    <p class='sub-b'><%= a.body %></p>
-                   <% /* %> <p class='sub-c'><%= a.date %></p> <% */ %>
-                </div>
-                <% } %>
-            <% }) %>
-        </div>
+<nav class="navbar stuff">
+    <div class="bnn">
+        <div onclick="openSide()" >
+        <i class="fa fa-bars fa-3x"></i>
     </div>
+        <h1 class="ann">ANNOUNCEMENTS </h1>   
+    </div>
+ <a href="/m/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
+</nav>
+<div id="side-menu" class="sidenav">
+    <div class="btn-close" onclick="closeSide()">&times;</div>
+    <div class ='welcome'>WELCOME, <%= user.name %></div>
+    <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
+    <a href="#"><i class="fa fa-wrench"></i> REPAIRS</a>
+    <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
+    <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>    
+    
+    <span class="border-bottom" style="display:block"></span>
+    
+    <form action='/logout' method="GET">
+        <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
+    </form>
+</div>
+<div class="body-page" onClick="closeSide()">
+
+
+
+    
+    <div class='sub-container'>
+        <% stuff.reverse().forEach( (a,index) => { %>
+            <% if(index == 0 )  { %>
+                <div class="latest-header">NEWEST ANNOUNCEMENT
+                    <div class="latest-container">
+                        <h1 ><%= a.title %></h1>
+                        <p ><%= a.body %></p>
+                        <p class="text-muted"><%= a.date.toLocaleDateString() %></p> 
+                        <a href="/m/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                    </div>
+                </div>
+                    
+            <% } %>
+           
+            
+            <% if(index > 0) { %>
+                 <br>
+                <div class="border border-dark text">
+                <h1>  <%= a.title %></h1>
+                <p><%= a.body %></p>
+               <p class = 'date'><%= a.date.toLocaleDateString() %></p>
+               <a href="/m/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+             </div>
+            <% } %>
+            
+        <% }) %>
+    </div>
+</div>
 <style>
 
-.container {
-    position: relative;
-    height:100vh;
-    width:90vw;
-    margin-left:5vw;
-    margin-right:5vw;
-    background: rgba(255,255,255,.5);
-    overflow: auto;
+.welcome {
+    color: white
+}
+
+.stuff{
+background: rgba(0,0,0);
+color:white;
+}
+
+.text{
+background: rgba(255,255,255,.8);
+padding:5px;
+}
+
+.bnn {
+background-color:black;
+display:flex;
+column-gap:20px;
+}
+
+.date {
+    color: rgba(0,0,0,.4);
+}
+
+.body-page{
+position: relative;
+height:100%;
+width:90vw;
+margin-left:5vw;
+margin-right:5vw;
+background: rgba(255,255,255,.5);
+
 }
 
 .sub-container {
-    position: relative;
-    background: gray;
-    height: 100%;
-    width: 100%;
-    color: white;
-    overflow: auto;
-    font-size: 30px;
+position: relative;
+height: 100%;
+width: 100%;
+color: black;
+overflow: auto;
+font-size: 30px;
+padding:5%;
 }
 
 .latest-header {
-    background: black;
-    padding: 5px;
+background: black;
+padding: 5px;
+color:white;
+font-size: bold;
 }
 
 .latest-container {
-    margin:5px;
-    padding-left: 3px;
-    padding-right: 3px;
-    padding-top: 3px;
-    background: lightblue;
-    border-radius: 5px 5px 5px 5px;
+font: normal;
+color: black;
+margin:5px;
+padding-left: 3px;
+padding-right: 3px;
+padding-top: 3px;
+background: lightblue;
+border-radius: 5px 5px 5px 5px;
 }
 
-.post {
-    margin:5px;
-    padding-left: 3px;
-    padding-right: 3px;
-    padding-top: 3px;
-    background: lightblue;
-    border-radius: 5px 5px 5px 5px;
+.bnn i {
+    color: rgb(2, 119, 221)
 }
 
-.sub-a {
-    margin: 5px;
-    padding: 13px;
-    background: rgba(0,0,0,.4);
-    border-radius: 15px 15px 15px 15px;
+.sidenav{
+height:100%;
+width:0;
+position:fixed;
+z-index:1;
+top:0;
+left:0;
+background: rgba(0,0,0,.9);
+overflow-x: hidden;
+padding-top: 5%;
+transition: 0.2s;
 }
 
-.sub-b {
-    background: lightslategray;
-    margin: 5px;
-    padding: 13px;
-    height: 200px;
-    border-radius: 15px 15px 15px 15px;
-    overflow: auto;
+.sidenav a{
+padding:10px 10px 10px 30px;
+text-decoration: none;
+font-size:25px;
+color:white;
+display: block;
 }
 
-.sub-c {
-    position: relative;
-    font-size: 20px;
-    background: rgb(151, 197, 212);
+.sidenav i {
+    margin-left: 7px;
 }
 
+.sidenav .btn-close{
+position:absolute;
+top:0;
+right:22px;
+font-size:30px;
+color: white;
+}
 </style>
+
+<script>
+function openSide(){
+    document.getElementById('side-menu').style.width = '300px';
+}
+
+function closeSide(){
+    document.getElementById('side-menu').style.width = '0px';
+}
+</script>

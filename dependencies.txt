@@ -8,6 +8,8 @@ mongoose
 express-session
 express-flash
 method-override
+nodemailer
+googleapis
 
 dev dependencies not required
 nodemon 
