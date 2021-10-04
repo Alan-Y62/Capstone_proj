@@ -1,0 +1,2 @@
+there should be a .env file with 
+a SECRET_KEY & URI variable
