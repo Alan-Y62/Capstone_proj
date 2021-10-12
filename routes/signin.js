@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const User = require('../model/user')
 const { session } = require('passport')
+const { checkNotAuthenticated } = require('../public/scripts/auth')
 
 const data = new User({
     name: 'BOB',
@@ -16,15 +17,15 @@ const data = new User({
 
 router.get('/', (req,res) => 
 {
-    res.render('./login')
+    res.redirect('login')
 })
 
 router.get('/login', checkNotAuthenticated, (req,res) => {
-    res.render('login');
+    res.render('./signIn/login');
 })
 
 router.get('/register', checkNotAuthenticated, (req,res) => {
-    res.render('register', {message: req.flash('message')});
+    res.render('./signIn/register', {message: req.flash('message')});
 })
 
 
@@ -36,10 +37,6 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
             res.render('register', {message: 'EMAIL EXISTS'});
         }
         else{
-            if(password !== c_password) {
-                res.render('register', {message: 'PASSWORDS DID NOT MATCH'})
-                return
-            }
             const n_user = new User({
                 name, email, password, typeID:'string'
             });
@@ -57,7 +54,7 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
 router.post('/login', checkNotAuthenticated, (req, res, next) => {
     passport.authenticate('local', {
     successRedirect: '/m',
-    failureRedirect: '/login',
+    failureRedirect: '/register',
     failureFlash: true
     })(req, res, next)
 })
@@ -71,9 +68,3 @@ router.get('/logout', (req,res) => {
 
 module.exports = router;
 
-function checkNotAuthenticated(req,res,next) {
-    if(req.isAuthenticated()) {
-        return res.redirect('/m')
-    }
-    next()
-}

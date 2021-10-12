@@ -1,7 +1,7 @@
 //routes folder //save for later
 const express = require('express')
 const dotenv = require('dotenv')
-const expressLayouts = require('express-ejs-layouts')
+const path = require('path')
 const passport = require('passport')
 const database = require('./config/database')
 const session = require('express-session')
@@ -13,23 +13,20 @@ dotenv.config({ path: './config/secretsecret.env' })
 
 database()
 //Static
-app.use('/public', express.static('public'))
-app.use('/public/css', express.static(__dirname + 'public/css'))
+app.use('/public',express.static('public'))
+app.use('/m', express.static(path.join(__dirname)))
 
 //ejs
-app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: false}));
 
-var expiryDate = new Date(Date.now() + 60*60 * 1000)
 //session
 app.use(session({ 
     secret: process.env.SECRET_KEY,
     resave: false, 
     saveUninitialized: false,
     secure: true,
-    cookie: {expires: expiryDate}
 }))
 
 //flash
@@ -41,8 +38,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //routes
-app.use('/', require('./routes/start'));
+app.use('/', require('./routes/signin'));
 app.use('/m', require('./routes/main'));
+app.use('/test', require('./routes/something'));
+
+//CREATE PAGE LATER
+//404 page for non-existing pages
+app.get("*",(req,res) => {
+    return
+})
 
 const PORT = process.env.PORT || 3000;
 

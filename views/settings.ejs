@@ -1,118 +1,136 @@
-<nav class="navbar stuff">
-    <div class="bnn">
-        <div onclick="openSide()" >
-        <i class="fa fa-bars fa-3x"></i>
-    </div>
-        <h1 class="sett">Settings</h1>   
-    </div>
-</nav>
-
-<div id="side-menu" class="sidenav">
-    <div class="btn-close" onclick="closeSide()">&times;</div>
-    <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
-    <a href="#"><i class="fa fa-wrench"></i> REPAIRS</a>
-    <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
-    <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     
-    <span class="border-bottom" style="display:block"></span>
-    
-    <form action='/logout' method="GET">
-        <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
-    </form>
-</div>
-<div class="body-page" onClick="closeSide()">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/public/css/login.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
 
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar stuff">
+        <div class="bnn">
+            <div onclick="openSide()" >
+            <i class="fa fa-bars fa-3x"></i>
+        </div>
+            <h1 class="sett">Settings</h1>   
+        </div>
+    </nav>
 
-<span>&nbsp</span>
-<div class="sendForm">
-    <form name="sendForm" class="w-full max-w-sm" action='/m/settings' method="POST">
-        <div class="md:flex md:items-center mb-6 ">
-            <div class="md:w-1/3">
-                <label
-                    class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="name">
-                    NAME
-                </label>
+    <div id="side-menu" class="sidenav">
+        <div class="btn-close" onclick="closeSide()">&times;</div>
+        <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
+        <a href="#"><i class="fa fa-wrench"></i> REPAIRS</a>
+        <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
+        <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>  
+        
+        <span class="border-bottom" style="display:block"></span>
+        
+        <form action='/logout' method="GET">
+            <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
+        </form>
+    </div>
+    <div class="body-page" onClick="closeSide()">
+
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+    <span>&nbsp</span>
+    <div class="sendForm">
+        <form name="sendForm" class="w-full max-w-sm" action='/m/settings' method="POST">
+            <div class="md:flex md:items-center mb-6 ">
+                <div class="md:w-1/3">
+                    <label
+                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="name">
+                        NAME
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input 
+                        type="text"
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                        id="name"
+                        name="name"
+                        value = <%= user.name %>
+                        placeholder="Name" required>
+                </div>
             </div>
-            <div class="md:w-2/3">
-                <input 
-                    type="text"
-                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                    id="name"
-                    name="name"
-                    value = <%= user.name %>
-                    placeholder="Name" required>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/3">
+                    <label
+                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="email">
+                        EMAIL
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input
+                        type="text"
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                        id="email"
+                        name="email"
+                        value = <%= user.email %>
+                        placeholder="Email" required>
+                </div>
             </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label
-                    class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="email">
-                    EMAIL
-                </label>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/3">
+                    <label
+                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="Subject">
+                        SUBJECT
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input
+                        type="text"
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                        id="subject"
+                        name="subject"
+                        placeholder="Subject">
+                </div>
             </div>
-            <div class="md:w-2/3">
-                <input
-                    type="text"
-                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                    id="email"
-                    name="email"
-                    value = <%= user.email %>
-                    placeholder="Email" required>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/3">
+                    <label
+                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                        for="message">
+                        MESSAGE
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <textarea
+                        type="text"
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                        id="message"
+                        name="message"
+                        placeholder="Message"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label
-                    class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="Subject">
-                    SUBJECT
-                </label>
+            <div class="md:flex md:items-center">
+                <div class="md:w-1/3"></div>
+                <div class="md:w-2/3">
+                    <button
+                        type="send"
+                        class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded"
+                        name="button"
+                        value="message"
+                        onclick="sendMessage()">
+                        SEND
+                    </button>
+                </div>
             </div>
-            <div class="md:w-2/3">
-                <input
-                    type="text"
-                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                    id="subject"
-                    name="subject"
-                    placeholder="Subject">
-            </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label
-                    class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                    for="message">
-                    MESSAGE
-                </label>
-            </div>
-            <div class="md:w-2/3">
-                <textarea
-                    type="text"
-                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                    id="message"
-                    name="message"
-                    placeholder="Message"></textarea>
-            </div>
-        </div>
-        <div class="md:flex md:items-center">
-            <div class="md:w-1/3"></div>
-            <div class="md:w-2/3">
-                <button
-                    type="send"
-                    class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded"
-                    name="button"
-                    value="message"
-                    onclick="sendMessage()">
-                    SEND
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</body>
+
 <script>
     const sendMessage = () => {
         /*

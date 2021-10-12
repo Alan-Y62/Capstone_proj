@@ -1,0 +1,6 @@
+body {
+    background-image: url('../images/hi_res_landscape.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
