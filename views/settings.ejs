@@ -13,126 +13,341 @@
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
 
 </head>
-<body>
-    <nav class="navbar stuff">
-        <div class="bnn">
-            <div onclick="openSide()" >
+<nav class="navbar stuff">
+    <div class="bnn">
+        <div onclick="openSide()">
             <i class="fa fa-bars fa-3x"></i>
         </div>
-            <h1 class="sett">Settings</h1>   
+        <h1 class="sett">SETTINGS</h1>   
+    </div>
+</nav>
+
+<div id="side-menu" class="sidenav">
+    <div class="btn-close" onclick="closeSide()">&times;</div>
+    <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
+    <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i> MANAGE TENANTS</a>
+    <a href="/m/repair_admin"><i class="fa fa-wrench"></i> REPAIRS REQUESTS</a>
+    <a href="/m/repairh"><i class="fa fa-calendar" aria-hidden="true"></i> REPAIR HISTORY</a>
+    <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
+    <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>    
+    
+    <span class="border-bottom" style="display:block"></span>
+    
+    <form action='/logout' method="GET">
+        <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
+    </form>
+</div>
+
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+<div class="body-page" onClick="closeSide()">
+<div class ="cat-title">Account</div>
+<div id="change" class="change">
+    <form name="changeForm" action="/m/settings" method="POST">
+        <div>
+            <label for="cname">Name</label>
+            <input type="text" id="cname" name="cname" placeholder=<%= user.name %>>
         </div>
-    </nav>
+        <div>
+            <label for="cemail">Email</label>
+            <input type="text" id="cemail" name="cemail" placeholder=<%= user.email %>>
+        </div>
+        <label for="cpass">Password</label>
+        <input type="text" id="cpass" name="cpass" placeholder="Password" required>
+        <input type="text" id="ccpass" name="ccpass" placeholder="Confirm Password" required>
+        <button type="submit" name="button" value="change">Save Changes</button>
+    </form>
+</div>
 
-    <div id="side-menu" class="sidenav">
-        <div class="btn-close" onclick="closeSide()">&times;</div>
-        <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
-        <a href="#"><i class="fa fa-wrench"></i> REPAIRS</a>
-        <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
-        <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>  
-        
-        <span class="border-bottom" style="display:block"></span>
-        
-        <form action='/logout' method="GET">
-            <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
-        </form>
+<div class="cat-title">Email Subscription</div>
+<div id="overlay" class="overlay">
+    <div class="popup"> 
+        <a class="close" href="#">&times;</a>
+        <div id="dialog" class="window">
+            <div class="box">
+                <div class="poptitle">
+                    <h2>Email Subscription</h2>
+                </div>
+                <div class="boxcontent">
+                    <label>Subscribe to the newsletter today. Receive updates and notifications in real time!</label>  
+                    <form name="subForm" id="subForm" action="/m/settings" method="POST">
+                        <input type="text" id="subemail" name="subemail" placeholder="Email" value=<%= user.email %> required>
+                        <input type="text" id="subname" name="subname" placeholder="Name" value=<%= user.name %> required>
+                        <br>
+                        <button type="submit" name="button" value="subscribe" onclick="confirmSub()">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="body-page" onClick="closeSide()">
+</div>
+<a class="openpop" href="#overlay" >Subscribe Here</a>
 
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<div class="cat-title">Change Background</div>
+<div class="bgimage">
+    <div class="bgimage1" style="content:url(https://via.placeholder.com/150); margin:0px 20px; width:200px; height:200px; display:inline;"></div>
+    <div class="bgimage2" style="content:url(https://via.placeholder.com/150); margin:0px 20px; width:200px; height:200px; display:inline;"></div>
+    <div class="bgimage3" style="content:url(https://via.placeholder.com/150); margin:0px 20px; width:200px; height:200px; display:inline;"></div>
+</div>
 
-    <span>&nbsp</span>
-    <div class="sendForm">
-        <form name="sendForm" class="w-full max-w-sm" action='/m/settings' method="POST">
-            <div class="md:flex md:items-center mb-6 ">
-                <div class="md:w-1/3">
-                    <label
-                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="name">
-                        NAME
-                    </label>
-                </div>
-                <div class="md:w-2/3">
-                    <input 
-                        type="text"
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                        id="name"
-                        name="name"
-                        value = <%= user.name %>
-                        placeholder="Name" required>
-                </div>
+<div class="cat-title">Contact Form</div>
+<div class="sendForm">
+    <form name="sendForm" class="w-full max-w-sm" action="/m/settings" method="POST">
+        <div class="md:flex md:items-center mb-6 ">
+            <div class="md:w-1/3">
+                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="name">NAME</label>
             </div>
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/3">
-                    <label
-                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="email">
-                        EMAIL
-                    </label>
-                </div>
-                <div class="md:w-2/3">
-                    <input
-                        type="text"
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                        id="email"
-                        name="email"
-                        value = <%= user.email %>
-                        placeholder="Email" required>
-                </div>
+            <div class="md:w-2/3">
+                <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="name" name="name" value = <%= user.name %> placeholder="Name" required>
             </div>
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/3">
-                    <label
-                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="Subject">
-                        SUBJECT
-                    </label>
-                </div>
-                <div class="md:w-2/3">
-                    <input
-                        type="text"
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                        id="subject"
-                        name="subject"
-                        placeholder="Subject">
-                </div>
+        </div>
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3">
+                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="email">EMAIL</label>
             </div>
-            <div class="md:flex md:items-center mb-6">
-                <div class="md:w-1/3">
-                    <label
-                        class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                        for="message">
-                        MESSAGE
-                    </label>
-                </div>
-                <div class="md:w-2/3">
-                    <textarea
-                        type="text"
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                        id="message"
-                        name="message"
-                        placeholder="Message"></textarea>
-                </div>
+            <div class="md:w-2/3">
+                <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="email" name="email" value = <%= user.email %> placeholder="Email" required>
             </div>
-            <div class="md:flex md:items-center">
-                <div class="md:w-1/3"></div>
-                <div class="md:w-2/3">
-                    <button
-                        type="send"
-                        class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded"
-                        name="button"
-                        value="message"
-                        onclick="sendMessage()">
-                        SEND
-                    </button>
-                </div>
+        </div>
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3">
+                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="Subject">SUBJECT</label>
             </div>
-        </form>
-    </div>
-</body>
+            <div class="md:w-2/3">
+                <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="subject" name="subject" placeholder="Subject">
+            </div>
+        </div>
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3">
+                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="message">MESSAGE</label>
+            </div>
+            <div class="md:w-2/3">
+                <textarea type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="message" name="message" placeholder="Message"></textarea>
+            </div>
+        </div>
+        <div class="md:flex md:items-center">
+            <div class="md:w-1/3"></div>
+            <div class="md:w-2/3">
+                <button type="submit" class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded" name="button" value="message" onclick="sendMessage()">SEND</button>
+            </div>
+        </div>
+        <br>
+    </form>
+</div>
+
+</div>
+    
+<style>
+.stuff{
+    background: rgba(0,0,0);
+    color:white;
+}
+.sett{
+    font-size: 40px;
+    font-weight: 600;
+}
+.bnn{
+    background-color:black;
+    display:flex;
+    column-gap:20px;
+}
+.body-page{
+    position: relative;
+    height: 100%;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    background: rgba(255,255,255,.5);
+}
+.bnn i{
+    color: rgb(2, 119, 221);
+}
+.sidenav{
+    height:100%;
+    width:0;
+    position:fixed;
+    z-index:1;
+    top:0;
+    left:0;
+    background: rgba(0,0,0,.9);
+    overflow-x: hidden;
+    padding-top: 5%;
+    transition: 0.2s;
+}
+.sidenav a{
+    padding: 10px 10px 10px 30px;
+    text-decoration: none;
+    font-size:25px;
+    color: white;
+    display: block;
+}
+.sidenav i{
+    margin-left: 7px;
+}
+.sidenav .btn-close{
+    position: absolute;
+    top:0;
+    right:22px;
+    font-size:30px;
+    color: white;
+}
+
+/*Catergory Titles*/
+.cat-title{
+    font-family: poppins;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase; 
+    color: black;
+    margin: 50px 5% 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/*Account*/
+.change{
+    margin-left: 8%;
+    font-family: poppins;
+}
+
+.change input{
+    height: 40px; width: 30%; 
+    border-radius: 3px;
+    margin: 0px 20px 10px; 
+    padding-left: 15px;
+}
+
+.change button{
+    padding:6px 15px; 
+    color: white;
+    background: #089add; 
+    border-radius: 3px; 
+    margin: 15px 0px 0px;
+    margin-left: 60%;
+    text-align: center; 
+    text-transform: uppercase;
+} 
+
+.change label{
+    display: block;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+/*Email Subscription*/
+.overlay{ 
+    position: fixed; 
+    top: 0; bottom: 0; left: 0; right: 0; 
+    background: rgba(0, 0, 0, 0.7); 
+    transition: opacity 500ms; 
+    visibility: hidden; 
+    opacity: 0; 
+}
+.overlay:target{ 
+    visibility: visible; 
+    opacity: 1;
+}
+#overlay{ 
+    font-family: poppins;
+}
+#overlay .popup{
+    margin: auto; 
+    padding: 50px 20px;
+    background: white; 
+    border-radius: 5px; 
+    height: 350px; width: 690px; 
+    position: fixed;    
+    top: 30%;   
+    left: 0px; right: 0px; 
+    text-align: center;
+}
+#overlay .popup .close{
+    position: absolute; 
+    top: 0px;  right: 0px; 
+    font-size: 30px;  
+    color: white;
+    text-align: center; 
+    background: grey;  
+    height: 40px;  width: 40px;    
+    line-height: 40px;
+}
+#overlay .popup .close:hover{
+    color: #0696d8;
+}
+#overlay .poptitle{   
+    font-size: 24px;  
+    text-transform: uppercase;  
+    color: black;  
+    font-weight: bold;  
+    letter-spacing: 2px;  
+    margin-bottom: 15px;
+}
+#overlay .boxcontent label{    
+    /*max-width: 560px; */    
+    font-size: 14px;
+}
+#overlay #subForm #subemail{    
+    background: #EBEBEB;    
+    border-radius: 3px;   
+    height: 40px; width: 65%;    
+    margin: 20px;    
+    padding-left: 15px;
+}
+#overlay #subForm #subname{    
+    background: #EBEBEB;    
+    border-radius: 3px;    
+    height: 40px; width: 65%;    
+    margin-bottom: 20px;    
+    padding-left: 15px;
+}
+#overlay #subForm button{       
+    background: #089add;    
+    padding: 3px 25px;    
+    text-transform: uppercase;   
+    font-size: 14px;    
+    color: white;
+    font-weight: bold;    
+    line-height: 34px;      
+    border-radius: 3px;    
+    letter-spacing: 2px;
+}
+.openpop{
+    padding:6px 15px; 
+    text-decoration: none !important;
+    color:white !important; 
+    background:#089add; 
+    border-radius: 3px; 
+    margin: 20px 20%; 
+    font-family:poppins;
+    display: inline-block;
+    text-align: center; 
+    text-transform: uppercase;   
+}
+
+/*Change Background*/
+.bgimage{
+    margin-left: 5%
+}
+
+/*Contact Form*/
+.sendForm{
+    font-family: poppins;
+}
+</style>
 
 <script>
-    const sendMessage = () => {
+    function openSide(){
+        document.getElementById('side-menu').style.width = '300px';
+    }
+
+    function closeSide(){
+        document.getElementById('side-menu').style.width = '0px';
+    }
+
+    function sendMessage(){
         /*
         let name = document.getElementById("name").value;
         let email = document.getElementById("email").value;
@@ -140,209 +355,8 @@
         */
         alert("EMAIL SENT");
     }
-</script>
 
-<div id="popup1" class="overlay">
-    <div class="popup"> <a class="close" href="#">&times;</a>
-        <div id="dialog" class="window">
-            <div class="box">
-                <div class="newletter-title">
-                    <h2>Email Subscription</h2>
-                </div>
-                <div class="box-content newleter-content">
-                    <label>Subscribe to the newsletter today. Receive updates and notifications in real time!</label>  
-                    <form name="subForm" id="subForm" action='/m/settings' method="POST">
-                        <input type="text" name="subemail" id="subemail" placeholder="Email" value = <%= user.email %> required>
-                        <input type="text" name="subname" id="subname" placeholder="Name" value = <%= user.name %> required>
-                        <div id="notification"></div>
-                        <button type="sub" name="button" value="subscribe" onclick="confirmSub()">Submit</button> </div>
-                        <script>
-                            const confirmSub = () => {
-                                alert("YOU ARE SUBSCRIBED");
-                            }
-                        </script>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<a class="btn btn-primary skip" href="#popup1" style="padding:6px 15px; background:#089add; color:#fff; text-decoration:none; font-family:poppins; border-radius:3px; margin:25% 40%; display:inline-block;">Subscribe Here</a>
-
-<style>
-    .stuff{
-background: rgba(0,0,0);
-color:white;
-}
-
-.sett {
-    font-size: xx-large;
-}
-
-.bnn {
-background-color:black;
-display:flex;
-column-gap:20px;
-}
-
-
-.bnn i {
-    color: rgb(2, 119, 221)
-}
-    
-.sidenav{
-height:100%;
-width:0;
-position:fixed;
-z-index:1;
-top:0;
-left:0;
-background: rgba(0,0,0,.9);
-overflow-x: hidden;
-padding-top: 5%;
-transition: 0.2s;
-}
-
-.sidenav a{
-padding:10px 10px 10px 30px;
-text-decoration: none;
-font-size:25px;
-color:white;
-display: block;
-}
-
-.sidenav i {
-    margin-left: 7px;
-}
-
-.sidenav .btn-close{
-position:absolute;
-top:0;
-right:22px;
-font-size:30px;
-color: white;
-}
-
-.overlay { 
-    position: fixed; 
-    top: 0; 
-    bottom: 0; 
-    left: 0; 
-    right: 0; 
-    background: rgba(0, 0, 0, 0.7); 
-    transition: opacity 500ms; 
-    visibility: hidden; 
-    opacity: 0; 
-    z-index: 9999;}
-.overlay:target { 
-    visibility: visible; 
-    opacity: 1;}
-#popup1 { 
-    font-family: poppins;}
-#popup1 .popup {
-    margin: 0px auto; 
-    padding: 50px 20px;
-    background: #fff; 
-    border-radius: 0px; 
-    height: 350px; width:690px; 
-    position: relative;    
-    text-align: center;
-    top: 50% !important;   
-    position: fixed !important;
-    -moz-transform: translateY(-50%);    
-    -webkit-transform: translateY(-50%);  
-    -o-transform: translateY(-50%);   
-    -ms-transform: translateY(-50%);    
-    transform: translateY(-50%);
-    right: 0px; 
-    left: 0;}
-#popup1 .popup h2 { 
-    margin-top: 0; 
-    color: #333;}
-#popup1 .popup .close {
-    position: absolute; 
-    top: 0px;  
-    right: 0px; 
-    transition: all 200ms; 
-    font-size: 30px;  
-    font-weight: normal; 
-    text-decoration: none;  
-    text-align: center;    
-    background: #333;  
-    border-radius: 0;  
-    cursor: pointer;  
-    float: right;  
-    padding: 0;  
-    color: #fff;  
-    margin-top: 0;  
-    margin-right: 0;  
-    height: 40px;  
-    width: 40px;    
-    line-height: 40px;}
-#popup1 .popup .close:hover {
-    color: #0696d8;}
-#popup1 .newletter-title h2 {   
-    font-size: 24px;  
-    text-transform: uppercase;  
-    color: #000;  
-    font-weight: 700;  
-    letter-spacing: 2px;  
-    margin: 0 0 15px;}
-#popup1 .box-content label {  
-    font-weight: 400;  
-    max-width: 560px;  
-    display: inline-block;  
-    margin-bottom: 5px;  
-    font-size: 14px; 
-    line-height: 26px;}
-.newletter-popup {  
-    background: #fff;  
-    top: 50% !important;   
-    position: fixed !important; 
-    padding: 0;  
-    text-align: center;  
-    -moz-transform: translateY(-50%);    
-    -webkit-transform: translateY(-50%);  
-    -o-transform: translateY(-50%);   
-    -ms-transform: translateY(-50%);    
-    transform: translateY(-50%);}
-#popup1 #subForm #subemail {    
-    background: #EBEBEB none repeat scroll 0% 0%;    
-    border: medium none;    
-    height: 40px;    
-    width: 65%;    
-    margin: 20px;    
-    padding-left: 15px;}
-#popup1 #subForm #subname {    
-    background: #EBEBEB none repeat scroll 0% 0%;    
-    border: medium none;    
-    height: 40px;    
-    width: 65%;    
-    margin-bottom: 20px;    
-    padding-left: 15px;}
-#popup1 #subForm button {   
-    cursor: pointer;   
-    border: none;    
-    background: #089add;    
-    padding: 3px 25px;    
-    text-transform: uppercase;   
-    font-size: 14px;    
-    color: #fff;
-    font-weight: 600;    
-    line-height: 34px;    
-    display: inline-block;    
-    border-radius: 0;    
-    letter-spacing: 2px;}
-.sendForm {
-    font-family: poppins;}
-</style>
-
-<script>
-function openSide(){
-    document.getElementById('side-menu').style.width = '300px';
-}
-
-function closeSide(){
-    document.getElementById('side-menu').style.width = '0px';
-}
+    function confirmSub(){
+        alert("YOU ARE SUBSCRIBED");
+    }
 </script>
