@@ -15,6 +15,7 @@ database()
 //Static
 app.use('/public',express.static('public'))
 app.use('/m', express.static(path.join(__dirname)))
+app.use('/images', express.static('images')); 
 
 //ejs
 app.set('view engine', 'ejs');
