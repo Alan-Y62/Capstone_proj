@@ -7,6 +7,7 @@ const { subMail , sendMessage , sendUpdate} = require('../email/sendEmail')
 const { checkAuthenticated,checkRoles } = require('../public/scripts/auth')
 const Tenants = require('../model/tenants')
 const Repair = require('../model/repairModel')
+const { addTwoWeeks, generateRepairs } = require('../public/scripts/miscFuncs')
 
 router.get('/',/*checkAuthenticated,*/ /*checkRoles,*/ async (req,res) => {
     const announce = await Announce.find()
@@ -95,56 +96,14 @@ router.get('/settings', /*checkAuthenticated,*/ (req,res) => {
 
 router.post('/settings', /*checkAuthenticated,*/ (req,res) => {
     var buttonValue = req.body.button;
-    const{ name,email,subject,message,
-        subname,subemail,
-        cname,cemail,cpass,ccpass } = req.body;
+    const{ name,email,subject,message,subname,subemail } = req.body;
+    console.log(req.body)
     if(buttonValue == "message"){
-        console.log(req.body)
         sendMessage(name,email,subject,message)
-        res.redirect('/m/settings')
     }else if(buttonValue == "subscribe"){
-        console.log(req.body)
         subMail(subname,subemail)
-        res.redirect('/m/settings')
-    }else if(buttonValue == "change"){
-        console.log(req.body)
-        if(cpass == ccpass && (cname||email != '')){
-            User.findOne({email:req.user.email}).then(user => {
-                bcrypt.compare(cpass,user.password,(err,isMatch)=>{
-                    if(err) throw err;
-                    if(isMatch){
-                        if(cname.toUpperCase() == req.user.name.toUpperCase()){
-                            console.log("Enter a different name.")
-                        }else if(cname != '' && (cname.toUpperCase() != req.user.name.toUpperCase())){
-                            User.findByIdAndUpdate(req.user.id,{name:cname},function(err, docs) {
-                                if (err){
-                                    console.log(err)
-                                }else{
-                                    console.log("Name changed: "+cname)
-                                }
-                            });
-                        }
-                        if(cemail.toUpperCase() == req.user.email.toUpperCase()){
-                            console.log("Enter a different email.")
-                        }else if(cemail != '' && (cemail.toUpperCase() != req.user.email.toUpperCase())){
-                            User.findByIdAndUpdate(req.user.id,{email:cemail},function(err, docs) {
-                                if (err){
-                                    console.log(err)
-                                }else{
-                                    console.log("Email changed: "+cemail)
-                                }
-                            });
-                        }
-                        res.redirect('/m')
-                    }else{
-                        console.log("Invalid Password.")
-                    }
-                });
-            });
-        }else{
-            console.log("Password does not match.")
-        }
     }
+    res.redirect('/m/settings')
 })
 
 module.exports = router;
