@@ -1,0 +1,27 @@
+An example you can follow is the register route in the routes/signin.js file
+How to insert a new repair request onto the mongo repair db
+
+in the js file
+
+router.post('<repair request route name>', async(req,res) => {
+    const <variable name>  = new Repair({
+        <fill will parameters passed from the ejs file or through some function 
+        that gets the parameters or hard code the parameters>
+        (Example would look like: 
+            landlord: 'a_landlord', address: '123 Main Street', 
+            apt: <find the requester's apt>, tenant: <probably can just put req.User.name>,
+            issue: <parameter passed>, 
+            image: <should check if parameter was passed, if so assign otherwise don't>,
+            comments: <same as image>
+        )
+        <whatever the variable name is>.save();
+        res.redirect('whereever you want to send them after its sent')
+    })
+})
+
+in the ejs file
+
+<form action='name of the repair route' method='POST'>
+    <form data>
+    <button type='submit'...>Submit</button>
+</form>
