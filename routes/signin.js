@@ -15,9 +15,12 @@ const data = new User({
 
 //data.save();
 
-router.get('/', (req,res) => 
-{
-    res.redirect('login')
+router.get('/', (req,res) => {
+    res.redirect('home')
+})
+
+router.get('/home', (req,res) => {
+    res.render('./home');
 })
 
 router.get('/login', checkNotAuthenticated, (req,res) => {
