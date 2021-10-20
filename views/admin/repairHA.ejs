@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Requests</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -19,16 +19,18 @@
             <div onclick="openSide()" >
             <i class="fa fa-bars fa-3x"></i>
         </div>
-            <h1 class="Header">REQUESTS</h1>
+            <h1 class="ann">ANNOUNCEMENTS </h1>   
         </div>
+    <a href="/m/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
     </nav>
     <div id="side-menu" class="sidenav">
         <div class="btn-close" onclick="closeSide()">&times;</div>
         <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
         <a href="/m/tenant"><i class="fa fa-address-book" aria-hidden="true"></i> MANAGE TENANTS</a>
         <a href="/m/repair_admin"><i class="fa fa-wrench"></i> REPAIRS REQUESTS</a>
+        <a href="/m/repairh"><i class="fa fa-calendar" aria-hidden="true"></i> REPAIR HISTORY</a>
         <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
-        <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>
+        <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>    
         
         <span class="border-bottom" style="display:block"></span>
         
@@ -37,86 +39,49 @@
         </form>
     </div>
     <div class="body-page" onClick="closeSide()">
-        <div class="pending">
-            <h2>Pending Requests</h2>
-            <div class="reqContainer">
-            <% problems.forEach( (a,index) => { %>
-                <% if(a.status === 'pending') { %> 
+        <h2>Repair history</h2>
+        <div class="reqContainer">
+            <% completed.forEach( (a,index) => { %> 
                 <div class="reqSub" id="<%= index %>">
                     <span class='c'>
                         <h3><%= a.issue %> </h3>
-                        <a href="/m/repair_admin/p/<%= a.id %>/<%= a.sched_date %>" class="btn btn-warning">Push Back 1 day</a> 
-                        <span>&nbsp;&nbsp;</span>
-                        <a href="/m/repair_admin/d/<%= a.id %>" class="btn btn-success">Finished</a> 
+                        <a href="/m/repair_admin/d/<%= a.id %>" class="btn btn-danger">Delete</a> 
                     </span>
                     <p style="font-weight: bold;"><%=a.tenant%>, <%=a.address%> APT <%=a.apt%></p>
                     <p><%= a.comments %></p>
                     <img src="/public/images/image.jpg"/>
                     <p><span class="text-muted">Request Date: <%= a.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.sched_date.toLocaleDateString()%></span></p>
                 </div>
-                <% }}) %>
-            </div> 
+            <% }) %> 
         </div>
     </div>
-    <div class='completedContainer'>
-        <div class="abc123">
-            <h2>Completed Requests</h2>
-            <div class="comcon">
-                <% problems.forEach( (a,index) => { %>
-                    <% if(a.status === 'completed') { %>
-                    <div class="comSub" id='<%= index %>'>
-                        <span class='c'>
-                            <h3><%= a.issue %> </h3>
-                        </span>
-                        <p style="font-weight: bold;"><%=a.tenant%>, <%=a.address%> APT <%=a.apt%></p>
-                        <p><%= a.comments %></p>
-                        <img src="/public/images/image.jpg"/>
-                        <p><span class="text-muted">Request Date: <%= a.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.sched_date.toLocaleDateString()%></span></p>
-                    </div>
-                <% }}) %>
-            </div>
-        </div>
-    </div>
-    
 </body>
 
 <style>
-
     .body-page{
-        border-radius: 50px 50px 50px 50px;
         position: relative;
-        height:900px;
+        height:100%;
         width:90vw;
         margin-left:5vw;
         margin-right:5vw;
-        background: rgb(85, 38, 6);
-    }
-
-    .pending {
-        margin-top: 20px;
+        background: rgba(255,255,255,.5);
     }
 
     h2 {
-        border-radius: 2px 2px 2px 2px;
-        background: silver;
-        color: black;
+        background: black;
+        color: white;
         font-size: 4vh;
         position: relative;
         left:50%;
-        right: 50%;
         transform: translate(-50%);
-        top:10px;
-        width: 90%;
+        top:5px;
+        width: 500px;
         text-align: center;
     }
-
-    .reqContainer {
-        position: relative;
-        top: 10px;
-        height: 800px;
-        overflow: auto;
+    .box {
+        text-align: center;
+        justify-items: center;
     }
-
     .c {
         display: flex;
     }
@@ -126,52 +91,17 @@
     }
     .reqSub {
         border-style: solid;
-        border-color: rgb(85, 38, 6);
-        border-bottom: 500px;
-        width: 90%;
+        border-color: black;
+        width: 700px;
         position: relative;
-        left: 5%;
-        right: 5%;
-        background: rgba(255,255,255,.7);
+        left: 50%;
+        transform: translate(-50%);
+        background: white;
     } 
-
     img {
-        max-width: 100%;
+        max-width: 600px;
+        max-height: 500px;
     }
-
-    .completedContainer {
-        border-radius: 50px 50px 50px 50px;
-        position: relative;
-        height:900px;
-        width:90vw;
-        margin-left:5vw;
-        margin-right:5vw;
-        background: rgb(85, 38, 6);
-        margin-top: 30px;
-    }
-
-    .abc123 {
-        margin-top: 30px;
-    }
-
-    .comcon {
-        position: relative;
-        top: 10px;
-        height: 800px;
-        overflow: auto;
-    }
-
-    .comSub {
-        border-style: solid;
-        border-color: rgb(85, 38, 6);
-        border-bottom: 500px;
-        width: 90%;
-        position: relative;
-        left: 5%;
-        right: 5%;
-        background: rgba(255,255,255,.7);
-    }
-
 </style>
 
 <script>

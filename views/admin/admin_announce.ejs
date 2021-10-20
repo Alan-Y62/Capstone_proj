@@ -28,7 +28,6 @@
         <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
         <a href="/m/tenant"><i class="fa fa-address-book" aria-hidden="true"></i> MANAGE TENANTS</a>
         <a href="/m/repair_admin"><i class="fa fa-wrench"></i> REPAIRS REQUESTS</a>
-        <a href="/m/repairh"><i class="fa fa-calendar" aria-hidden="true"></i> REPAIR HISTORY</a>
         <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
         <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>    
         
@@ -38,41 +37,36 @@
             <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
         </form>
     </div>
-    <div class="body-page" onClick="closeSide()">
-
-
-
-        
-        <div class='sub-container'>
-            <% stuff.reverse().forEach( (a,index) => { %>
-                <% if(index == 0 )  { %>
-                    <div class="latest-header">NEWEST ANNOUNCEMENT
-                        <div class="latest-container">
-                            <h1 ><%= a.title %></h1>
-                            <p ><%= a.body %></p>
-                            <p class="text-muted"><%= a.date.toLocaleDateString() %></p> 
-                            <a href="/m/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+    <div class="row">
+        <div class="cols1 body-page" onClick="closeSide()">
+            <div class='sub-container'><span id='header1'>NEWEST ANNOUNCEMENT</span>
+                <% stuff.reverse().forEach( (a,index) => { %>
+                    <% if(index == 0 )  { %>
+                            <div class="latest-container">
+                                <h1 ><%= a.title %></h1>
+                                <p ><%= a.body %></p>
+                                <p class="text-muted"><%= a.date.toLocaleDateString() %></p> 
+                                <a href="/m/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                            </div>
                         </div>
-                    </div>
-                        
-                <% } %>
-            
-                
+                            
+                    <% }}) %>
+            </div>
+        <div class="cols2 subcon2"><span id=header2>OLDER NEWS</span>
+            <% stuff.reverse().forEach( (a,index) => { %>    
                 <% if(index > 0) { %>
-                    <br>
                     <div class="border border-dark text">
-                    <h1>  <%= a.title %></h1>
-                    <p><%= a.body %></p>
-                <p class = 'date'><%= a.date.toLocaleDateString() %></p>
-                <a href="/m/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
-                </div>
-                <% } %>
-                
-            <% }) %>
+                        <h1>  <%= a.title %></h1>
+                        <p><%= a.body %></p>
+                        <p class = 'date'><%= a.date.toLocaleDateString() %></p>
+                        <a href="/m/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                    </div>
+                <% }}) %>
         </div>
     </div>
 </body>
 <style>
+
 
 .welcome {
     color: white
@@ -87,43 +81,101 @@ padding:5px;
     color: rgba(0,0,0,.4);
 }
 
-.body-page{
-position: relative;
-height:100%;
-width:90vw;
-margin-left:5vw;
-margin-right:5vw;
-background: rgba(255,255,255,.5);
+@media screen and (min-width: 941px) {
+    .row {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        width: 100vw;
+    }
+}
 
+.body-page{
+    position: relative;
+    height:100%;
+    width:90%;
+    margin-top: 5vh;
+    background: black;
+    margin-left: 5vw;
+}
+
+.subcon2 {
+position: relative;
+top: 5vh;
+background: black;
+width: 90%;
+margin-left:5vw;
+height:80vh;
+overflow: auto;
+padding-left: 20px;
+padding-right: 20px;
+}
+
+.subcon2::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+@media screen and (max-width: 940px) {
+    .body-page{
+        position: relative;
+        width:90vw;
+        margin-top: 5vh;
+        background: black;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    .subcon2 {
+    position: relative;
+    top: 5vh;
+    background: black;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 90vw;
+    margin-left:5vw;
+    margin-right: 5vw;
+    }
 }
 
 .sub-container {
-position: relative;
-height: 100%;
 width: 100%;
-color: black;
-overflow: auto;
 font-size: 30px;
-padding:5%;
+padding: 20px;
 }
 
-.latest-header {
-background: black;
-padding: 5px;
-color:white;
-font-size: bold;
-}
 
 .latest-container {
 font: normal;
 color: black;
-margin:5px;
+height: 50vh;
 padding-left: 3px;
 padding-right: 3px;
 padding-top: 3px;
 background: lightblue;
 border-radius: 5px 5px 5px 5px;
 }
+
+.border {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#header1 {
+    color: white;
+    font-size: 40px;
+}
+
+#header2 {
+    color: white;
+    font-size: 40px;
+}
+
 </style>
 
 <script>
