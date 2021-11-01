@@ -51,7 +51,7 @@ router.post('/', checkAuthenticated, (req,res) => {
                                 }
                             });
                         }
-                        res.redirect('/settings')
+                        res.redirect('/home')
                     }else{
                         console.log("Invalid Password.")
                     }
