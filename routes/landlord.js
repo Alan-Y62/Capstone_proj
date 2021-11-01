@@ -183,9 +183,7 @@ router.get('/:id/manage', checkAuthenticated, async (req,res) => {
     res.render('./admin/management', {pending:pending, tenants:curr_tenants, location:curr_build[0], building_id: buildID})
 })
 
-router.post('/:id/manage/userdelete', async (req,res) =>{
-    console.log(req.body)
-    console.log(req.params.id)
+router.post('/:id/manage/userdelete', checkAuthenticated, async (req,res) =>{
     const buildingid = mongoose.Types.ObjectId(req.params.id);
     const acceptpendingbuilding = await Build.find({"_id": buildingid});
     const userID = mongoose.Types.ObjectId(req.body._id);
@@ -194,7 +192,13 @@ router.post('/:id/manage/userdelete', async (req,res) =>{
             "element.apt": req.body.apt //"element.apt": req.body.apt
         }]
     })
-    await User.findByIdAndUpdate(userID,{$pull:{building:{building_id:buildingid}}})
+    console.log(String(userID))
+    console.log(acceptpendingbuilding[0].landlord)
+    if(String(userID) !== acceptpendingbuilding[0].landlord){
+        console.log(userID)
+        await User.findByIdAndUpdate(userID,{$pull:{building:{building_id:buildingid}}})
+    }
+    
     res.redirect(`/admin/${buildingid}/manage`)
 })
 

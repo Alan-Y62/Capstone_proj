@@ -53,8 +53,12 @@ router.post('/create', checkAuthenticated, async(req,res)=>{
 
 router.get('/join', checkAuthenticated, async (req,res) => {
     const ap = await Build.find()
+    const user = req.user.id
     const avail = ap.filter(building => {
-        if(building.landlord !== req.user.id){
+        let tenants = building.tenants
+        let notin = tenants.filter( element => String(element._id) === user)
+        console.log(notin)
+        if(building.landlord !== req.user.id && notin.length === 0){
             return building
         }
     })
