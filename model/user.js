@@ -13,14 +13,15 @@ const Userschema = new mongoose.Schema({
         type: String,
         required:true
     },
-    typeID:{
-        type: String,
-        required:true
-    }
+    building:[{
+        building_id:{
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
+        }
+    }]
 });
 
 const User = mongoose.model('user', Userschema);
 
 module.exports = User;
-
 

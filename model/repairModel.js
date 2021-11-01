@@ -1,13 +1,8 @@
 const mongoose = require('mongoose')
 
 const repairSchema = new mongoose.Schema({
-    //landlord name or landlord id, not determined yet
-    landlord:{
-        type: String,
-        required: true
-    },
     //address of the building of the repair
-    address:{
+    building:{
         type: String,
         required: true
     },
@@ -26,19 +21,10 @@ const repairSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    //date of request //automatically done when creating request
-    date:{
-        type: Date,
-        default: Date.now()
-    },
-    //automatic date for when repair will be done
-    sched_date: {
-        type: Date,
-        default: Date.now() + 60*60 * 1000 * 24 * 7
-    },
     //optional image showing the area that needs repair
     image: {
         type: String,
+        default: '0x000000'
     },
     //describe the repair being requested
     comments: {
@@ -49,6 +35,16 @@ const repairSchema = new mongoose.Schema({
         type: String,
         default: 'pending',
         required: true
+    },
+        //date of request //automatically done when creating request
+    date:{
+        type: Date,
+        default: Date.now()
+    },
+    //automatic date for when repair will be done    
+    sched_date: {
+        type: Date,
+        default: Date.now() + 60*60 * 1000 * 24 * 7
     }
 })
 

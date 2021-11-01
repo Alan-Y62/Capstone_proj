@@ -9,6 +9,10 @@ const announceschema = new mongoose.Schema({
         type: String,
         required:true
     },
+    building_id:{
+        type: String,
+        required: true
+    },
     date:{
         type: Date,
         default: Date.now()

@@ -31,17 +31,26 @@ function randomStatus() {
     return status[Math.round((Math.random()))]
 }
 
-function generateRepairs() {
+function randomChance() {
+    return Math.round((Math.random))
+}
+
+function generateRepairs(stuff) {
+    const exists = 'N'
+    if(randomChance() === 1) {
+        exists = 'exists'
+    }
     const a = new Repair({
         landlord: 'admin',
-        address: '123 Main Street',
+        building: stuff,
         apt: Math.floor((Math.random() * 10) + 1),
         tenant: randomName(),
         issue: randomIssue(),
+        image: exists,
         comments: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. ",
         status: randomStatus()
     })
     a.save()
 }
 
-module.exports = { addTwoWeeks , generateRepairs }
+module.exports = { addTwoWeeks, generateRepairs }

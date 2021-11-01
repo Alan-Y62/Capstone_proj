@@ -6,32 +6,16 @@ const User = require('../model/user')
 const { session } = require('passport')
 const { checkNotAuthenticated } = require('../public/scripts/auth')
 
-const data = new User({
-    name: 'BOB',
-    email: 'BobbySuFlay@bobby.com',
-    password: 'BobbyIsCool',
-    typeID: 'friend'
-})
-
-//data.save();
-
 router.get('/', (req,res) => {
-    res.redirect('home')
+    res.render('./signIn/main');
 })
 
-router.get('/home', (req,res) => {
-    res.render('./home');
-})
-
-router.get('/login', checkNotAuthenticated, (req,res) => {
-    res.render('./signIn/login');
-})
-
+//REGISTRATION GET
 router.get('/register', checkNotAuthenticated, (req,res) => {
     res.render('./signIn/register', {message: req.flash('message')});
 })
 
-
+//REGISTRATION POST
 router.post('/register', checkNotAuthenticated, async (req,res) =>{
     const{name,email,password, c_password} = req.body;
 
@@ -53,11 +37,16 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
     })
 })
 
+//LOGIN GET
+router.get('/login', checkNotAuthenticated, (req,res) => {
+    res.render('./signIn/login');
+})
+
 //Authentication Login
 router.post('/login', checkNotAuthenticated, (req, res, next) => {
     passport.authenticate('local', {
-    successRedirect: '/m',
-    failureRedirect: '/register',
+    successRedirect: '/home',
+    failureRedirect: '/login',
     failureFlash: true
     })(req, res, next)
 })

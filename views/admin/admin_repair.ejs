@@ -8,27 +8,29 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="/public/css/login.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/a_repair.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet"/>
 
 </head>
 <body>
-    <nav class="navbar stuff">
+    <nav class="navbar news">
         <div class="bnn">
             <div onclick="openSide()" >
             <i class="fa fa-bars fa-3x"></i>
         </div>
-            <h1 class="Header">REQUESTS</h1>
+            <h1 class="Header">REQUESTS </h1>   
         </div>
     </nav>
     <div id="side-menu" class="sidenav">
         <div class="btn-close" onclick="closeSide()">&times;</div>
-        <a href="/m"><i class="fa fa-newspaper"></i> ANNOUNCEMENTS</a>
-        <a href="/m/tenant"><i class="fa fa-address-book" aria-hidden="true"></i> MANAGE TENANTS</a>
-        <a href="/m/repair_admin"><i class="fa fa-wrench"></i> REPAIRS REQUESTS</a>
-        <a href="#"><i class="fa fa-comments"></i> CHAT MAYBE</a>
-        <a href="/m/settings"><i class="fa fa-cog"></i> SETTINGS</a>
+        <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a> 
+        <a href="/admin/<%= building_id  %>"><i class="fa fa-newspaper"></i> Announcements</a>
+        <a href="/admin/<%= building_id %>/manage"><i class="fa fa-address-book" aria-hidden="true"></i> Manage Tenants</a>
+        <a href="/admin/<%= building_id %>/requests"><i class="fa fa-wrench"></i> Repair Requests</a>
+        <a href="#"><i class="fa fa-comments"></i>FUTURE UPDATE</a>
+        <a href="/settings"><i class="fa fa-cog"></i> Settings</a>          
         
         <span class="border-bottom" style="display:block"></span>
         
@@ -40,19 +42,23 @@
         <div class="pending">
             <h2>Pending Requests</h2>
             <div class="reqContainer">
-            <% problems.forEach( (a,index) => { %>
-                <% if(a.status === 'pending') { %> 
-                <div class="reqSub" id="<%= index %>">
+            <% problems.forEach( (a) => { %>
+                <% if(a.repairs.status === 'pending') { %> 
+                <div class="reqSub">
                     <span class='c'>
-                        <h3><%= a.issue %> </h3>
-                        <a href="/m/repair_admin/p/<%= a.id %>/<%= a.sched_date %>" class="btn btn-warning">Push Back 1 day</a> 
+                        <h3><%= a.repairs.issue %> </h3>
+                        <a href="/admin/<%= building_id  %>/requests/p/<%= a.repairs.id %>/<%= a.repairs.sched_date %>" class="btns btn-warning">Push Back 1 day</a> 
                         <span>&nbsp;&nbsp;</span>
-                        <a href="/m/repair_admin/d/<%= a.id %>" class="btn btn-success">Finished</a> 
+                        <a href="/admin/<%= building_id  %>/requests/d/<%= a.repairs.id %>" class="btns btn-success">Finished</a> 
                     </span>
-                    <p style="font-weight: bold;"><%=a.tenant%>, <%=a.address%> APT <%=a.apt%></p>
-                    <p><%= a.comments %></p>
-                    <img src="/public/images/image.jpg"/>
-                    <p><span class="text-muted">Request Date: <%= a.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.sched_date.toLocaleDateString()%></span></p>
+                    <p style="font-weight: bold;"><span id="tenant"><%=a.repairs.tenant%>,</span><span id="addr"> <%=a.repairs.address%> </span><span id="aptNum">APT <%=a.repairs.apt%></span></p>
+                    <% if(a.repairs.comments) { %>
+                    <p><%= a.repairs.comments %></p>
+                    <% } %>
+                    <% if(a.repairs.image !== 'no') { %>
+                    <img src="/admin/<%= building_id  %>/image/<%= a.img._id%>"/>
+                    <% } %>
+                    <p><span class="text-muted">Request Date: <%= a.repairs.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.repairs.sched_date.toLocaleDateString()%></span></p>
                 </div>
                 <% }}) %>
             </div> 
@@ -62,124 +68,30 @@
         <div class="abc123">
             <h2>Completed Requests</h2>
             <div class="comcon">
-                <% problems.forEach( (a,index) => { %>
-                    <% if(a.status === 'completed') { %>
-                    <div class="comSub" id='<%= index %>'>
+                <% problems.forEach( (a) => { %>
+                    <% if(a.repairs.status === 'completed') { %>
+                    <div class="comSub">
                         <span class='c'>
-                            <h3><%= a.issue %> </h3>
+                            <h3><%= a.repairs.issue %> </h3>
                         </span>
-                        <p style="font-weight: bold;"><%=a.tenant%>, <%=a.address%> APT <%=a.apt%></p>
-                        <p><%= a.comments %></p>
-                        <img src="/public/images/image.jpg"/>
-                        <p><span class="text-muted">Request Date: <%= a.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.sched_date.toLocaleDateString()%></span></p>
+                        <p style="font-weight: bold;"><span id="tenant"><%=a.repairs.tenant%>,</span><span id="addr"> <%=a.repairs.address%> </span><span id="aptNum">APT <%=a.repairs.apt%></span></p>
+                    <% if(a.repairs.comments) { %>
+                    <p><%= a.repairs.comments %></p>
+                    <% } %>
+                    <% if(a.repairs.image !== 'no') { %>
+                        <img src="/admin/<%= building_id  %>/image/<%= a.img._id%>"/>
+                    <% } %>
+                    <p><span class="text-muted">Request Date: <%= a.repairs.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.repairs.sched_date.toLocaleDateString()%></span></p>
                     </div>
                 <% }}) %>
             </div>
         </div>
     </div>
     
+    <div>
+    <i class="scroll-up" id="scroll-up"><img src="/public/images/upward.gif" class="side_bar up-arrow" alt="" /></i>
+    </div>
 </body>
 
-<style>
-
-    .body-page{
-        border-radius: 50px 50px 50px 50px;
-        position: relative;
-        height:900px;
-        width:90vw;
-        margin-left:5vw;
-        margin-right:5vw;
-        background: rgb(85, 38, 6);
-    }
-
-    .pending {
-        margin-top: 20px;
-    }
-
-    h2 {
-        border-radius: 2px 2px 2px 2px;
-        background: silver;
-        color: black;
-        font-size: 4vh;
-        position: relative;
-        left:50%;
-        right: 50%;
-        transform: translate(-50%);
-        top:10px;
-        width: 90%;
-        text-align: center;
-    }
-
-    .reqContainer {
-        position: relative;
-        top: 10px;
-        height: 800px;
-        overflow: auto;
-    }
-
-    .c {
-        display: flex;
-    }
-    .btn {
-        position: relative;
-        left: 50px;
-    }
-    .reqSub {
-        border-style: solid;
-        border-color: rgb(85, 38, 6);
-        border-bottom: 500px;
-        width: 90%;
-        position: relative;
-        left: 5%;
-        right: 5%;
-        background: rgba(255,255,255,.7);
-    } 
-
-    img {
-        max-width: 100%;
-    }
-
-    .completedContainer {
-        border-radius: 50px 50px 50px 50px;
-        position: relative;
-        height:900px;
-        width:90vw;
-        margin-left:5vw;
-        margin-right:5vw;
-        background: rgb(85, 38, 6);
-        margin-top: 30px;
-    }
-
-    .abc123 {
-        margin-top: 30px;
-    }
-
-    .comcon {
-        position: relative;
-        top: 10px;
-        height: 800px;
-        overflow: auto;
-    }
-
-    .comSub {
-        border-style: solid;
-        border-color: rgb(85, 38, 6);
-        border-bottom: 500px;
-        width: 90%;
-        position: relative;
-        left: 5%;
-        right: 5%;
-        background: rgba(255,255,255,.7);
-    }
-
-</style>
-
-<script>
-    function openSide(){
-        document.getElementById('side-menu').style.width = '300px';
-    }
-    
-    function closeSide(){
-        document.getElementById('side-menu').style.width = '0px';
-    }
-</script>
+<script src="/public/scripts/scrollTop.js"></script>
+<script src="/public/scripts/navbar.js"></script>

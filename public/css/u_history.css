@@ -1,0 +1,110 @@
+
+    .body-page {
+        margin-top: 10vh;
+    }
+
+    .pending {
+        margin-top: 20px;
+    }
+
+    .reqContainer {
+        border-radius: 50px 50px 50px 50px;
+        position: relative;
+        min-height: 300px;
+        max-height:900px;
+        width:90vw;
+        top: -6vh;
+        margin-left:5vw;
+        margin-right:5vw;
+        background: rgba(27, 25, 167, 0.705);
+        overflow-y: auto;
+    }
+
+    h2 {
+        border-radius: 2px 2px 2px 2px;
+        background: silver;
+        color: black;
+        font-size: 4vh;
+        position: relative;
+        left:50%;
+        right: 50%;
+        transform: translate(-50%);
+        top:10px;
+        margin-bottom: 20px;
+        width: 90%;
+        text-align: center;
+    }
+
+    .c {
+        display: flex;
+    }
+    .btns {
+        position: relative;
+        left: 50px;
+    }
+    .reqSub {
+        border-style: solid;
+        border-color: rgba(27, 25, 167, 0.705);
+        border-bottom: 500px;
+        width: 90%;
+        position: relative;
+        left: 5%;
+        right: 5%;
+    } 
+
+    .reqSub:nth-child(even) {
+        background: #b3e5fc;
+    }
+
+    .reqSub:nth-child(odd) {
+        background: #e1f5fe;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .completedContainer {
+        margin-top: 30px;
+    }
+
+    .abc123 {
+        margin-top: 30px;
+    }
+
+    .comcon {
+        position: relative;
+        border-radius: 50px 50px 50px 50px;
+        position: relative;
+        height:800px;
+        width:90vw;
+        margin-left:5vw;
+        margin-right:5vw;
+        background: rgba(27, 25, 167, 0.705);
+        top: 10px;
+        overflow: auto;
+    }
+
+    .comSub {
+        border-style: solid;
+        border-color: rgba(27, 25, 167, 0.705);
+        border-bottom: 500px;
+        width: 90%;
+        position: relative;
+        left: 5%;
+        right: 5%;
+    }
+
+    .comSub:nth-child(even) {
+        background: #b3e5fc;
+    }
+
+    .comSub:nth-child(odd) {
+        background: #e1f5fe;
+    }
+
+    .Header {
+        font-weight: bold;
+        font-size: 50px;
+        color: white;
+    }

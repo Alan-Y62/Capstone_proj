@@ -1,0 +1,39 @@
+.pending-list {
+    background: white;
+    color: black;
+    width: 78vw;
+    margin-left: 10vw;
+}
+
+.user-container {
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+    margin-bottom: 10px;
+    border-radius: 5px 5px 5px 5px;
+    background: #b3e5fc;
+}
+
+tbody tr:nth-child(even){
+    background-color: #b3e5fc;
+    color:black;
+}
+
+tbody tr:nth-child(odd){
+    background-color: #e1f5fe;
+    color:black;
+}
+
+#chooseApt {
+    margin-left: 100px;
+}
+
+#accept {
+    margin-left: 200px;
+}
+
+#deny {
+    margin-left: 387px;
+    margin-top: 3px;
+    position: relative;
+}

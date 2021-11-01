@@ -18,6 +18,12 @@ const buildingSchema = new mongoose.Schema({
             type:String,
             required: true
         }
+    }],
+    pending:[{
+        _id:{
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
+        }
     }]
 })
 

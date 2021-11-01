@@ -13,17 +13,10 @@ function checkAuthenticated(req,res,next) {
 
 function checkNotAuthenticated(req,res,next) {
     if(req.isAuthenticated()) {
-        return res.redirect('/m')
+        return res.redirect('/home')
     }
     next()
 }
 
-async function checkRoles(req,res,next) { 
-    if(req.user.typeID !== 'admin') {
-        //return res.sendFile(path.join(__dirname,'../../views/stuff.html'))
-        return res.redirect('/m/user')
-    }
-    next();
-}
 
-module.exports = { checkAuthenticated, checkNotAuthenticated, checkRoles}
+module.exports = { checkAuthenticated, checkNotAuthenticated}

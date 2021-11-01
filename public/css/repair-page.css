@@ -1,0 +1,116 @@
+
+.request {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 1em 2em;
+    font-weight: bold;
+}
+
+.request h2 {
+    color: #df933d;
+    border-color: #FFFFFF;
+    background: rgb(255, 255, 255);
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+
+    font-size: 40px;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin: 1.5em;
+}
+
+.request .panel {
+  width: 700px;
+}
+
+.request .panel .issues {
+    width: 300px;
+    height: 200px;
+    text-align: left;
+    background-color: #df933d;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    overflow: auto;
+}
+
+.request .panel .issues .form-check label {
+  color: black;
+  font-size: 15px;
+}
+
+.request .panel .image {
+    width: 600px;
+    height: 200px;
+    margin-left: 15px;
+    background-color: #df933d;
+    border: solid;
+    border-color: #FFFFFF;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+}
+
+.request textarea {
+    width: 700px;
+    height: 300px;
+
+    background-color: #df933d;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    margin-top: 20px;
+    display: block;
+}
+
+label {
+  color: orange;
+}
+
+.request ::placeholder {
+    vertical-align: top;
+    text-align: left;
+    color: #000000;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.request .btn {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 0;
+
+    font-weight: bold;
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    transition: all 0.25s;
+}
+
+.request .btn:hover {
+    border-color: #C6A582;
+    color: #C6A582;
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 720px) {
+  .request .panel .image {
+    margin-left: 50px;
+  }
+}

@@ -40,13 +40,16 @@ app.use(passport.session());
 
 //routes
 app.use('/', require('./routes/signin'));
-app.use('/m', require('./routes/main'));
-app.use('/test', require('./routes/something'));
+app.use('/home', require('./routes/home'));
+app.use('/admin', require('./routes/landlord'))
+app.use('/user', require('./routes/tenant'))
+app.use('/settings', require('./routes/setting'))
+
 
 //CREATE PAGE LATER
 //404 page for non-existing pages
 app.get("*",(req,res) => {
-    return
+    res.sendFile((__dirname +"/views/404.html"))
 })
 
 const PORT = process.env.PORT || 3000;
