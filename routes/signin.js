@@ -6,7 +6,7 @@ const User = require('../model/user')
 const { session } = require('passport')
 const { checkNotAuthenticated } = require('../public/scripts/auth')
 
-router.get('/', (req,res) => {
+router.get('/', checkNotAuthenticated, (req,res) => {
     res.render('./signIn/main');
 })
 

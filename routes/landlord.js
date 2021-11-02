@@ -9,7 +9,7 @@ const User = require('../model/user')
 const Announce = require('../model/announcement')
 const Build = require('../model/building')
 const Repair = require('../model/repairModel')
-const { checkAuthenticated } = require('../public/scripts/auth')
+const { checkAuthenticated, checkRolesAdmin } = require('../public/scripts/auth')
 const { addTwoWeeks, generateRepairs} = require('../public/scripts/miscFuncs');
 const { UserRefreshClient } = require('google-auth-library');
 
@@ -48,17 +48,17 @@ const conn = mongoose.createConnection(process.env.URI, {
   const upload = multer({ storage });
 ///////////////////////////////////////////////////////////////////////
 
-router.get('/:id', async (req,res) => {
+router.get('/:id', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const buildID = req.params.id; //UNIQUE ID NUMBER FOR THE BUILDING
     const announce = await Announce.find({"building_id":buildID}) //LOADS THE RESULTING MONGODB QUERY INTO ANNOUNCE USING BUILDING ID AS THE FILTER
     res.render('./admin/admin_announce', {news:announce, building_id:req.params.id})
 })
 
-router.get('/:id/new', checkAuthenticated, (req,res) => {
+router.get('/:id/new', checkAuthenticated, checkRolesAdmin, (req,res) => {
     res.render('./admin/create_announce' , {building_id:req.params.id})
 })
 
-router.post('/:id/new', (req,res) => {
+router.post('/:id/new', checkAuthenticated, checkRolesAdmin, (req,res) => {
     const{title, body} = req.body
     const building_id = req.params.id;
     const n_message = new Announce({
@@ -69,12 +69,12 @@ router.post('/:id/new', (req,res) => {
     res.redirect(`/admin/${building_id}`);
 })
 
-router.get('/:id/edit/:a_id', /*checkAuthenticated,*/ async (req, res) => {
+router.get('/:id/edit/:a_id', checkAuthenticated, checkRolesAdmin, async (req, res) => {
     const announce = await Announce.findById(req.params.a_id)
     res.render('./admin/edit_announce', { stuff: announce ,building_id:req.params.id})
 })
 
-router.post('/:id/edit/:an_id', /*checkAuthenticated,*/ async(req, res) => {
+router.post('/:id/edit/:an_id', checkAuthenticated, checkRolesAdmin, async(req, res) => {
     const{title, body} = req.body
     const building_id = req.params.id;
     //fixed the error, findandUpdate was taking the building 
@@ -83,7 +83,7 @@ router.post('/:id/edit/:an_id', /*checkAuthenticated,*/ async(req, res) => {
     res.redirect(`/admin/${building_id}`);
 })
 
-router.get('/:id/requests', /*checkAuthenticated,*/ async (req,res) => {
+router.get('/:id/requests', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const findrqs = await Repair.find({building: req.params.id})
     const rqs = await Promise.all(findrqs.map(async (element) => {
         const repairs = element;
@@ -109,14 +109,14 @@ router.get('/:id/requests', /*checkAuthenticated,*/ async (req,res) => {
 })
 
 
-router.get('/:id/requests/p/:r_id/:date', async (req,res) => {
+router.get('/:id/requests/p/:r_id/:date', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     let sched_date = addTwoWeeks(req.params.date)
     const buildID = req.params.id
     await Repair.findByIdAndUpdate(req.params.r_id, {sched_date})
     res.redirect(`/admin/${buildID}/requests`)
 })
 
-router.get('/:id/requests/d/:r_id/', async (req,res) => {
+router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     await Repair.findByIdAndUpdate(req.params.r_id, {status: 'completed', sched_date: Date.now()})
     const buildID = req.params.id
     const sht = await Repair.find({'status':'completed'}).sort({'sched_date': -1})
@@ -139,12 +139,12 @@ router.get('/:id/requests/d/:r_id/', async (req,res) => {
 })
 
 //tempoary route delete later
-router.get('/:id/generate', async (req,res) => {
+router.get('/:id/generate', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const re = await generateRepairs(req.params.id)
     res.send('<h1>generated data</h1>')
 })
 
-router.get('/:id/manage', checkAuthenticated, async (req,res) => {
+router.get('/:id/manage', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     let value = mongoose.Types.ObjectId(req.params.id)
     const buildID = req.params.id
     const curr_build = await Build.find({"_id": value})
@@ -183,7 +183,7 @@ router.get('/:id/manage', checkAuthenticated, async (req,res) => {
     res.render('./admin/management', {pending:pending, tenants:curr_tenants, location:curr_build[0], building_id: buildID})
 })
 
-router.post('/:id/manage/userdelete', checkAuthenticated, async (req,res) =>{
+router.post('/:id/manage/userdelete', checkAuthenticated, checkRolesAdmin, async (req,res) =>{
     const buildingid = mongoose.Types.ObjectId(req.params.id);
     const acceptpendingbuilding = await Build.find({"_id": buildingid});
     const userID = mongoose.Types.ObjectId(req.body._id);
@@ -202,7 +202,7 @@ router.post('/:id/manage/userdelete', checkAuthenticated, async (req,res) =>{
     res.redirect(`/admin/${buildingid}/manage`)
 })
 
-router.post('/:id/manage/useraccept', async (req,res) =>{
+router.post('/:id/manage/useraccept', checkAuthenticated, checkRolesAdmin, async (req,res) =>{
     const buildingID = mongoose.Types.ObjectId(req.params.id);
     console.log(req.body)
     const userID = mongoose.Types.ObjectId(req.body.ident);
@@ -231,7 +231,7 @@ router.post('/:id/manage/useraccept', async (req,res) =>{
     res.redirect(`/admin/${buildingID}/manage`)
 })
 
-router.post('/:id/manage/userdeny', async (req,res) => {
+router.post('/:id/manage/userdeny', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const buildingID = mongoose.Types.ObjectId(req.params.id);
     const userID = mongoose.Types.ObjectId(req.body.ident);
     const acceptpendingbuilding = await Build.find({"_id":buildingID});
@@ -239,7 +239,7 @@ router.post('/:id/manage/userdeny', async (req,res) => {
     res.redirect(`/admin/${buildingID}/manage`)
 })
 
-router.get('/:id/image/:a_id', (req, res) => {
+router.get('/:id/image/:a_id', checkAuthenticated, checkRolesAdmin, (req, res) => {
     const id = req.params.a_id;
     if (!id || id === 'undefined') 
     return res.status(400).send('no image id');
@@ -251,7 +251,7 @@ router.get('/:id/image/:a_id', (req, res) => {
     });
   });
 
-router.post('/:id/delBuild', async (req,res) => {
+router.post('/:id/delBuild', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const buildID = mongoose.Types.ObjectId(req.params.id);
     const building = await Build.find({"_id": buildID})
     const tenants = building[0].tenants

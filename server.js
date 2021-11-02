@@ -14,8 +14,7 @@ dotenv.config({ path: './config/secretsecret.env' })
 database()
 //Static
 app.use('/public',express.static('public'))
-app.use('/m', express.static(path.join(__dirname)))
-app.use('/images', express.static('images')); 
+app.use('/public', express.static(path.join(__dirname)))
 
 //ejs
 app.set('view engine', 'ejs');
@@ -45,13 +44,17 @@ app.use('/admin', require('./routes/landlord'))
 app.use('/user', require('./routes/tenant'))
 app.use('/settings', require('./routes/setting'))
 
+app.get('/401', (req,res) => {
+    res.sendFile((__dirname +"/views/401.html"))
+})
 
 //CREATE PAGE LATER
 //404 page for non-existing pages
-app.get("*",(req,res) => {
+app.get("*", (req,res) => {
     res.sendFile((__dirname +"/views/404.html"))
 })
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT)
+

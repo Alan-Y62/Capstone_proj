@@ -1,6 +1,9 @@
+const mongoose = require('mongoose')
 const path = require('path');
 // const User = require('/model/user')
 // const Announce = require('..../model/announcement')
+const Build= require('../../model/building')
+
 
 function checkAuthenticated(req,res,next) {
     if(req.isAuthenticated()) {
@@ -18,5 +21,26 @@ function checkNotAuthenticated(req,res,next) {
     next()
 }
 
+async function checkRolesAdmin(req,res,next) {
+    const buildID = mongoose.Types.ObjectId(req.params.id);
+    const userID = mongoose.Types.ObjectId(req.user.id);
+    const building = await Build.find({'_id': buildID});
+    
+    if(String(userID) === String(building[0].landlord)) {
+        return next()
+    }
+    res.redirect('/401')
+}
 
-module.exports = { checkAuthenticated, checkNotAuthenticated}
+async function checkRolesUser(req,res,next) {
+    const buildID = mongoose.Types.ObjectId(req.params.id);
+    const userID = mongoose.Types.ObjectId(req.user.id);
+    const building = await Build.find({'_id': buildID});
+    if(String(userID) !== String(building[0].landlord)) {
+        return next()
+    }
+    res.redirect('/401')
+}
+
+
+module.exports = { checkAuthenticated, checkNotAuthenticated, checkRolesAdmin, checkRolesUser}

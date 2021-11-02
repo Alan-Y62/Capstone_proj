@@ -9,7 +9,7 @@ const User = require('../model/user')
 const Announce = require('../model/announcement')
 const Build = require('../model/building')
 const Repair = require('../model/repairModel')
-const { checkAuthenticated } = require('../public/scripts/auth')
+const { checkAuthenticated, checkRolesUser } = require('../public/scripts/auth')
 
 const conn = mongoose.createConnection(process.env.URI, {
   useNewUrlParser: true,
@@ -47,17 +47,17 @@ const upload = multer({ storage });
 
 //main pages routers
 
-router.get('/:id', async (req,res) => {
+router.get('/:id', checkAuthenticated, checkRolesUser, async (req,res) => {
     const buildID = req.params.id;
     const announce = await Announce.find({"building_id":buildID})
     res.render('./user/u_announcements', {news:announce, building_id:req.params.id})
 })
 
-router.get('/:id/requests', /*checkAuthenticated,*/ async (req,res) => {
+router.get('/:id/requests', checkAuthenticated, checkRolesUser, async (req,res) => {
     res.render('./user/u_repair', {building_id:req.params.id})
 })
 
-router.post('/:id/requests', /*checkAuthenticated,*/ upload.single('file'), async (req,res) => {
+router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('file'), async (req,res) => {
     const{issue, ignore, comments} = req.body;
     //const imageID = req.file.id;
     const building = mongoose.Types.ObjectId(req.params.id);
@@ -74,7 +74,7 @@ router.post('/:id/requests', /*checkAuthenticated,*/ upload.single('file'), asyn
     res.redirect(`/user/${req.params.id}/history`)
 })
 
-router.get('/:id/history', checkAuthenticated, async(req,res) => {
+router.get('/:id/history', checkAuthenticated, checkRolesUser, async(req,res) => {
   const findrqs = await Repair.find({building: req.params.id})
   const rqs = await Promise.all(findrqs.map(async (element) => {
       const repairs = element;
@@ -102,7 +102,7 @@ router.get('/:id/history', checkAuthenticated, async(req,res) => {
   res.render('./user/u_history', {problems: rqs, building_id: req.params.id})
 })
 
-router.get('/:id/image/:a_id', (req, res) => {
+router.get('/:id/image/:a_id', checkAuthenticated, checkRolesUser, (req, res) => {
   const id = req.params.a_id;
   console.log(id)
   if (!id || id === 'undefined') 
