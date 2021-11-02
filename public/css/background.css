@@ -1,0 +1,7 @@
+body {
+    background-image: url('../images/1186048.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    overflow-x:hidden;
+}

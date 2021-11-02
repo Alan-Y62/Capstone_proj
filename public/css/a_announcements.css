@@ -1,0 +1,115 @@
+.welcome {
+    color: white
+}
+
+.text{
+background: rgb(65, 74, 209);
+padding:5px;
+}
+
+.date {
+    color: rgba(0,0,0,.4);
+}
+
+@media screen and (min-width: 941px) {
+    .row {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        width: 100vw;
+    }
+}
+
+.body-page{
+    position: relative;
+    height:100%;
+    width:90%;
+    margin-top: 5vh;
+    background: rgba(0,0,0,.7);
+    margin-left: 5vw;
+}
+
+.subcon2 {
+position: relative;
+top: 5vh;
+background: black;
+width: 90%;
+margin-left:5vw;
+height:80vh;
+overflow: auto;
+padding-left: 20px;
+padding-right: 20px;
+}
+
+.subcon2::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+@media screen and (max-width: 940px) {
+    .body-page{
+        position: relative;
+        width:90vw;
+        margin-top: 5vh;
+        background: black;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    .subcon2 {
+    position: relative;
+    top: 5vh;
+    background: black;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 90vw;
+    margin-left:5vw;
+    margin-right: 5vw;
+    }
+}
+
+.sub-container {
+width: 100%;
+font-size: 30px;
+padding: 20px;
+}
+
+
+.latest-container {
+font: normal;
+color: black;
+height: 50vh;
+padding-left: 3px;
+padding-right: 3px;
+padding-top: 3px;
+background: lightblue;
+border-radius: 50px 50px 50px 50px;
+overflow-y: auto;
+}
+
+.border {
+    margin-bottom: 20px;
+    border-radius: 20px 20px 20px 20px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 50px;
+    color: white;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#header1 {
+    color: white;
+    font-size: 40px;
+}
+
+#header2 {
+    color: white;
+    font-size: 40px;
+}

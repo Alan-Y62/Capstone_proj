@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="https://use.fontawelist.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/home.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/main.css" type="text/css" rel="stylesheet"/>
+</head>
+
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+<body>
+    <nav class="navbar news">
+        <div class="bnn">
+            <div onclick="openSide()" >
+            <i class="fa fa-bars fa-3x"></i>
+            </div> 
+        </div>
+        <a href="/login" class="btn btn-primary">Login</a> 
+    </nav>
+    <div id="side-menu" class="sidenav">
+        <div class="btn-close" onclick="closeSide()">&times;</div>
+        <a href="#intro">Welcome</a>
+        <a href="#about"><i class="fa fa-angle-right"></i> About</a> 
+        <a href="#features"><i class="fa fa-angle-right"></i> Features</a>
+        <a href="#team"><i class="fa fa-angle-right"></i> Our Team</a>
+        <a href="#help"><i class="fa fa-angle-right"></i> Need Help?</a>  
+        
+        <span class="border-bottom" style="display:block"></span>
+    </div>
+
+    <div class="cover" id="cover" onClick="closeSide()">
+        <div class="backcover">
+            <img src="public/images/logo.jpg" class="logo">
+        </div>
+    </div>
+
+    <div class="body-page" onClick="closeSide()">    
+
+        <div class="intro" id="intro">
+            <div class="title">Welcome</div>
+            <h2>Tenant Management In One Place</h2>
+            <p>Never lose track of a tenant's concern and contact.</p>
+            <a href="/register" style="color: #0696d8">Join Us Today!</a>
+            <a href="#about">Learn More</a>
+        </div>
+        <div class="about" id="about"> 
+            <div class="title">About</div>
+            <p>
+               The Daily Tenant is a nonprofit organization. We 
+               serve the public and it matters to us that the people
+               have a safe space to converse. We believe real change starts 
+               with conversation. Here, your voice matters. Come as you 
+               are and together we’ll do what’s right (not what’s easy) 
+               to serve the public conversation. Did you know? Our employees
+               make $15/hr and have comprehensive benefits starting day one.
+               The Daily Tenant is a growing family of millions of diverse people
+               working together to make the community they care about a better place.
+               The Daily Tenant was founded in 1800 by 5 college friends.
+            </p>
+        </div>
+    
+        <div class="features" id="features"> 
+            <div class="title">Features</div>
+            <div class="features-content">
+                <div class="feature1">
+                    <img src="public/images/logo.jpg" class="ft-logo">
+                    <div class="ft">Announcement Page</div>
+                    <div class="ft-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae leo elit. Aenean tincidunt nunc.</div>
+                </div>
+                <div class="feature2">
+                    <img src="public/images/logo.jpg" class="ft-logo">
+                    <div class="ft">Repair Updates</div>
+                    <div class="ft-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non convallis nibh. Nunc condimentum dui et fringilla blandit. Vestibulum et.</div>
+                </div>
+                <div class="feature3">
+                    <img src="public/images/logo.jpg" class="ft-logo">
+                    <div class="ft">Live Notifications</div>
+                    <div class="ft-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed urna.</div>
+                </div>
+                <div class="feature4">
+                    <img src="public/images/logo.jpg" class="ft-logo">
+                    <div class="ft">Seperate View For Tenants and Landlords</div>
+                    <div class="ft-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac efficitur lorem. Quisque.</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="team" id="team"> 
+            <div class="title">Our Team</div>
+            <div class="team-list">
+                <div class="boxed">Bob</div>
+                <div class="boxed">Rob</div>
+                <div class="boxed">Sob</div>
+                <div class="boxed">Pob</div>
+                <div class="boxed">Cob</div>
+            </div>
+        </div>
+    
+        <div class="help" id="help">
+            <div class="title">Need Help?</div>
+            <div class="sendForm">
+                <form name="sendForm" class="w-full max-w-sm" action="/m/settings" method="POST">
+                    <div class="md:flex md:items-center mb-6 ">
+                        <div class="md:w-1/3">
+                            <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="name">NAME</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="name" name="name" placeholder="Name" required>
+                        </div>
+                    </div>
+                    <div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="email">EMAIL</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="email" name="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="Subject">SUBJECT</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="subject" name="subject" placeholder="Subject">
+                        </div>
+                    </div>
+                    <div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                            <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="message">MESSAGE</label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <textarea type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="message" name="message" placeholder="Message"></textarea>
+                        </div>
+                    </div>
+                    <div class="md:flex md:items-center">
+                        <div class="md:w-1/3"></div>
+                        <div class="md:w-2/3">
+                            <button type="submit" class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded" name="button" value="message" onclick="sendMessage()">SEND</button>
+                        </div>
+                    </div>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="/public/scripts/navbar.js"></script>

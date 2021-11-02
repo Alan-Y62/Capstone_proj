@@ -1,0 +1,33 @@
+form {
+  background: rgba(0,50,50,.6);
+  position: fixed;
+  padding: 50px;
+  top:45vh;
+  left:50vw;
+  width:75vw;
+  transform: translate(-50%,-50%);
+  color: white;
+}
+
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.finish {
+background-color: #04AA6D;
+}
+
+.tab{
+  display:none;
+}
+
+.invalid{
+  display:none;
+}

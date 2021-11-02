@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="https://use.fontawelist.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/settings.css" type="text/css" rel="stylesheet"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+</head>
+    
+<body>
+    <nav class="navbar news">
+        <div class="bnn">
+            <div onclick="openSide()" >
+            <i class="fa fa-bars fa-3x"></i>
+            </div>
+            <h1 class="sett">SETTINGS</h1>    
+        </div>
+    </nav>
+    <div id="side-menu" class="sidenav">
+        <div class="btn-close" onclick="closeSide()">&times;</div>
+        <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a> 
+        <a href="/settings"><i class="fa fa-cog"></i> Settings</a>
+        
+        <span class="border-bottom" style="display:block"></span>
+        
+        <form action='/logout' method="GET">
+            <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
+        </form>
+    </div>
+    
+    <div class="body-page" onClick="closeSide()">
+        <div class="bg-text">
+            <div class="tab">
+            <button class="tablinks" onclick="showSection(event, 'Account')" id="defaultOpen">Account</button>
+            <button class="tablinks" onclick="showSection(event, 'Notifications')">Notifications</button>
+            <button class="tablinks" onclick="showSection(event, 'Privacy')">Privacy</button>
+            <button class="tablinks" onclick="showSection(event, 'SiteSettings')">Site Settings</button>
+            <button class="tablinks" onclick="showSection(event, 'Tools')">Tools</button>
+            </div>
+            
+            <div id="Account" class="tabcontent">
+                <div class ="cat-title">Profile</div>
+                <div id="change" class="change">
+                    <form name="changeForm" action="/settings" method="POST">
+                        <div>
+                            <label for="cname">Name</label>
+                            <input type="text" id="cname" name="cname" placeholder=<%= user.name %>>
+                        </div>
+                        <div>
+                            <label for="cemail">Email</label>
+                            <input type="text" id="cemail" name="cemail" placeholder=<%= user.email %>>
+                        </div>
+                        <label for="cpass">Enter Password</label>
+                        <input type="password" id="cpass" name="cpass" placeholder="Password" required>
+                        <input type="password" id="ccpass" name="ccpass" placeholder="Confirm Password" required>
+                        <button type="submit" name="button" value="change">Save Changes</button>
+                    </form>
+                </div>
+                
+                <div class ="cat-title">Your Info</div>
+                <div class ="account-info">
+                    <p>Type of user: Tenant</p>
+                    <p>Number of tenants: 0</p>
+                    <p>Tenancy start: 10/30/2021</p>
+                    <p>Tenancy duration: 1 month(s)</p>
+                    <p>Tenancy end: 10/30/2022</p>
+                </div>
+            </div>
+            
+            <div id="Notifications" class="tabcontent">
+                <div class="cat-title">Email Subscription</div>
+                <div id="overlay" class="overlay">
+                    <div class="popup"> 
+                        <a class="close" href="#">&times;</a>
+                        <div id="dialog" class="window">
+                            <div class="box">
+                                <div class="poptitle">
+                                    <h2>Email Subscription</h2>
+                                </div>
+                                <div class="boxcontent">
+                                    <label>Subscribe to the newsletter today. Receive updates and notifications in real time!</label>  
+                                    <form name="subForm" id="subForm" action="/settings" method="POST">
+                                        <input type="text" id="subemail" name="subemail" placeholder="Email" value=<%= user.email %> required>
+                                        <input type="text" id="subname" name="subname" placeholder="Name" value=<%= user.name %> required>
+                                        <br>
+                                        <button type="submit" name="button" value="subscribe" onclick="confirmSub()">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="openpop" href="#overlay" >Subscribe Here</a>
+
+                <div class="cat-title">Phone Notifications</div>
+            </div>
+            
+            <div id="Privacy" class="tabcontent">
+                <div class="cat-title">Privacy</div>
+                <p>Share information with other users: </p>
+                <p>UNFINISHED</p>
+            </div>
+
+            <div id="SiteSettings" class="tabcontent">
+                <div class="cat-title">Change Background</div>
+                <div class="bgimage">
+                    <button onclick="changeBG1()"><img src="../public/images/1186048.jpg" style="margin:0px 20px 20px; width:250px; height:250px; display:inline; object-fit:cover;"></button>
+                    <button onclick="changeBG2()"><img src="../public/images/hi_res_landscape.jpg" style="margin:0px 20px 20px; width:250px; height:250px; display:inline; object-fit:cover;"></button>
+                    <button onclick="changeBG3()"><img src="../public/images/unknown.png" style="margin:0px 20px 20px; width:250px; height:250px; display:inline; object-fit:cover;"></button>
+                </div>
+            </div>
+
+            <div id="Tools" class="tabcontent">
+                <div class="cat-title">Contact Form</div>
+                <div class="sendForm">
+                    <form name="sendForm" class="w-full max-w-sm" action="/settings" method="POST">
+                        <div class="md:flex md:items-center mb-6 ">
+                            <div class="md:w-1/3">
+                                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="name">Name</label>
+                            </div>
+                            <div class="md:w-2/3">
+                                <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="name" name="name" value = <%= user.name %> placeholder="Name" required>
+                            </div>
+                        </div>
+                        <div class="md:flex md:items-center mb-6">
+                            <div class="md:w-1/3">
+                                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="email">Email</label>
+                            </div>
+                            <div class="md:w-2/3">
+                                <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="email" name="email" value = <%= user.email %> placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="md:flex md:items-center mb-6">
+                            <div class="md:w-1/3">
+                                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="Subject">Subject</label>
+                            </div>
+                            <div class="md:w-2/3">
+                                <input type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="subject" name="subject" placeholder="Subject">
+                            </div>
+                        </div>
+                        <div class="md:flex md:items-center mb-6">
+                            <div class="md:w-1/3">
+                                <label class="block text-black-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="message">Message</label>
+                            </div>
+                            <div class="md:w-2/3">
+                                <textarea type="text" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" id="message" name="message" placeholder="Message"></textarea>
+                            </div>
+                        </div>
+                        <div class="md:flex md:items-center">
+                            <div class="md:w-1/3"></div>
+                            <div class="md:w-2/3">
+                                <button type="submit" class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded" name="button" value="message" onclick="sendMessage()">SEND</button>
+                            </div>
+                        </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="/public/scripts/settingspg.js"></script>
+<script src="/public/scripts/navbar.js"></script>

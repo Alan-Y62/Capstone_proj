@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Announcements</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/a_announcements.css" type="text/css" rel="stylesheet"/>
+
+</head>
+<body>
+    <nav class="navbar news">
+        <div class="bnn">
+            <div onclick="openSide()" >
+            <i class="fa fa-bars fa-3x"></i>
+        </div>
+            <h1 class="ann">ANNOUNCEMENTS </h1>   
+        </div>
+    <a href="/admin/<%= building_id %>/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
+    </nav>
+    <div id="side-menu" class="sidenav">
+        <div class="btn-close" onclick="closeSide()">&times;</div>
+        <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a> 
+        <a href="/admin/<%= building_id  %>"><i class="fa fa-newspaper"></i> Announcements</a>
+        <a href="/admin/<%= building_id %>/manage"><i class="fa fa-address-book" aria-hidden="true"></i> Manage Tenants</a>
+        <a href="/admin/<%= building_id %>/requests"><i class="fa fa-wrench"></i> Repair Requests</a>
+        <a href="#"><i class="fa fa-comments"></i>FUTURE UPDATE</a>
+        <a href="/settings"><i class="fa fa-cog"></i> Settings</a>          
+        
+        <span class="border-bottom" style="display:block"></span>
+
+        <button onclick="confirmation('<%= building_id %>')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <div id="confirming">
+ 
+        </div>
+
+        <form action='/logout' method="GET">
+            <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
+        </form>
+    </div>
+    <% if(Object.entries(news).length > 0) { %>
+    <div class="row">
+        <div class="cols1 body-page" onClick="closeSide()">
+            <div class='sub-container'><span id='header1'>NEWEST ANNOUNCEMENT</span>
+                <% news.reverse().forEach( (a,index) => { %>
+                    <% if(index === 0 )  { %>
+                            <div class="latest-container">
+                                <h3><%= a.title %></h3>
+                                <p ><%= a.body %></p>
+                                <p class="text-muted"><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p> 
+                                <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                            </div>
+                        </div>
+                            
+                    <% }}) %>
+            </div>
+    <% if(Object.entries(news).length > 1) { %>
+        <div class="cols2 subcon2"><span id=header2>OLDER NEWS</span>
+            <% news.forEach( (a,index) => { %>    
+                <% if(index > 0) { %>
+                    <div class="border border-dark text">
+                        <h3>  <%= a.title %></h3>
+                        <p><%= a.body %></p>
+                        <p class = 'date'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
+                        <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                    </div>
+                <% }})}} %>
+        </div>
+    </div>
+</body>
+
+<script src="/public/scripts/navbar.js"></script>
+<script>
+    function confirmation(id){
+        console.log(id);
+        let confirm = document.getElementById('confirming');
+        let check = document.getElementById('accept');
+        let check2 = document.getElementById('cancel');
+        if(!check && !check2){
+            const warning = document.createElement('p');
+            warning.id = 'warning'
+            warning.innerHTML = 'Are you sure? This action cannot be undone'
+            warning.style.color = 'RED';
+            confirm.appendChild(warning)
+            const form = document.createElement('form')
+            form.method = 'POST';
+            form.action = `/admin/${id}/delBuild`;
+            let accept = document.createElement('button')
+            accept.id = 'accept'
+            accept.classList.add("btn", "btn-danger")
+            accept.innerHTML = "Accept and Delete"
+            form.appendChild(accept);
+            confirm.appendChild(form);
+            event.preventDefault();
+            let cancel = document.createElement('button')
+            cancel.id = 'cancel'
+            cancel.classList.add("btn", "btn-secondary")
+            cancel.innerHTML ="Cancel"
+            cancel.setAttribute('onclick', 'stopIt()');
+
+            confirm.append(cancel);
+        }
+    }
+
+    function stopIt() {
+        document.getElementById('warning').remove()
+        document.getElementById('accept').remove()
+        document.getElementById('cancel').remove()
+    }
+
+</script>
