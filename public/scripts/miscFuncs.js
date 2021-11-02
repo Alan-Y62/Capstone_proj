@@ -1,5 +1,5 @@
 const Repair = require("../../model/repairModel")
-
+//ALL FUNCTIONS IN HERE CURRENTLY SERVE NO PURPOSE, FUNCTIONS WERE USED FOR TESTING
 function addTwoWeeks(date) {
     let d = new Date(date).getTime()
     let adds = 60*60 * 1000 * 24 * 1

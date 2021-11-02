@@ -62,7 +62,6 @@ router.post('/:id/requests', /*checkAuthenticated,*/ upload.single('file'), asyn
     //const imageID = req.file.id;
     const building = mongoose.Types.ObjectId(req.params.id);
     const tenant = mongoose.Types.ObjectId(req.user.id);
-    //tempoary solution cause fuck it,  have the user write their apart num in a input field
     const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
     const apt = match[0].tenants[0].apt;
     const image = req.file.id;

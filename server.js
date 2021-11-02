@@ -14,8 +14,7 @@ dotenv.config({ path: './config/secretsecret.env' })
 database()
 //Static
 app.use('/public',express.static('public'))
-app.use('/m', express.static(path.join(__dirname)))
-app.use('/images', express.static('images')); 
+app.use('/public', express.static(path.join(__dirname)))
 
 //ejs
 app.set('view engine', 'ejs');

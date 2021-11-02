@@ -36,8 +36,7 @@
 
         <button onclick="confirmation('<%= building_id %>')"><i class="fa fa-trash" aria-hidden="true"></i></button>
         <div id="confirming">
-            <p style = 'color:white'>u sure bruh?</p>
-            
+ 
         </div>
 
         <form action='/logout' method="GET">
@@ -83,6 +82,11 @@
         let check = document.getElementById('accept');
         let check2 = document.getElementById('cancel');
         if(!check && !check2){
+            const warning = document.createElement('p');
+            warning.id = 'warning'
+            warning.innerHTML = 'Are you sure? This action cannot be undone'
+            warning.style.color = 'RED';
+            confirm.appendChild(warning)
             const form = document.createElement('form')
             form.method = 'POST';
             form.action = `/admin/${id}/delBuild`;
@@ -93,12 +97,6 @@
             form.appendChild(accept);
             confirm.appendChild(form);
             event.preventDefault();
-            // let accept = document.createElement('a')
-            // accept.id = 'accept'
-            // accept.classList.add("btn", "btn-danger")
-            // accept.innerHTML = "Accept and Delete"
-            // accept.href = `/admin/${id}/delBuild`
-            // confirm.append(accept);
             let cancel = document.createElement('button')
             cancel.id = 'cancel'
             cancel.classList.add("btn", "btn-secondary")
@@ -110,7 +108,7 @@
     }
 
     function stopIt() {
-        console.log('Ie')
+        document.getElementById('warning').remove()
         document.getElementById('accept').remove()
         document.getElementById('cancel').remove()
     }

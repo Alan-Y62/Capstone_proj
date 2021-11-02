@@ -119,10 +119,10 @@ router.get('/:id/requests/p/:r_id/:date', async (req,res) => {
 router.get('/:id/requests/d/:r_id/', async (req,res) => {
     await Repair.findByIdAndUpdate(req.params.r_id, {status: 'completed', sched_date: Date.now()})
     const buildID = req.params.id
-    const sht = await Repair.find({'status':'completed'}).sort({'sched_date': -1})
-    if (sht.length > 10){
-        sht.forEach(async (element,index) => {
-            if(index > 10){
+    const sh = await Repair.find({'status':'completed'}).sort({'sched_date': -1})
+    if (sh.length > 3){
+        sh.forEach(async (element,index) => {
+            if(index > 3){
                 gfs.delete(new mongoose.Types.ObjectId(element.image), (err,data) =>{
                     if(err){
                         console.log(err)
