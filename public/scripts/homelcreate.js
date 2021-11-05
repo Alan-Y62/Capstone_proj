@@ -30,6 +30,11 @@ function nextPrev(n){
    if(n === 1 && !validateForm()){
      return false;
    }
+   if(n === 1 && tab_num === 0){
+     if(!zipCheck()){
+        return false;
+     }
+  }
    if(n === -1 && tab_num === 3){
      cleanUp();
    }
@@ -112,8 +117,8 @@ function createApt(){
       for(let i = 1; i <= number; i++){
         let input = document.createElement("input");
         input.type =  "text";
-        input.id = "stuff"
-        input.name= "some"
+        input.id = "apt_num"
+        input.name= "apt_num"
         input.value = i;
         parent.appendChild(input)
       }
@@ -132,8 +137,8 @@ function createApt(){
           const aptletter = String.fromCharCode(65 + j);
           const input = document.createElement("input");
           input.type =  "text";
-          input.id = "stuff"
-          input.name= "some"
+          input.id = "apt_num"
+          input.name= "apt_num"
           input.value = aptnum.concat(aptletter);
           parent.appendChild(input)
         }
@@ -147,8 +152,8 @@ function createApt(){
         for (let j = 0; j <= secondNum; j++){
           const input = document.createElement("input");
           input.type =  "text";
-          input.id = "stuff"
-          input.name= "some"
+          input.id = "apt_num"
+          input.name= "apt_num"
           input.value = num + j
           parent.appendChild(input)
         }
@@ -164,13 +169,29 @@ function cleanUp(){
 }
 
 function numcheck(input){
-  if (input.value <= 0){
-    input.setCustomValidity('Must be a number greater than 0')
+  if (input.value < 0){
+    input.setCustomValidity('Must be a valid number')
     input.reportValidity();
     event.preventDefault()
     input.value = '';
   }
   else{
     input.setCustomValidity('')
+  }
+}
+
+function zipCheck(){
+  const zip = document.getElementById('zipcode')
+  console.log(zip.value)
+  if(zip.value < 10000 || zip.value > 99999){
+    zip.setCustomValidity('Must be a valid Zip Code')
+    zip.reportValidity();
+    event.preventDefault()
+    zip.value = '';
+    return false;
+  }
+  else{
+    zip.setCustomValidity('')
+    return true;
   }
 }
