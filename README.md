@@ -1,11 +1,18 @@
-#Capstone_project
+# Capstone Project - Daily Tenant
 
-First download repository onto local computer
+## Run
 
-Need to have Nodejs installed
+### Step One
+Clone the repository on your local computer. 
 
-In the terminal, install the dependencies by entering 'npm install'
+### Step Two
+Need to have Nodejs installed. 
 
-Afterwards, start the website locally by entering 'npm start' in terminal.
+### Step Three
+In the terminal, install the dependencies by entering 'npm install'. 
 
-enter url: localhost:3000 into browser
+### Step Four
+Afterwards, start the website locally by entering 'npm start' in the terminal.
+
+### Step Five
+Enter url: localhost:3000 into the browser. 
