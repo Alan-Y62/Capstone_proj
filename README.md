@@ -26,4 +26,4 @@ In the terminal, install the dependencies by entering 'npm install'.
 Start the website locally by entering 'npm start' in the terminal.
 
 ### Step Five
-Enter url: localhost:3000 into the browser. 
+Enter url: [localhost:3000](localhost:3000) into the browser. 
