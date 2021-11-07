@@ -12,7 +12,7 @@ const Repair = require('../model/repairModel')
 const { checkAuthenticated, checkRolesAdmin } = require('../public/scripts/auth')
 const { addTwoWeeks, generateRepairs} = require('../public/scripts/miscFuncs');
 const { UserRefreshClient } = require('google-auth-library');
-
+const { sendUpdate } = require('../email/sendEmail')
 
 //image loading code for repairs
 const conn = mongoose.createConnection(process.env.URI, {
@@ -63,13 +63,24 @@ router.get('/:id/new', checkAuthenticated, checkRolesAdmin, (req,res) => {
 })
 
 //post
-router.post('/:id/new', checkAuthenticated, checkRolesAdmin, (req,res) => {
+router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const{title, body} = req.body
     const building_id = req.params.id;
     const n_message = new Announce({
         title, body, building_id
     });
     n_message.save();
+    const user = String(req.user._id)
+    const this_building = await Build.find({"_id":mongoose.Types.ObjectId(building_id)})
+    const all_tenants = this_building[0].tenants
+    console.log(all_tenants);
+    all_tenants.forEach(async(elements) => {
+        if(String(elements._id) !== user) {
+        const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
+             console.log("HELLO " + y[0].email)
+             sendUpdate(y[0].email,title,body)
+        })}
+    })
     // const emails = await User.find({email})
     res.redirect(`/admin/${building_id}`);
 })
