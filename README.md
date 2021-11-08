@@ -18,7 +18,7 @@ Therefore, we created this website, which is a new way for landlords and tenants
 - Javascript
 - EJS
 
-### Technologies
+### Frontend / Backend
 - Node.js
 - Express.js
 
