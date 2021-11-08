@@ -11,6 +11,26 @@ Therefore, we created this website, which is a new way for landlords and tenants
 2. Successfully post an update that is viewable by all tenants and landlords. 
 3. Send email notifications to the tenants whenever the landlords make an update. 
 
+## Tools/Technologies
+### Languages
+- HTML
+- CSS
+- Javascript
+- EJS
+
+### Techniques
+- Node.js
+- Express.js
+
+### Database
+- MongoDB
+
+### Dependencies
+- bcrypt
+- gridfs
+- mongoose
+- nodemailer
+- passport
 
 ## Run
 ### Step One
@@ -26,4 +46,4 @@ In the terminal, install the dependencies by entering 'npm install'.
 Start the website locally by entering 'npm start' in the terminal.
 
 ### Step Five
-Enter url: localhost:3000 into the browser. 
+Enter url: [localhost:3000](localhost:3000) into the browser. 
