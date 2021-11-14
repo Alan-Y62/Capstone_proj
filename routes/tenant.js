@@ -102,6 +102,20 @@ router.get('/:id/history', checkAuthenticated, checkRolesUser, async(req,res) =>
   res.render('./user/u_history', {problems: rqs, building_id: req.params.id})
 })
 
+router.get('/:id/history/cancel/:r_id', checkAuthenticated, checkRolesUser, async (req,res) => {
+  const e = await Repair.findById(req.params.r_id);
+  gfs.delete(new mongoose.Types.ObjectId(e.image), (err,data) =>{
+    if(err){
+        console.log(err)
+    }
+    else{
+        console.log('nice')
+    }
+  })
+  await Repair.findByIdAndDelete(req.params.r_id)
+  res.redirect(`/user/${req.params.id}/history`)
+}) 
+
 router.get('/:id/image/:a_id', checkAuthenticated, checkRolesUser, (req, res) => {
   const id = req.params.a_id;
   console.log(id)
