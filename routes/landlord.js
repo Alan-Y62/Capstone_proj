@@ -1,10 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
-const multer = require('multer');
-const {GridFsStorage} = require('multer-gridfs-storage');
-const crypto = require('crypto');
-const path = require('path');
+const upload = require('../config/upload')
 const User = require('../model/user')
 const Announce = require('../model/announcement')
 const Build = require('../model/building')
@@ -15,39 +12,15 @@ const { UserRefreshClient } = require('google-auth-library');
 const { sendUpdate } = require('../email/sendEmail')
 
 //image loading code for repairs
-const conn = mongoose.createConnection(process.env.URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+const conn = mongoose.connection
+
+let gfs;
+conn.once('open', () => {
+    gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+        bucketName: 'uploads',
+    })
+})
   
-  let gfs;
-  conn.once('open', () => {
-      gfs = new mongoose.mongo.GridFSBucket(conn.db, {
-          bucketName: 'uploads',
-      })
-  })
-  
-  const storage = new GridFsStorage({
-      url:process.env.URI,
-      options: { useUnifiedTopology: true },
-      file: (req, file) => {
-        return new Promise((resolve, reject) => {
-          crypto.randomBytes(16, (err, buf) => {
-            if (err) {
-              return reject(err);
-            }
-            const filename = buf.toString('hex') + path.extname(file.originalname);
-            const fileInfo = {
-              filename: filename,
-              bucketName: 'uploads',
-            };
-            resolve(fileInfo);
-          });
-        });
-      },
-    });
-  
-  const upload = multer({ storage });
 ///////////////////////////////////////////////////////////////////////
 
 //main page for when viewing a specific building admin owns
@@ -74,13 +47,13 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
     const this_building = await Build.find({"_id":mongoose.Types.ObjectId(building_id)})
     const all_tenants = this_building[0].tenants
     console.log(all_tenants);
-    all_tenants.forEach(async(elements) => {
+    await Promise.all(all_tenants.map(async(elements) => {
         if(String(elements._id) !== user) {
         const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
              console.log("HELLO " + y[0].email)
              sendUpdate(y[0].email,title,body)
         })}
-    })
+    }))
     // const emails = await User.find({email})
     res.redirect(`/admin/${building_id}`);
 })
@@ -182,6 +155,7 @@ router.get('/:id/manage', checkAuthenticated, checkRolesAdmin, async (req,res) =
     }))
     const curr_tenants = await Promise.all(current.map(async (x)=>{ //get list of users living in the building
         let tenants = await User.find({"_id": x._id}).then(y =>{
+            console.log(y)
             if(y[0]._id.equals(landlord)){
                 const name = 'Vacant';
                 const id = landlord;
@@ -287,6 +261,7 @@ router.post('/:id/delBuild', checkAuthenticated, checkRolesAdmin, async (req,res
         const userID = element._id;
         await User.findByIdAndUpdate(userID,{$pull:{building:{building_id:buildID}}})
     })
+    await Announce.deleteMany({"building_id": String(buildID)})
     await Build.findByIdAndDelete(buildID);
     res.redirect('/home')
 })

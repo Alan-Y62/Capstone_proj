@@ -38,6 +38,21 @@ a {
 .container {
     background-color:  rgba(95, 184, 214, 0.8);
     position: relative;
-    top: 50vh;
+    top: 40vh;
     width:100%;
+    overflow:hidden;
+}
+
+.container1{
+    margin:10px;
+    width:48%;
+    float:left;
+    border:1px solid black;
+}
+.container2{
+    margin:10px;
+    top:10px;
+    width:48%;
+    float:right;
+    border:1px solid black;
 }
