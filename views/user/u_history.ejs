@@ -59,6 +59,7 @@
                         <% if(a.repairs.image !== 'no') { %>
                         <img src="/user/<%= building_id  %>/image/<%= a.img._id%>"/>
                         <% } %>
+                        <a href="/user/<%= building_id  %>/history/cancel/<%= a.repairs.id %>" class="btns btn-success">Finished</a>
                         <p><span class="text-muted">Request Date: <%= a.repairs.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.repairs.sched_date.toLocaleDateString()%></span></p>
                     </div>
                     <% }}) %>

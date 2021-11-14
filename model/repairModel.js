@@ -36,7 +36,7 @@ const repairSchema = new mongoose.Schema({
         default: 'pending',
         required: true
     },
-        //date of request //automatically done when creating request
+    //date of request //automatically done when creating request
     date:{
         type: Date,
         default: Date.now()
