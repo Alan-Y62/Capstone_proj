@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Announcements</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
     <!-- <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" /> -->
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/a_announcements.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/repair-page.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/a_announcements.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/repair-page.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet" />
 
 </head>
+
 <body>
     <nav class="navbar news">
         <div class="bnn">
-            <div onclick="openSide()" >
-            <i class="fa fa-bars fa-3x"></i>
-        </div>
-            <h1 class="Header">REQUESTS </h1>   
+            <div onclick="openSide()">
+                <i class="fa fa-bars fa-3x"></i>
+            </div>
+            <h1 class="Header">REQUESTS </h1>
         </div>
     </nav>
     <div id="side-menu" class="sidenav">
         <div class="btn-close" onclick="closeSide()">&times;</div>
-        <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a> 
+        <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
         <a href="/user/<%= building_id %>"><i class="fa fa-newspaper"></i> Announcements</a>
         <a href="/user/<%= building_id %>/requests"><i class="fa fa-wrench"></i> Repair Requests</a>
         <a href="/user/<%= building_id %>/history"><i class="fa fa-book"></i> Repair History</a>
         <a href="#"><i class="fa fa-comments"></i>FUTURE UPDATE</a>
-        <a href="/settings"><i class="fa fa-cog"></i> Settings</a>          
-        
+        <a href="/settings"><i class="fa fa-cog"></i> Settings</a>
+
         <span class="border-bottom" style="display:block"></span>
-        
+
         <form action='/logout' method="GET">
             <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
         </form>
@@ -48,67 +52,98 @@
         <form action="/user/<%= building_id %>/requests" method="POST" enctype="multipart/form-data">
             <div class="panel row">
                 <div class="issues col" id="issue">
+                    <p>Issues</p>
                     <div class="form-check">
                         <label class="form-check-label" for="Door">
-                        <input class="form-check-input" type="radio" name="issue" id="Door" value="Door" checked>
-                        Door
+                            <input class="form-check-input" type="checkbox" name="issue" id="Door" value="Door" checked>
+                            Door
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Window">
-                            <input class="form-check-input" type="radio" name="issue" id="Window" value="Window">
-                        Window
+                            <input class="form-check-input" type="checkbox" name="issue" id="Window" value="Window">
+                            Window
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Heat">
-                        <input class="form-check-input" type="radio" name="issue" id="Heat" value="Heat">
-                        Heat
+                            <input class="form-check-input" type="checkbox" name="issue" id="Heat" value="Heat">
+                            Heat
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Water">
-                        <input class="form-check-input" type="radio" name="issue" id="Water" value="Water">
-                        Water
+                            <input class="form-check-input" type="checkbox" name="issue" id="Water" value="Water">
+                            Water
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="air_conditioning">
-                        <input class="form-check-input" type="radio" name="issue" id="air_conditioning" value="Air conditioning">
-                        Air conditioning
+                            <input class="form-check-input" type="checkbox" name="issue" id="air_conditioning"
+                                value="Air conditioning">
+                            Air conditioning
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Electricity">
-                        <input class="form-check-input" type="radio" name="issue" id="Electricity" value="Electricity">
-                        Electricity
+                            <input class="form-check-input" type="checkbox" name="issue" id="Electricity"
+                                value="Electricity">
+                            Electricity
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Wall">
-                        <input class="form-check-input" type="radio" name="issue" id="Wall" value="Wall">
-                        Wall
+                            <input class="form-check-input" type="checkbox" name="issue" id="Wall" value="Wall">
+                            Wall
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Other">
-                        <input class="form-check-input" type="radio" name="issue" id="Other" value="Other">
-                        Other
+                            <input class="form-check-input" type="checkbox" name="issue" id="Other" value="Other">
+                            Other (be specific)
+                            <textarea class="date-control" names="dates" id="dates" cols="20" rows="1"
+                                placeholder="Example: bathtub"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="date col">
+                    <p>Pick a date and time</p>
+                    <div class="date-check">
+                        <label class="date-check-label" for="Emergency">
+                            <input class="date-check-input" type="radio" name="issue" id="Emergency" value="Emergency">
+                            Emergency
+                        </label>
+                    </div>
+
+                    <div class="date-check">
+                        <label class="date-check-label" for="ASAP">
+                            <input class="date-check-input" type="radio" name="issue" id="ASAP" value="ASAP">
+                            ASAP (but not an emergency)
+                        </label>
+                    </div>
+
+                    <div class="date-check">
+                        <label class="date-check-label" for="Other">
+                            <input class="date-check-input" type="radio" name="issue" id="Other" value="Other">
+                            Other (be specific)
+                            <textarea class="date-control" names="dates" id="dates" cols="30" rows="2"
+                                placeholder="Example: 1/1/2000, 9am-5pm"></textarea>
                         </label>
                     </div>
                 </div>
                 <div class="image col">
                     <p>Upload Image</p>
-                    <input type="file" accept="image/*" name="file" id="upload" >
-                    
+                    <input type="file" accept="image/*" name="file" id="upload">
+
                     <!-- Placeholder for future drag and drop box; NOT PART OF MVP DEMO! -->
                     <!-- <div class="dropzone" id="imageDragNDrop"></div> -->
-                        <!-- <div class="previews"></div> -->
-                    
+                    <!-- <div class="previews"></div> -->
+
                 </div>
             </div>
             <div class="form-group">
-                <textarea class="form-control" name="comments" id="comments" rows="5" placeholder="Additional Comments..."></textarea>
+                <textarea class="form-control" name="comments" id="comments" rows="5"
+                    placeholder="Additional Comments..."></textarea>
             </div>
             <button type="submit" class="btn">Submit</button>
         </form>

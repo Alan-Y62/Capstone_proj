@@ -20,23 +20,26 @@
     font-size: 40px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    margin: 1.5em;
+    margin: 5em 3em 1.5em;
 }
 
 .request .panel {
-  width: 700px;
+  width: 900px;
+  display: flex;
 }
 
 .request .panel .issues {
-    width: 300px;
-    height: 200px;
+  color: #000000;
+    width: 200px;
+    height: 300px;
     text-align: left;
     background-color: #df933d;
     border-style: solid;
-    border-color: black;
+    border-color: #FFFFFF;
     border-width: 2px;
     border-radius: 10px;
     padding: 0.5em 1em;
+    margin-left: 15px;
     overflow: auto;
 }
 
@@ -45,9 +48,58 @@
   font-size: 15px;
 }
 
+.request .issues textarea {
+  border-style: solid;
+  border-color: #FFFFFF;
+  border-width: 2px;
+  border-radius: 10px;
+  padding: 0.1em 0.3em;
+}
+
+.request .issues ::placeholder {
+  vertical-align: top;
+  text-align: left;
+  font-style: italic;
+}
+
+.request .panel .date {
+    color: #000000;
+    width: 150px;
+    height: 300px;
+    text-align: left;
+    background-color: #df933d;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    margin-left: 20px;
+    margin-right: 10px;
+    overflow: auto;
+}
+
+.request .panel .date .date-check label {
+  color: black;
+  font-size: 15px;
+}
+
+.request .date-check textarea {
+  border-style: solid;
+  border-color: #FFFFFF;
+  border-width: 2px;
+  border-radius: 10px;
+  padding: 0.1em 0.3em;
+}
+
+.request .date-check ::placeholder {
+  vertical-align: top;
+  text-align: left;
+  font-style: italic;
+}
+
 .request .panel .image {
-    width: 600px;
-    height: 200px;
+    width: 800px;
+    height: 300px;
     margin-left: 15px;
     background-color: #df933d;
     border: solid;
@@ -55,10 +107,11 @@
     border-width: 2px;
     border-radius: 10px;
     padding: 0.5em 1em;
+    margin-right: -15px;
 }
 
-.request textarea {
-    width: 700px;
+.request .form-group textarea {
+    width: 900px;
     height: 300px;
 
     background-color: #df933d;
@@ -79,7 +132,7 @@ label {
   color: orange;
 }
 
-.request ::placeholder {
+.request .form-group ::placeholder {
     vertical-align: top;
     text-align: left;
     color: #000000;
