@@ -36,7 +36,7 @@
         <span>&nbsp;&nbsp;&nbsp;</span>
         <a href='/home/create' class="btn-light w-25 btn-block" role="button">BECOME A LANDLORD</a>
     </div>
-    
+    <% if(list.length !== 0) { %>
     <div class="container">
         <h2>Landlord at</h2>
         <% if(list)  { %>
@@ -44,6 +44,8 @@
             <a class='btn btn-r btn-primary' href="/admin/<%= x.build_id %>"><%= x.address %></a>
         <% })} %>
     </div>
+    <% } %>
+    <% if(u_list.length !== 0) { %>
     <div class="container">
         <h2>Tenant at</h2>
         <% if(u_list)  { %>
@@ -51,6 +53,7 @@
             <a class='btn btn-r btn-primary' href="/user/<%= x.build_id %>"><%= x.address %></a>
         <% })} %>
     </div>
+    <% } %>
 </body>
 
 <script src="/public/scripts/navbar.js"></script>
