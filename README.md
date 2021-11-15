@@ -18,7 +18,7 @@ Therefore, we created this website, which is a new way for landlords and tenants
 - Javascript
 - EJS
 
-### Techniques
+### Frontend / Backend
 - Node.js
 - Express.js
 
@@ -32,7 +32,7 @@ Therefore, we created this website, which is a new way for landlords and tenants
 - nodemailer
 - passport
 
-## Run
+## Instructions
 ### Step One
 Clone the repository on your local computer. 
 

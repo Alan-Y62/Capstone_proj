@@ -1,20 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
-const multer = require('multer');
-const {GridFsStorage} = require('multer-gridfs-storage');
-const crypto = require('crypto');
-const path = require('path');
+const upload = require('../config/upload')
 const User = require('../model/user')
 const Announce = require('../model/announcement')
 const Build = require('../model/building')
 const Repair = require('../model/repairModel')
 const { checkAuthenticated, checkRolesUser } = require('../public/scripts/auth')
 
-const conn = mongoose.createConnection(process.env.URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const conn = mongoose.connection
 
 let gfs;
 conn.once('open', () => {
@@ -22,28 +16,6 @@ conn.once('open', () => {
         bucketName: 'uploads',
     })
 })
-
-const storage = new GridFsStorage({
-    url:process.env.URI,
-    options: { useUnifiedTopology: true },
-    file: (req, file) => {
-      return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
-          const filename = buf.toString('hex') + path.extname(file.originalname);
-          const fileInfo = {
-            filename: filename,
-            bucketName: 'uploads',
-          };
-          resolve(fileInfo);
-        });
-      });
-    },
-  });
-
-const upload = multer({ storage });
 
 //main pages routers
 
