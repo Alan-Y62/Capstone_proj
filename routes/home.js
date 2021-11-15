@@ -32,10 +32,8 @@ router.get('/create',checkAuthenticated, (req,res)=>{
 
 //post 
 router.post('/create', checkAuthenticated, async(req,res)=>{
-    console.log(req.body)
     const{location, country, city, zipcode, apt_num} = req.body;
     const vacant = req.user.id
-    console.log(apt_num);
     const num = apt_num.length;
     const build = [];
     for(let i = 0; i < num; i++) { //fill array with default information 
@@ -48,9 +46,6 @@ router.post('/create', checkAuthenticated, async(req,res)=>{
         zip:zipcode,
         city:city
     })
-    console.log("build")
-    console.log(build)
-    console.log(new_build);
     await new_build.save();
     const user_build = {building_id:new_build.id}
     await Build.findByIdAndUpdate(new_build.id,{$push:{tenants:{$each:build}}})
@@ -65,7 +60,6 @@ router.get('/join', checkAuthenticated, async (req,res) => {
     const avail = ap.filter(building => { //filters buildings so that user does not see their own buildings they own
         let tenants = building.tenants
         let notin = tenants.filter( element => String(element._id) === user)
-        console.log(notin)
         if(building.landlord !== req.user.id && notin.length === 0){
             return building
         }
@@ -85,7 +79,6 @@ router.get('/join', checkAuthenticated, async (req,res) => {
 router.post('/join', async(req,res)=>{
     const someuser = {_id:req.user.id}
     Build.find({_id:req.body.id,"pending._id":req.user.id}, async(err,user) => { //post and put them onto a pending list for admin of the building to review
-        console.log(user)
         if(err){
             console.log(err);
         }
@@ -93,8 +86,6 @@ router.post('/join', async(req,res)=>{
             console.log('pending approval');
         }
         else{
-            console.log(req.body.id)
-            console.log(req.user.id)
             await Build.findByIdAndUpdate(req.body.id,{$push:{pending:someuser}})
         }
     }) 

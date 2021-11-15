@@ -1,23 +1,24 @@
 .form-container {
     color: black;
     background: rgba(255,255,255,.5);
-    border: 1px solid black;
+    border-top: 5px solid rgb(27, 74, 173);
     padding: 50px 60px;
     position: absolute;
     margin-top: 50%;
     width: 500px;
-    height: 500px;
+    height: 550px;
     top:50%;
     left:50%;
     margin-right: -50%;
     margin-top: 400px;
     transform: translate(-50%,-50%);
+    border-radius: 15px;
 }
 
 .form-container-2 {
     color: black;
     background: rgba(255,255,255,.5);
-    border: 1px solid black;
+    border-top: 5px solid rgb(27, 74, 173);
     padding: 50px 60px;
     position: absolute;
     margin-top: 50%;
@@ -28,10 +29,16 @@
     margin-right: -50%;
     margin-top: 400px;
     transform: translate(-50%,-50%);
+    border-radius: 15px;
+}
+
+.form-group input:focus{
+    background: rgba(27, 74, 173, 0.7);
+    color:white;
 }
 
 .btn-r {
     position: relative;
-    left: 220px;
+    left: 10px;
 }
 

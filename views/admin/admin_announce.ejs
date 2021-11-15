@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/glob.css" type="text/css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="/public/css/a_announcements.css" type="text/css" rel="stylesheet"/>
-
 </head>
 <body>
     <nav class="navbar news">
@@ -69,14 +70,13 @@
                         <p class = 'date'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
                         <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
                     </div>
-        </div>
+                <% }})}} else { %> 
+                        <div id="sp-div">
+                            <p> There are no announcements. Would you like to make one?</p>
+                            <a id="sp-btn" href="/admin/<%= building_id %>/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
+                        </div>
+                        <% } %>
     </div>
-    <% }})}} else { %> 
-        <div id="sp-div">
-            <p> No Announcements. Would you like to make one?</p>
-            <a id="sp-btn" href="/admin/<%= building_id %>/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
-        </div>
-        <% } %>
 </body>
 
 <script src="/public/scripts/navbar.js"></script>

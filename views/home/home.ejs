@@ -10,6 +10,8 @@
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/home.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar news">
@@ -36,21 +38,30 @@
         <span>&nbsp;&nbsp;&nbsp;</span>
         <a href='/home/create' class="btn-light w-25 btn-block" role="button">BECOME A LANDLORD</a>
     </div>
-    <div class="container">
+  <div class="container">
     <div class="container1">
         <h2>Landlord at</h2>
-        <% if(list)  { %>
-        <% list.forEach((x) => { %>
-            <a class='btn btn-r btn-primary' href="/admin/<%= x.build_id %>"><%= x.address %></a>
-        <% })} %>
+        <% if(list.length === 0) { %>
+            <p>None</p>
+            <% } %>
+        <% if(list.length !== 0) { %>
+            <% if(list)  { %>
+            <% list.forEach((x) => { %>
+                <a class='btn btn-r btn-primary btn-block' href="/admin/<%= x.build_id %>"><%= x.address %></a>
+            <% })}} %>
     </div>
-
+    <div class="container2">
         <h2>Tenant at</h2>
-        <% if(u_list)  { %>
-        <% u_list.forEach((x) => { %>
-            <a class='btn btn-r btn-primary' href="/user/<%= x.build_id %>"><%= x.address %></a>
-        <% })} %>
+        <% if(u_list.length === 0) { %>
+            <p>None</p>
+            <% } %>
+        <% if(u_list.length !== 0) { %>
+            <% if(u_list)  { %>
+                <% u_list.forEach((x) => { %>
+                    <a class='btn btn-r btn-primary btn-block' href="/user/<%= x.build_id %>"><%= x.address %></a>
+                <% })}} %>
     </div>
+  </div>
 </body>
 
 <script src="/public/scripts/navbar.js"></script>

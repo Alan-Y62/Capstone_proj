@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/public/css/login.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 <body>
     <% if(messages.error) { %>
@@ -38,8 +40,10 @@
                     </label>
                 </div>
                 <button type="submit" class="btn btn-default">Login</button>
-                <span>&nbsp &nbsp</span>
-                <a class="btn btn-r btn-primary" href="/register" role="button">Register</a>
+                <div>
+                    <span>Make a new account?</span>
+                    <a class="btn btn-r btn-primary" href="/register" role="button">Register</a>
+                </div>
             </form>
             <%# form end %>
             </div>

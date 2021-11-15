@@ -46,7 +46,6 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
     const user = String(req.user._id)
     const this_building = await Build.find({"_id":mongoose.Types.ObjectId(building_id)})
     const all_tenants = this_building[0].tenants
-    console.log(all_tenants);
     await Promise.all(all_tenants.map(async(elements) => {
         if(String(elements._id) !== user) {
         const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
@@ -155,7 +154,6 @@ router.get('/:id/manage', checkAuthenticated, checkRolesAdmin, async (req,res) =
     }))
     const curr_tenants = await Promise.all(current.map(async (x)=>{ //get list of users living in the building
         let tenants = await User.find({"_id": x._id}).then(y =>{
-            console.log(y)
             if(y[0]._id.equals(landlord)){
                 const name = 'Vacant';
                 const id = landlord;
@@ -188,10 +186,7 @@ router.post('/:id/manage/userdelete', checkAuthenticated, checkRolesAdmin, async
             "element.apt": req.body.apt //"element.apt": req.body.apt
         }]
     })
-    console.log(String(userID))
-    console.log(acceptpendingbuilding[0].landlord)
     if(String(userID) !== acceptpendingbuilding[0].landlord){
-        console.log(userID)
         await User.findByIdAndUpdate(userID,{$pull:{building:{building_id:buildingid}}})
     }
     
@@ -201,7 +196,6 @@ router.post('/:id/manage/userdelete', checkAuthenticated, checkRolesAdmin, async
 //post for adding users from pending list
 router.post('/:id/manage/useraccept', checkAuthenticated, checkRolesAdmin, async (req,res) =>{
     const buildingID = mongoose.Types.ObjectId(req.params.id);
-    console.log(req.body)
     const userID = mongoose.Types.ObjectId(req.body.ident);
     const userApt = req.body.chooseApt;
     console.log(userApt)
@@ -210,10 +204,6 @@ router.post('/:id/manage/useraccept', checkAuthenticated, checkRolesAdmin, async
     const match  = await Build.find({'_id':buildingID}).select({"tenants":{$elemMatch:{"apt": userApt}}});
     const userRM = (match[0].tenants[0]._id).toString();
     const landlord = acceptpendingbuilding[0].landlord;
-    console.log('hellelelelelelelle')
-    console.log(userRM)
-    console.log(landlord)
-    console.log(landlord !== userRM)
     if(landlord !== userRM){
         await User.findByIdAndUpdate(userRM,{$pull:{building:{building_id:buildingID}}}) //pulling out of system
     }
@@ -255,9 +245,7 @@ router.post('/:id/delBuild', checkAuthenticated, checkRolesAdmin, async (req,res
     const buildID = mongoose.Types.ObjectId(req.params.id);
     const building = await Build.find({"_id": buildID})
     const tenants = building[0].tenants
-    console.log(tenants)
     tenants.forEach(async(element) =>  {
-        console.log(element._id)
         const userID = element._id;
         await User.findByIdAndUpdate(userID,{$pull:{building:{building_id:buildID}}})
     })
