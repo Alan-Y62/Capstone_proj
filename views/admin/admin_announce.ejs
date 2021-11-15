@@ -69,9 +69,14 @@
                         <p class = 'date'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
                         <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
                     </div>
-                <% }})}} %>
         </div>
     </div>
+    <% }})}} else { %> 
+        <div id="sp-div">
+            <p> No Announcements. Would you like to make one?</p>
+            <a id="sp-btn" href="/admin/<%= building_id %>/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
+        </div>
+        <% } %>
 </body>
 
 <script src="/public/scripts/navbar.js"></script>

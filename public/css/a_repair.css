@@ -1,4 +1,11 @@
 
+    .dflt-msg {
+        text-align: center;
+        background: black;
+        color: white;
+        font-size: 50px;
+    }
+
     .body-page{
         border-radius: 50px 50px 50px 50px;
         position: relative;

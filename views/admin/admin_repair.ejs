@@ -38,6 +38,7 @@
             <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
         </form>
     </div>
+    <% if(problems.length !== 0) { %>
     <div class="body-page" onClick="closeSide()">
         <div class="pending">
             <h2>Pending Requests</h2>
@@ -64,6 +65,11 @@
             </div> 
         </div>
     </div>
+    <% } else { %>
+        <div class="dflt-msg">
+            <p> No Active Requests</p>
+        </div>
+    <% } %>
     <div class='completedContainer'>
         <div class="abc123">
             <h2>Completed Requests</h2>

@@ -62,9 +62,13 @@
                         <p><%= a.body %></p>
                         <p class = 'date'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
                     </div>
-                <% }})}} %>
         </div>
     </div>
+    <% }})}} else { %> 
+        <div id="sp-div">
+            <p> Your landlord has not made an announcement yet.</p>
+        </div>
+        <% } %>
 </body>
 
 <script src="/public/scripts/navbar.js"></script>

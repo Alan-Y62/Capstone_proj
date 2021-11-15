@@ -44,13 +44,12 @@
             <a class='btn btn-r btn-primary' href="/admin/<%= x.build_id %>"><%= x.address %></a>
         <% })} %>
     </div>
-    <div class="container2">
+
         <h2>Tenant at</h2>
         <% if(u_list)  { %>
         <% u_list.forEach((x) => { %>
             <a class='btn btn-r btn-primary' href="/user/<%= x.build_id %>"><%= x.address %></a>
         <% })} %>
-    </div>
     </div>
 </body>
 
