@@ -74,6 +74,19 @@ function sendUpdate(email,subject,text){
     sendEmail(upOptions);
 }
 
+//new code 
+function sendVerification(email,code) {
+    let link = `localhost:3000/confirmation/${code}`;
+    const verOptions = {
+        from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
+        to: email,
+        subject: "Email Verification Link",
+        text: `<a href="${link}">${link}</a>`
+    }
+    sendEmail(verOptions);
+}
+//
+
 /*
 sendMail().then((result) => console.log('Email sent...', result)).catch((error) => console.log(error.message));
 const toEmail = "huangtoby90@gmail.com";

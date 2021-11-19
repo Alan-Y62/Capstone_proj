@@ -5,6 +5,9 @@ const passport = require('passport')
 const User = require('../model/user')
 const { session } = require('passport')
 const { checkNotAuthenticated } = require('../public/scripts/auth')
+//new code
+const { sendVerification } = require('../email/sendEmail')
+const randomStr = require('../public/scripts/miscFuncs');
 
 router.get('/', checkNotAuthenticated, (req,res) => {
     res.render('./signIn/main');
@@ -25,13 +28,17 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
         }
         else{
             const n_user = new User({
-                name, email, password, typeID:'string'
+                name, 
+                email, 
+                password, 
+                verString: randomStr(28) + email.slice(0,3)
             });
                 bcrypt.hash(n_user.password, 10, (err, hash) => {
                   if (err) throw err;
                   n_user.password = hash;
                   n_user.save();
                 });
+            sendVerification(n_user.email,"Email Verification Link",n_user.verString)
             res.redirect('login');
         }
     })
@@ -39,6 +46,7 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
 
 //LOGIN GET
 router.get('/login', checkNotAuthenticated, (req,res) => {
+    
     res.render('./signIn/login');
 })
 
@@ -51,12 +59,20 @@ router.post('/login', checkNotAuthenticated, (req, res, next) => {
     })(req, res, next)
 })
 
-
 //logout method
 router.get('/logout', (req,res) => {
     req.session.destroy()
     res.redirect('login')
 })
 
+//new code
+router.get('/confirmation/:token', async (req,res) => {
+    let _token = req.params.token;
+    await User.findOneAndUpdate(_token, {verified: true})
+    res.redirect('login') 
+    /*could also have done a new page but that seems overkill
+    for a one time page*/
+})
+//
 module.exports = router;
 

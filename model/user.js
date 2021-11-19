@@ -18,7 +18,16 @@ const Userschema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             required: true
         }
-    }]
+    }],
+    //new code
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    verString: {
+        type: String,
+        required: true
+    }
 });
 
 const User = mongoose.model('user', Userschema);

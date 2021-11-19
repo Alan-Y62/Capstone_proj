@@ -15,15 +15,12 @@ router.post('/', checkAuthenticated, (req,res) => {
         subname,subemail,
         cname,cemail,cpass,ccpass } = req.body;
     if(buttonValue == "message"){
-        console.log(req.body)
         sendMessage(name,email,subject,message)
         res.redirect('/settings')
     }else if(buttonValue == "subscribe"){
-        console.log(req.body)
         subMail(subname,subemail)
         res.redirect('/settings')
     }else if(buttonValue == "change"){
-        console.log(req.body)
         if(cpass == ccpass && (cname||email != '')){
             User.findOne({email:req.user.email}).then(user => {
                 bcrypt.compare(cpass,user.password,(err,isMatch)=>{
