@@ -46,22 +46,7 @@
             <div class="reqContainer">
             <% problems.forEach( (a) => { %>
                 <% if(a.repairs.status === 'pending') { %> 
-                <div class="reqSub">
-                    <span class='c'>
-                        <h3><%= a.repairs.issue %> </h3>
-                        <a href="/admin/<%= building_id  %>/requests/p/<%= a.repairs.id %>/<%= a.repairs.sched_date %>" class="btns btn-warning">Push Back 1 day</a> 
-                        <span>&nbsp;&nbsp;</span>
-                        <a href="/admin/<%= building_id  %>/requests/d/<%= a.repairs.id %>" class="btns btn-success">Finished</a> 
-                    </span>
-                    <p style="font-weight: bold;"><span id="tenant"><%=a.repairs.tenant%>,</span><span id="addr"> <%=a.repairs.address%> </span><span id="aptNum">APT <%=a.repairs.apt%></span></p>
-                    <% if(a.repairs.comments) { %>
-                    <p><%= a.repairs.comments %></p>
-                    <% } %>
-                    <% if(a.repairs.image !== 'no') { %>
-                    <img src="/admin/<%= building_id  %>/image/<%= a.img._id%>"/>
-                    <% } %>
-                    <p><span class="text-muted">Request Date: <%= a.repairs.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.repairs.sched_date.toLocaleDateString()%></span></p>
-                </div>
+                    <a class='btn btn-r btn-primary btn-block' href="/admin/<%= building_id  %>/requests/<%= a.repairs.id %>"><%= a.repairs.issue %> || Tenants name or Apt || Date</a>
                 <% }}) %>
             </div> 
         </div>

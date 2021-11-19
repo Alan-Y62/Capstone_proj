@@ -130,6 +130,12 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
     res.redirect(`/admin/${buildID}/requests`)
 })
 
+router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
+    const repair = await Repair.find({"_id":req.params.r_id})
+    console.log(repair[0])
+    res.render('./admin/admin_repairdetails', {repair:repair[0]})
+})
+
 //tempoary route delete later
 router.get('/:id/generate', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const re = await generateRepairs(req.params.id)
