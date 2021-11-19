@@ -250,6 +250,18 @@ router.post('/:id/delBuild', checkAuthenticated, checkRolesAdmin, async (req,res
         await User.findByIdAndUpdate(userID,{$pull:{building:{building_id:buildID}}})
     })
     await Announce.deleteMany({"building_id": String(buildID)})
+    const repairs = await Repair.find({"building": String(buildID)})
+    repairs.forEach(async (element) => {
+            gfs.delete(new mongoose.Types.ObjectId(element.image), (err,data) =>{
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    console.log('nice')
+                }
+            })
+            await Repair.findByIdAndDelete(element._id)
+        })
     await Build.findByIdAndDelete(buildID);
     res.redirect('/home')
 })

@@ -47,7 +47,7 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
 })
 
 router.get('/:id/history', checkAuthenticated, checkRolesUser, async(req,res) => {
-  const findrqs = await Repair.find({building: req.params.id})
+  const findrqs = await Repair.find({building: req.params.id, tenant:req.user.id})
   const rqs = await Promise.all(findrqs.map(async (element) => {
       const repairs = element;
       console.log(mongoose.Types.ObjectId(element.image))
