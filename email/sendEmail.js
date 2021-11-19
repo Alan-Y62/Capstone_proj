@@ -99,3 +99,4 @@ sendMail(toEmail,subject,text).then((result) => console.log('Email sent', result
 module.exports.sendMessage = sendMessage;
 module.exports.subMail = subMail;
 module.exports.sendUpdate = sendUpdate;
+module.exports.sendVerification = sendVerification;

@@ -7,7 +7,7 @@ const { session } = require('passport')
 const { checkNotAuthenticated } = require('../public/scripts/auth')
 //new code
 const { sendVerification } = require('../email/sendEmail')
-const randomStr = require('../public/scripts/miscFuncs');
+const {addTwoWeeks, randomStr} = require('../public/scripts/miscFuncs');
 
 router.get('/', checkNotAuthenticated, (req,res) => {
     res.render('./signIn/main');
@@ -24,7 +24,7 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
 
     User.findOne({email:email}).then(result => {
         if (result){
-            res.render('register', {message: 'EMAIL EXISTS'});
+            res.render('./signIn/register', {message: 'EMAIL EXISTS'});
         }
         else{
             const n_user = new User({
