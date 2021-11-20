@@ -20,6 +20,12 @@
     <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 </head>
 
 <body>
@@ -127,8 +133,21 @@
                         <label class="date-check-label" for="Other">
                             <input class="date-check-input" type="radio" name="issue" id="Other" value="Other">
                             Other (be specific)
-                            <textarea class="date-control" names="dates" id="dates" cols="30" rows="2"
-                                placeholder="Example: 1/1/2000, 9am-5pm"></textarea>
+
+                            <input type="text" name="datetimes" />
+                                <script>
+                                    $(function() {
+                                        $('input[name="datetimes"]').daterangepicker({
+                                            timePicker: true,
+                                            startDate: moment().startOf('hour'),
+                                            endDate: moment().startOf('hour').add(32, 'hour'),
+                                            locale: {
+                                            format: 'M/DD hh:mm A'
+                                            }
+                                        });
+                                    });
+                                </script>
+
                         </label>
                     </div>
                 </div>
