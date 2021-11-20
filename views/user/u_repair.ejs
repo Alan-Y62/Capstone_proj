@@ -61,7 +61,7 @@
                     <p>Issues</p>
                     <div class="form-check">
                         <label class="form-check-label" for="Door">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Door" value="Door" checked>
+                            <input class="form-check-input" type="checkbox" name="issue" id="Door" value="Door">
                             Door
                         </label>
                     </div>
@@ -133,33 +133,32 @@
                             <input class="date-check-input" type="radio" name="issue" id="Other" value="Other">
                             Other (be specific)
 
-                            <input type="text/javascript" name="datetimes" />
-                                <script>
-                                    $(function() {
-                                        let dateToday = new Date();
+                            <input type="text" name="datetimes" />
+                            <script>
+                                $(function() {
+                                    let dateToday = new Date();
 
-                                        $('input[name="datetimes"]').daterangepicker({
-                                            timePicker: true,
-                                            startDate: moment().startOf('hour'),
-                                            endDate: moment().startOf('hour').add(32, 'hour'),
-                                            locale: {
-                                                format: 'M/DD hh:mm A'
-                                            },
-                                            defaultDate: "+1w",
-                                            changeMonth: true,
-                                            numberOfMonths: 3,
-                                            minDate: dateToday,
-                                            onSelect: function(selectedDate) {
-                                                let option = this.id == "from" ? "minDate" : "maxDate",
-                                                    instance = $(this).data("datepicker"),
-                                                    date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-                                                dates.not(this).datepicker("option", option, date);
-                                            }
-                                        });
+                                    $('input[name="datetimes"]').daterangepicker({
+                                        timePicker: true,
+                                        startDate: moment().startOf('hour'),
+                                        endDate: moment().startOf('hour').add(32, 'hour'),
+                                        locale: {
+                                            format: 'M/DD hh:mm A'
+                                        },
+                                        defaultDate: "+1w",
+                                        changeMonth: true,
+                                        numberOfMonths: 3,
+                                        minDate: dateToday,
+                                        onSelect: function(selectedDate) {
+                                            let option = this.id == "from" ? "minDate" : "maxDate",
+                                                instance = $(this).data("datepicker"),
+                                                date = $.datepicker.parseDate(instance.settings.dateFormat 
+                                                || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+                                            dates.not(this).datepicker("option", option, date);
+                                        }
                                     });
-                                    
-                                </script>
-
+                                });
+                            </script>
                         </label>
                     </div>
                 </div>
