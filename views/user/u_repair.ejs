@@ -25,6 +25,11 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <!---------------->
 </head>
 
@@ -134,7 +139,28 @@
                             <input class="date-check-input" type="radio" name="date" id="Other" value="Other">
                             Other (be specific)
 
-                            <input type="text/javascript" name="datetimes" />
+                            <input type="text/javascript" id="datepicker">
+                            <script>
+                                $(function() {
+                                    let dateToday = new Date();
+
+                                    $( "#datepicker" ).datepicker({
+                                        defaultDate: "+1w",
+                                        changeMonth: true,
+                                        numberOfMonths: 1,
+                                        minDate: dateToday,
+                                        onSelect: function(selectedDate) {
+                                            let option = this.id == "from" ? "minDate" : "maxDate",
+                                                instance = $(this).data("datepicker"),
+                                                date = $.datepicker.parseDate(instance.settings.dateFormat 
+                                                || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+                                            dates.not(this).datepicker("option", option, date);
+                                        }
+                                    });
+                                } );
+                            </script>
+
+                            <!-- <input type="text/javascript" name="datetimes" />
                             <script>
                                 $(function() {
                                     let dateToday = new Date();
@@ -159,7 +185,7 @@
                                         }
                                     });
                                 });
-                            </script>
+                            </script> -->
                         </label>
                     </div>
                 </div>
