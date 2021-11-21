@@ -6,11 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Announcements</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" /> -->
     
+    <!-- CSS LINKS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
@@ -19,12 +18,14 @@
     <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <!---------------->
 
+    <!-- SCRIPT LINKS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+    <!---------------->
 </head>
 
 <body>
@@ -116,21 +117,21 @@
                     <p>Pick a date and time</p>
                     <div class="date-check">
                         <label class="date-check-label" for="Emergency">
-                            <input class="date-check-input" type="radio" name="issue" id="Emergency" value="Emergency">
+                            <input class="date-check-input" type="radio" name="date" id="Emergency" value="Emergency">
                             Emergency
                         </label>
                     </div>
 
                     <div class="date-check">
                         <label class="date-check-label" for="ASAP">
-                            <input class="date-check-input" type="radio" name="issue" id="ASAP" value="ASAP">
+                            <input class="date-check-input" type="radio" name="date" id="ASAP" value="ASAP">
                             ASAP (but not an emergency)
                         </label>
                     </div>
 
                     <div class="date-check">
                         <label class="date-check-label" for="Other">
-                            <input class="date-check-input" type="radio" name="issue" id="Other" value="Other">
+                            <input class="date-check-input" type="radio" name="date" id="Other" value="Other">
                             Other (be specific)
 
                             <input type="text/javascript" name="datetimes" />
