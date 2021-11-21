@@ -17,10 +17,16 @@
         text-align: center;
     }
 
-    a {
+    .req-link {
         max-width: 92%;
         margin-left: 4%;
         margin-right: 4%;
+    }
+
+    .Header {
+        font-weight: bold;
+        font-size: 50px;
+        color: white;
     }
 
     .dflt-msg {
@@ -30,21 +36,21 @@
         font-size: 50px;
     }
 
-    .body-page{
+    .body-page, .completedContainer{
         border-radius: 50px 50px 50px 50px;
         position: relative;
-        height:900px;
-        width:90vw;
+        height: 400px;
+        width: 90vw;
         margin-left:5vw;
         margin-right:5vw;
         background: rgba(27, 25, 167, 0.705);
     }
 
-    .pending {
-        margin-top: 20px;
+    .pending, .completedContainer {
+        margin-top: 5px;
     }
 
-    .reqContainer {
+    .reqContainer, .comcon {
         position: relative;
         top: 10px;
         height: 800px;
@@ -54,11 +60,12 @@
     .c {
         display: flex;
     }
+
     .btns {
         position: relative;
         left: 50px;
     }
-    .reqSub {
+    .reqSub, .comSub {
         border-style: solid;
         border-color: rgba(27, 25, 167, 0.705);
         border-bottom: 500px;
@@ -68,56 +75,14 @@
         right: 5%;
     } 
 
-    .reqSub:nth-child(even) {
+    .reqSub:nth-child(even), .comSub:nth-child(even) {
         background: #b3e5fc;
     }
 
-    .reqSub:nth-child(odd) {
+    .reqSub:nth-child(odd), .comSub:nth-child(odd) {
         background: #e1f5fe;
-    }
-
-    .completedContainer {
-        border-radius: 50px 50px 50px 50px;
-        position: relative;
-        height:900px;
-        width:90vw;
-        margin-left:5vw;
-        margin-right:5vw;
-        background: rgba(27, 25, 167, 0.705);
-        margin-top: 30px;
     }
 
     .abc123 {
         margin-top: 30px;
-    }
-
-    .comcon {
-        position: relative;
-        top: 10px;
-        height: 800px;
-        overflow: auto;
-    }
-
-    .comSub {
-        border-style: solid;
-        border-color: rgba(27, 25, 167, 0.705);
-        border-bottom: 500px;
-        width: 90%;
-        position: relative;
-        left: 5%;
-        right: 5%;
-    }
-
-    .comSub:nth-child(even) {
-        background: #b3e5fc;
-    }
-
-    .comSub:nth-child(odd) {
-        background: #e1f5fe;
-    }
-
-    .Header {
-        font-weight: bold;
-        font-size: 50px;
-        color: white;
     }

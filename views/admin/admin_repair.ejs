@@ -11,7 +11,6 @@
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/a_repair.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
@@ -46,7 +45,7 @@
             <div class="reqContainer">
             <% problems.forEach( (a) => { %>
                 <% if(a.repairs.status === 'pending') { %> 
-                    <a class='btn btn-r btn-primary btn-block' href="/admin/<%= building_id  %>/requests/<%= a.repairs.id %>"><%= a.repairs.issue %> || Tenants name or Apt || Date</a>
+                    <a class='req-link btn btn-r btn-primary btn-block' href="/admin/<%= building_id  %>/requests/<%= a.repairs.id %>"><%= a.repairs.issue %> || Tenants name or Apt || Date</a>
                 <% }}) %>
             </div> 
         </div>
@@ -85,10 +84,6 @@
             <p> No Completed Requests Either</p>
         </div>
     <% } %>
-    
-    <div>
-    <i class="scroll-up" id="scroll-up"><img src="/public/images/upward.gif" class="side_bar up-arrow" alt="" /></i>
-    </div>
 </body>
 
 <script src="/public/scripts/scrollTop.js"></script>
