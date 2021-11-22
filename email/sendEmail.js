@@ -81,7 +81,8 @@ function sendVerification(email,code) {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
         subject: "Email Verification Link",
-        text: `<a href="${link}">${link}</a>`
+        text: 'Click this link to verify your email',
+        html: `<a href="${link}">${link}</a>`
     }
     console.log(email)
     console.log(link);

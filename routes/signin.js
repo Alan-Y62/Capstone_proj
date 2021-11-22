@@ -68,19 +68,8 @@ router.get('/logout', (req,res) => {
 //new code
 router.get('/confirmation/:token', async (req,res) => {
     let _token = req.params.token;
-    let message = "";
-    const _user = await User.findOne({verString: _token})
-    console.log(_user.verified);
-    if(_user[0].verified === true) {
-        message = 'This email is already verified'
-    }
-    else {
-        message = 'This email is already verified'
-    }
-    console.log('jhere')
-    res.render('./signIn/confirm', message)
-    /*could also have done a new page but that seems overkill
-    for a one time page*/
+    await User.findOneAndUpdate({verString: _token}, {verified: true})
+    res.render('./signIn/confirm') 
 })
 //
 module.exports = router;
