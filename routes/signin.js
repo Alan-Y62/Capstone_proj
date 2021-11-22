@@ -38,7 +38,7 @@ router.post('/register', checkNotAuthenticated, async (req,res) =>{
                   n_user.password = hash;
                   n_user.save();
                 });
-            sendVerification(n_user.email,"Email Verification Link",n_user.verString)
+            sendVerification(n_user.email,n_user.verString)
             res.redirect('login');
         }
     })
@@ -68,8 +68,17 @@ router.get('/logout', (req,res) => {
 //new code
 router.get('/confirmation/:token', async (req,res) => {
     let _token = req.params.token;
-    await User.findOneAndUpdate(_token, {verified: true})
-    res.redirect('login') 
+    let message = "";
+    const _user = await User.findOne({verString: _token})
+    console.log(_user.verified);
+    if(_user[0].verified === true) {
+        message = 'This email is already verified'
+    }
+    else {
+        message = 'This email is already verified'
+    }
+    console.log('jhere')
+    res.render('./signIn/confirm', message)
     /*could also have done a new page but that seems overkill
     for a one time page*/
 })

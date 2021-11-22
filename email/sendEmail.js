@@ -83,6 +83,8 @@ function sendVerification(email,code) {
         subject: "Email Verification Link",
         text: `<a href="${link}">${link}</a>`
     }
+    console.log(email)
+    console.log(link);
     sendEmail(verOptions);
 }
 //
