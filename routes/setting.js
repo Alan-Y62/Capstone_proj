@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../model/user')
-const { subMail , sendMessage , sendUpdate} = require('../email/sendEmail')
+const { subMail , sendMessage , resetPassword } = require('../email/sendEmail')
 const { checkAuthenticated,checkRoles } = require('../public/scripts/auth')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 
-router.get('/', checkAuthenticated, (req,res) => {
+router.get('/', checkAuthenticated, async (req,res) => {
     res.render('settings',{user:req.user})
 })
 
-router.post('/', checkAuthenticated, (req,res) => {
+router.post('/', checkAuthenticated, async (req,res) => {
     var buttonValue = req.body.button;
     const{ name,email,subject,message,
         subname,subemail,
@@ -57,6 +58,20 @@ router.post('/', checkAuthenticated, (req,res) => {
         }else{
             console.log("Password does not match.")
         }
+    }else if(buttonValue == "reset"){
+        const newToken = crypto.randomBytes(32).toString('hex');
+        User.findByIdAndUpdate(req.user.id,{verString:newToken},function(err, docs){
+            if (err){
+                console.log(err)
+            }else{
+                console.log("Password Reset Requested")
+            }
+        });
+        const user = await User.findOne({verString:newToken})
+        const link = `localhost:3000/passwordreset/${user.verString}`
+        resetPassword(req.user.email,link);
+
+        res.redirect('/settings')
     }
 })
 

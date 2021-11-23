@@ -11,7 +11,6 @@ const oAuth2Client = new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
 async function sendEmail(options){
-    console.log("EMAIL SENT...");
     try{
         const accessToken = await oAuth2Client.getAccessToken();
 
@@ -27,6 +26,7 @@ async function sendEmail(options){
             },
         });
         const result = await transport.sendMail(options);
+        console.log("EMAIL SENT...");
         return result;
 
     }catch (error) {
@@ -90,6 +90,16 @@ function sendVerification(email,code) {
 }
 //
 
+function resetPassword(email,link){
+    const rpOptions = {
+        from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
+        to: email,
+        subject: "Account Password Reset Link",
+        text: "The following link will expire in 60 minutes:" + "\n" + link,
+    };
+    sendEmail(rpOptions);
+}
+
 /*
 sendMail().then((result) => console.log('Email sent...', result)).catch((error) => console.log(error.message));
 const toEmail = "huangtoby90@gmail.com";
@@ -103,3 +113,4 @@ module.exports.sendMessage = sendMessage;
 module.exports.subMail = subMail;
 module.exports.sendUpdate = sendUpdate;
 module.exports.sendVerification = sendVerification;
+module.exports.resetPassword = resetPassword;
