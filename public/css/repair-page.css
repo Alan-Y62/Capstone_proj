@@ -131,14 +131,6 @@ label {
   color: orange;
 }
 
-.request .form-group ::placeholder {
-  vertical-align: top;
-  text-align: left;
-  color: #000000;
-  font-weight: bold;
-  font-style: italic;
-}
-
 .request .btn {
   margin-top: auto;
   margin-bottom: auto;
@@ -166,11 +158,20 @@ label {
 }
 
 #other {
-  width:90%;
+  width:100%;
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 900px) {
   .request .panel .image {
     margin-left: 50px;
+  }
+
+  .request .panel {
+    width: 70%;
+    margin-left: 12%;
+  }
+
+  .request .panel .col {
+    width: 34%
   }
 }

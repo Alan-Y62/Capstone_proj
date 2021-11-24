@@ -30,11 +30,26 @@ router.get('/:id/requests', checkAuthenticated, checkRolesUser, async (req,res) 
 })
 
 router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('file'), async (req,res) => {
-    const{issue, ignore, comments} = req.body;
+    const{issue,date, ignore, comments} = req.body;
     //const imageID = req.file.id;
+    console.log(issue + " + " + date + " + " + ignore + " + " + comments );
+    let sched_date = Date.now();
+    sched_date = new Date(sched_date);
+    console.log(sched_date)
+    switch(date) {
+      case 'Emergency':
+        sched_date.setDate(sched_date.getDate()+4);
+        break; 
+      case 'nothing':
+        sched_date.setDate(sched_date.getDate()+300);
+        break;
+      default:
+        sched_date.setDate(sched_date.getDate()+14)
+        break;
+    }
+    console.log(sched_date)
     const building = mongoose.Types.ObjectId(req.params.id);
     const tenant = mongoose.Types.ObjectId(req.user.id);
-    //tempoary solution cause fuck it,  have the user write their apart num in a input field
     const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
     const apt = match[0].tenants[0].apt;
     const image = req.file.id;

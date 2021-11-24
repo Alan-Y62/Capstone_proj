@@ -123,7 +123,7 @@
 
                     <div class="date-check">
                         <label class="date-check-label" for="ASAP">
-                            <input class="date-check-input" type="radio" name="date" id="ASAP" value="ASAP">
+                            <input class="date-check-input" type="radio" name="date" id="ASAP" value="Default">
                             Default(2 weeks)
                         </label>
                     </div>
@@ -137,7 +137,7 @@
 
                     <div class="date-check">
                         <label class="date-check-label" for="Other">
-                            <input class="date-check-input other" type="radio" name="date" id="Other" value="specific">
+                            <input class="date-check-input other" type="radio" name="date" id="Other" value="nothing">
                             Choose a Date
 
                             <input type="text/javascript" id="datepicker">
@@ -146,10 +146,9 @@
                                     let dateToday = new Date();
 
                                     $( "#datepicker" ).datepicker({
-                                        defaultDate: "+1w",
+                                        defaultDate: "+2w",
                                         changeMonth: true,
                                         numberOfMonths: 1,
-                                        minDate: dateToday,
                                         onSelect: function(selectedDate) {
                                             let option = this.id == "from" ? "minDate" : "maxDate",
                                                 instance = $(this).data("datepicker"),
