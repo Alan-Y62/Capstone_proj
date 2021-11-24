@@ -1,0 +1,19 @@
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    position: relative;
+    background: white;
+    top: 20%;
+    padding: 50px;
+}
+
+.content {
+    position: relative;
+    width: 80%;
+    left: 10%;
+}
+
+

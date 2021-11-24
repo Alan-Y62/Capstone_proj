@@ -7,7 +7,7 @@ function addTwoWeeks(date) {
 }
 
 //new code
-const randomStr = (length = 8) => {
+const randomStr = (length = 32) => {
     // Declare all characters
     let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
