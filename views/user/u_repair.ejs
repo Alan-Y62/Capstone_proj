@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Announcements</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" /> -->
+    
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     
     <!-- CSS LINKS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -164,11 +165,14 @@
                 </div>
                 <div class="image col">
                     <p>Upload Image</p>
-                    <input type="file" accept="image/*" name="file" id="upload">
 
-                    <!-- Placeholder for future drag and drop box; NOT PART OF MVP DEMO! -->
-                    <!-- <div class="dropzone" id="imageDragNDrop"></div> -->
-                    <!-- <div class="previews"></div> -->
+                    <div class="dropzone" name="dragndrop" id="upload-widget">
+                        <div class="dz-message" data-dz-message><span>Click or drag and drop here to add an image</span></div>
+                        <div class="fallback">
+                            <input type="file" accept="image/*" name="file" id="upload" >
+                        </div>
+                        <div class="previews"></div>
+                    </div>
 
                 </div>
             </div>
@@ -176,27 +180,38 @@
                 <textarea class="form-control" name="comments" id="comments" rows="5"
                     placeholder="Additional Comments..."></textarea>
             </div>
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" id="submitRepairRequest" class="btn">Submit</button>
         </form>
     </div>
 
     <i class="scroll-up" id="scroll-up"><img src="/public/images/upward.gif" class="side_bar up-arrow" alt="" /></i>
 
 
-    <!-- missing dropzonejs dependency; DO NOT UNCOMMENT WHEN TESTING MVP DEMO -->
-    <!-- temporary drag and drop functionality; not finished testing/cleaning up; not shown in MVP demo -->
-    <!-- <script>
-        Dropzone.options.imageDragNDrop= {
-            // url: '/user/<%= building_id %>/requests',
+
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
+    <script>
+        Dropzone.options.uploadWidget = {
+            url: '/user/<%= building_id %>/requests',
+
+            // testing fallback image upload option
+            forceFallback: false,
+
             autoProcessQueue: false,
-            uploadMultiple: true,
-            parallelUploads: 5,
-            maxFiles: 5,
+            uploadMultiple: false,
+            maxFiles: 1,
             // maxFilesize: 1,
             acceptedFiles: 'image/*',
             addRemoveLinks: true,
             init: function() {
                 dzClosure = this; // makes sure that 'this' is understood inside the functions below
+
+                // makes sure that only one file is allowed in the dropzone
+                this.on("addedfile", function(file) {
+                    if (this.files.length > 1) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
 
                 // for Dropzone to process the queue instead of default form behavior
                 document.getElementById("submitRepairRequest").addEventListener("click", function(e) {
@@ -207,14 +222,25 @@
                 });
 
                 // sends all the form data along with the files
-                this.on("sendingmultiple", function(data, xhr, formData) {
+                this.on("sending", function(data, xhr, formData) {
+                    // changes the value of the other issues radio button to the entered text in the textarea below it
+                    document.getElementById("OtherIssue").value = document.getElementById("issuesother").value;
                     formData.append("issue", document.querySelector('input[name="issue"]:checked').value);
+
+                    // not working yet, for the date section
+                    // formData.append("date", document.querySelector('input[name="date"]:checked').value);
+                    
                     formData.append("comments", document.getElementById("comments").value);
 
                 });
+
+                // redirects user to repair history page
+                this.on("queuecomplete", function (file) {
+                    location.href = "/user/<%= building_id %>/history";
+                });
             }
         }
-    </script> -->
+    </script>
 
     <script src="/public/scripts/scrollTop.js"></script>
     <script src="/public/scripts/navbar.js"></script>
