@@ -68,8 +68,16 @@ router.get('/logout', (req,res) => {
 //new code
 router.get('/confirmation/:token', async (req,res) => {
     let _token = req.params.token;
-    await User.findOneAndUpdate({verString: _token}, {verified: true})
-    res.render('./signIn/confirm') 
+    let new_token = randomStr(28) + _token.slice(3,6);
+    //refresh token everytime so users can't continuously access this page or if token gets leaked
+    let new_user = await User.findOne({verString: _token});
+    if(new_user) {
+        await User.findOneAndUpdate({verString: _token}, {verified: true, verString: new_token})
+        res.render('./signIn/confirm') 
+    }
+    else {
+        res.render('./signIn/login');
+    }
 })
 //
 module.exports = router;

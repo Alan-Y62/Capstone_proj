@@ -161,6 +161,14 @@ label {
   cursor: pointer;
 }
 
+#datepicker {
+  width: 50%;
+}
+
+#other {
+  width:90%;
+}
+
 @media screen and (max-width: 720px) {
   .request .panel .image {
     margin-left: 50px;

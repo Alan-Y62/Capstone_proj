@@ -67,59 +67,67 @@
                     <p>Issues</p>
                     <div class="form-check">
                         <label class="form-check-label" for="Door">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Door" value="Door">
+                            <input class="form-check-input" type="radio" name="issue" id="Door" value="Door">
                             Door
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Window">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Window" value="Window">
+                            <input class="form-check-input" type="radio" name="issue" id="Window" value="Window">
                             Window
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Heat">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Heat" value="Heat">
+                            <input class="form-check-input" type="radio" name="issue" id="Heat" value="Heat">
                             Heat
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Water">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Water" value="Water">
+                            <input class="form-check-input" type="radio" name="issue" id="Water" value="Water">
                             Water
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="air_conditioning">
-                            <input class="form-check-input" type="checkbox" name="issue" id="air_conditioning"
+                            <input class="form-check-input" type="radio" name="issue" id="air_conditioning"
                                 value="Air conditioning">
                             Air conditioning
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Electricity">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Electricity"
+                            <input class="form-check-input" type="radio" name="issue" id="Electricity"
                                 value="Electricity">
                             Electricity
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Wall">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Wall" value="Wall">
+                            <input class="form-check-input" type="radio" name="issue" id="Wall" value="Wall">
                             Wall
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="Other">
-                            <input class="form-check-input" type="checkbox" name="issue" id="Other" value="Other">
-                            Other (be specific)
-                            <textarea class="date-control" names="dates" id="dates" cols="20" rows="1"
+                            <input class="form-check-input" type="radio" name="issue" id="Other" value="Other">
+                            Other (specify)
+                            <textarea class="" names="other" id="other" cols="20" rows="1"
                                 placeholder="Example: bathtub"></textarea>
                         </label>
                     </div>
                 </div>
                 <div class="date col">
                     <p>Pick a date and time</p>
+
+                    <div class="date-check">
+                        <label class="date-check-label" for="ASAP">
+                            <input class="date-check-input" type="radio" name="date" id="ASAP" value="ASAP">
+                            Default(2 weeks)
+                        </label>
+                    </div>
+
                     <div class="date-check">
                         <label class="date-check-label" for="Emergency">
                             <input class="date-check-input" type="radio" name="date" id="Emergency" value="Emergency">
@@ -128,16 +136,9 @@
                     </div>
 
                     <div class="date-check">
-                        <label class="date-check-label" for="ASAP">
-                            <input class="date-check-input" type="radio" name="date" id="ASAP" value="ASAP">
-                            ASAP (but not an emergency)
-                        </label>
-                    </div>
-
-                    <div class="date-check">
                         <label class="date-check-label" for="Other">
-                            <input class="date-check-input" type="radio" name="date" id="Other" value="Other">
-                            Other (be specific)
+                            <input class="date-check-input other" type="radio" name="date" id="Other" value="specific">
+                            Choose a Date
 
                             <input type="text/javascript" id="datepicker">
                             <script>
@@ -159,33 +160,6 @@
                                     });
                                 } );
                             </script>
-
-                            <!-- <input type="text/javascript" name="datetimes" />
-                            <script>
-                                $(function() {
-                                    let dateToday = new Date();
-
-                                    $('input[name="datetimes"]').daterangepicker({
-                                        timePicker: true,
-                                        startDate: moment().startOf('hour'),
-                                        endDate: moment().startOf('hour').add(32, 'hour'),
-                                        locale: {
-                                            format: 'M/DD hh:mm A'
-                                        },
-                                        defaultDate: "+1w",
-                                        changeMonth: true,
-                                        numberOfMonths: 3,
-                                        minDate: dateToday,
-                                        onSelect: function(selectedDate) {
-                                            let option = this.id == "from" ? "minDate" : "maxDate",
-                                                instance = $(this).data("datepicker"),
-                                                date = $.datepicker.parseDate(instance.settings.dateFormat 
-                                                || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-                                            dates.not(this).datepicker("option", option, date);
-                                        }
-                                    });
-                                });
-                            </script> -->
                         </label>
                     </div>
                 </div>
