@@ -43,7 +43,7 @@ app.use('/home', require('./routes/home'));
 app.use('/admin', require('./routes/landlord'))
 app.use('/user', require('./routes/tenant'))
 app.use('/settings', require('./routes/setting'))
-app.use('/passwordreset', require('./routes/passwordreset'))
+app.use('/reset', require('./routes/reset'))
 
 app.get('/401', (req,res) => {
     res.sendFile((__dirname +"/views/401.html"))
