@@ -90,12 +90,16 @@ function sendVerification(email,code) {
 }
 //
 
-function resetPassword(email,link){
+function resetPassword(email,token){
+    let link = `http://localhost:3000/reset/${token}`;
     const rpOptions = {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
-        subject: "Account Password Reset Link",
+        subject: "Account Password Reset",
         text: "The following link will expire in 60 minutes:" + "\n" + link,
+        html: `<p>A request has been received to change the password for your Daily Tenant account.</p>
+        <a href="${link}">RESET YOUR PASSWORD</a>
+        <p>Thank you,<br>The Daily Tenant Team</p>`
     };
     sendEmail(rpOptions);
 }

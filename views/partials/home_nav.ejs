@@ -1,0 +1,18 @@
+<nav class="navbar news">
+    <div class="bnn">
+        <div onclick="openSide()" >
+        <i class="fa fa-bars fa-3x"></i>
+        </div> 
+    </div>
+</nav>
+<div id="side-menu" class="sidenav">
+    <div class="btn-close" onclick="closeSide()">&times;</div>
+    <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a> 
+    <a href="/settings"><i class="fa fa-cog"></i> SETTINGS</a>          
+    
+    <span class="border-bottom" style="display:block"></span>
+    
+    <form action='/logout' method="GET">
+        <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
+    </form>
+</div>

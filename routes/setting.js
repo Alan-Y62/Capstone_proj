@@ -67,9 +67,8 @@ router.post('/', checkAuthenticated, async (req,res) => {
                 console.log("Password Reset Requested")
             }
         });
-        const user = await User.findOne({verString:newToken})
-        const link = `localhost:3000/passwordreset/${user.verString}`
-        resetPassword(req.user.email,link);
+        let user = await User.findOne({verString:newToken});
+        resetPassword(req.user.email,user.verString);
 
         res.redirect('/settings')
     }

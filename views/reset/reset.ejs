@@ -5,23 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Password Reset</title>
+    <title>Reset</title>
     <link rel="stylesheet" href="https://use.fontawelist.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="/public/css/reset.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 
 <body>
     <div class="resetpw">
-        <form name="resetForm" action="/passwordreset/<%=token%>" method="POST">
-            <label>PASSWORD RESET</label>
-            <input type="text" id="newpass" name="newpass" placeholder="New Password">
-            <button type="submit" name="button" value="reset">Change Password</button>
+        <form class="resetForm" action="/reset" method="POST">
+            <h1>Reset Password</h1>
+            <p>Enter your email address and we'll send the link to reset your password.</p>
+            <label>Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="e.g. email@domain.com" required>
+            <button type="submit" class="btn btn-r btn-primary btn-block" name="button" value="reset">Continue</button>
         </form>
     </div>
 </body>
