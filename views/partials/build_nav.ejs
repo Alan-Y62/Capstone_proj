@@ -1,0 +1,29 @@
+<nav class="navbar news">
+    <div class="bnn">
+        <div onclick="openSide()" >
+        <i class="fa fa-bars fa-3x"></i>
+    </div>
+        <h1 class="ann"><%- title %> </h1>   
+    </div>
+<a href="/admin/<%= building_id %>/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
+</nav>
+<div id="side-menu" class="sidenav">
+    <div class="btn-close" onclick="closeSide()">&times;</div>
+    <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a> 
+    <a href="/admin/<%= building_id  %>"><i class="fa fa-newspaper"></i> Announcements</a>
+    <a href="/admin/<%= building_id %>/manage"><i class="fa fa-address-book" aria-hidden="true"></i> Manage Tenants</a>
+    <a href="/admin/<%= building_id %>/requests"><i class="fa fa-wrench"></i> Repair Requests</a>
+    <a href="#"><i class="fa fa-comments"></i>FUTURE UPDATE</a>
+    <a href="/settings"><i class="fa fa-cog"></i> Settings</a>          
+    
+    <span class="border-bottom" style="display:block"></span>
+
+    <button onclick="confirmation('<%= building_id %>')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+    <div id="confirming">
+
+    </div>
+
+    <form action='/logout' method="GET">
+        <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
+    </form>
+</div>

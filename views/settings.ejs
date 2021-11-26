@@ -18,26 +18,7 @@
 </head>
     
 <body>
-    <nav class="navbar news">
-        <div class="bnn">
-            <div onclick="openSide()" >
-            <i class="fa fa-bars fa-3x"></i>
-            </div>
-            <h1 class="sett">SETTINGS</h1>    
-        </div>
-    </nav>
-    <div id="side-menu" class="sidenav">
-        <div class="btn-close" onclick="closeSide()">&times;</div>
-        <a href="/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a> 
-        <a href="/settings"><i class="fa fa-cog"></i> Settings</a>
-        
-        <span class="border-bottom" style="display:block"></span>
-        
-        <form action='/logout' method="GET">
-            <button class="btn btn-danger logout" type="submit"><i class="fa fa-power-off"></i></button>
-        </form>
-    </div>
-    
+    <%- include("./partials/home_nav")%>
     <div class="body-page" onClick="closeSide()">
         <div class="bg-text">
             <div class="tab">
