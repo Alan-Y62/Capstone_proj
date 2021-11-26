@@ -124,7 +124,7 @@
 
                     <div class="date-check">
                         <label class="date-check-label" for="ASAP">
-                            <input class="date-check-input" type="radio" name="date" id="ASAP" value="Default">
+                            <input class="date-check-input" type="radio" name="date" id="Default" value="Default">
                             Default(2 weeks)
                         </label>
                     </div>
@@ -224,7 +224,7 @@
                 // sends all the form data along with the files
                 this.on("sending", function(data, xhr, formData) {
                     // changes the value of the other issues radio button to the entered text in the textarea below it
-                    document.getElementById("OtherIssue").value = document.getElementById("issuesother").value;
+                    document.getElementById("Other").value = document.getElementById("other").value;
                     formData.append("issue", document.querySelector('input[name="issue"]:checked').value);
 
                     // not working yet, for the date section

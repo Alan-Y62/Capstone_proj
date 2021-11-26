@@ -82,7 +82,7 @@ function sendVerification(email,code) {
         to: email,
         subject: "Email Verification Link",
         text: 'Click this link to verify your email',
-        html: `<a href="${link}">${link}</a>`
+        html: `<a href=${link}>${link}</a>`
     }
     console.log(email)
     console.log(link);
