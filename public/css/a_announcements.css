@@ -1,106 +1,61 @@
+h1,h3 {
+    font-weight: bold;
+    font-size: 40px;
+    color: black;
+}
+
+h2 {
+    color: white;
+}
+
 .welcome {
     color: white
 }
 
-.text{
-    background: rgb(65, 74, 209);
-    padding:5px;
+.topline {
+    display: flex;
+    padding: 1%;
 }
 
-.date {
-    color: rgba(0,0,0,.4);
+.topline h3 {
+    flex-grow: 1;
 }
 
-.body-page, .subcon2 {
+.col {
     position: relative;
     width: 90%;
-    margin-left: 5vw;
-    background: black;
-    height: 500px;
+    margin-left: 5%;
 }
 
-.body-page{
+.newest{
     margin-top: 5vh;
 }
 
-.subcon2 {
-    top: 5vh;
-    overflow: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.subcon2::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
-  border-radius: 20px;
-  border: 6px solid transparent;
-  background-clip: content-box;
-}
-
-@media screen and (min-width: 941px) {
-    .row {
-        display: grid;
-        grid-template-columns: 50% 50%;
-        width: 100vw;
-    }
-}
-
-@media screen and (max-width: 940px) {
-    .body-page, .subcon2 {
-        position: relative;
-        width: 90vw;
-        margin-left: 5vw;
-        margin-right: 5vw;
-        background: black;
-    }
-
-    .body-page{
-        margin-top: 5vh;
-    }
-
-    .subcon2 {
-    top: 5vh;
-    padding-left: 20px;
-    padding-right: 20px;
-    }
-}
-
-.sub-container {
-    width: 100%;
-    font-size: 30px;
-    padding: 20px;
-}
-
-
-.latest-container {
+.newest-container {
     font: normal;
     color: black;
-    height: 400px;
+    height: auto;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 3px;
-    background: lightblue;
-    border-radius: 50px 50px 50px 50px;
+    background: lightskyblue;
+    border-radius: 10px 10px 10px 10px;
     overflow-y: auto;
 }
 
-.border {
+.recent {
+    top: 5vh;
+    max-height: 65vh;
+    overflow: auto;
+}
+
+.recent-container{
+    background: rgb(125,206,255);
+    padding-top:3px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-bottom: 20px;
-    border-radius: 20px 20px 20px 20px;
-}
-
-h1,h3 {
-    font-weight: bold;
-    font-size: 50px;
-    color: black;
-}
-
-#header1, #header2, #sp-btn {
-    color: white;
-}
-
-#header1, #header2 {
-    font-size: 40px;
+    border-radius: 10px 10px 10px 10px;
 }
 
 #sp-div {
@@ -113,4 +68,50 @@ h1,h3 {
     height: 75px;
     width: 200px;
     padding-top: 24px;
+    color: white;
+}
+
+#del-btn {
+    background:none;
+    color: white;
+    border:none;
+    margin:0;
+    padding:0;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    height: 20px;
+    width: auto;
+}
+
+@media screen and (min-width: 940px) {
+    .row {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        width: 100vw;
+    }
+}
+
+@media screen and (max-width: 940px) {
+
+    .row {
+        display: block;
+    }
+
+    .col {
+        position: relative;
+        width: 90vw;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    .newest{
+        margin-top: 5vh;
+    }
+
+    .recent {
+        margin-top: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }

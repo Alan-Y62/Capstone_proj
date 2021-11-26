@@ -5,49 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Announcements</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/glob.css" type="text/css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link href="/public/css/a_announcements.css" type="text/css" rel="stylesheet"/>
+    <%- include("../partials/css_partials/admin_ann_css")%>
 </head>
 <body>
     <%- include("../partials/build_nav", {title:"Announcement"})%>
     <% if(Object.entries(news).length > 0) { %>
-    <div class="row">
-        <div class="cols1 body-page" onClick="closeSide()">
-            <div class='sub-container'><span id='header1'>NEWEST ANNOUNCEMENT</span>
+    <div class="row" onClick="closeSide()">
+        <div class="col newest">
+            <h2>NEWEST ANNOUNCEMENT</h2>
                 <% news.reverse().forEach( (a,index) => { %>
                     <% if(index === 0 )  { %>
-                            <div class="latest-container">
-                                <h3><%= a.title %></h3>
-                                <p ><%= a.body %></p>
-                                <p class="text-muted"><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p> 
-                                <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                            <div class="newest-container">
+                                <span class="topline"> 
+                                    <h3><%= a.title %></h3> 
+                                    <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                                </span>
+                                <div class="content">
+                                    <p><%= a.body %></p>
+                                    <p class='text-muted'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
+                                </div>
                             </div>
-                        </div>
-                            
+                        </div>        
                     <% }}) %>
-            </div>
-    <% if(Object.entries(news).length > 1) { %>
-        <div class="cols2 subcon2"><span id=header2>OLDER NEWS</span>
+        <% if(Object.entries(news).length > 1) { %>
+        <div class="col recent">
+            <h2>Recent News</h2>
             <% news.forEach( (a,index) => { %>    
                 <% if(index > 0) { %>
-                    <div class="border border-dark text">
-                        <h3>  <%= a.title %></h3>
-                        <p><%= a.body %></p>
-                        <p class = 'date'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
-                        <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                    <div class="recent-container">
+                        <span class="topline"> 
+                            <h3><%= a.title %></h3> 
+                            <a href="/admin/<%= building_id %>/edit/<%= a.id %>" class="btn btn-warning">Edit</a> 
+                        </span>
+                        <div class="content">
+                            <p><%= a.body %></p>
+                            <p class='text-muted'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
+                        </div>
                     </div>
                 <% }})}} else { %> 
-                        <div id="sp-div">
-                            <p> There are no announcements. Would you like to make one?</p>
-                            <a id="sp-btn" href="/admin/<%= building_id %>/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
-                        </div>
-                        <% } %>
+            <div id="sp-div">
+                <p> There are no announcements. Would you like to make one?</p>
+                <a id="sp-btn" href="/admin/<%= building_id %>/new" class="btn btn-primary">New ANNOUNCEMENTS</a>
+            </div> 
+        </div>       
+        <% } %>
     </div>
 </body>
 
