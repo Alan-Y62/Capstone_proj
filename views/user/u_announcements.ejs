@@ -17,32 +17,37 @@
 <body>
     <%- include("../partials/build_navUser", {title:"Announcement"})%>
     <% if(Object.entries(news).length > 0) { %>
-    <div class="row">
-        <div class="cols1 body-page" onClick="closeSide()">
-            <div class='sub-container'><span id='header1'>NEWEST ANNOUNCEMENT</span>
+    <div class="row" onClick="closeSide()">
+        <div class="col newest">
+            <h2>NEWEST ANNOUNCEMENT</h2>
                 <% news.reverse().forEach( (a,index) => { %>
                     <% if(index === 0 )  { %>
-                            <div class="latest-container">
+                        <div class="newest-container">
+                            <span class="topline"> 
                                 <h3><%= a.title %></h3>
-                                <p ><%= a.body %></p>
-                                <p class="text-muted"><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p> 
+                            </span>
+                            <div class="content">
+                                <p><%= a.body %></p>
+                                <p class='text-muted'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
                             </div>
                         </div>
-                            
-                    <% }}) %>
-            </div>
+                    </div>        
+                <% }}) %>
     <% if(Object.entries(news).length > 1) { %>
-        <div class="cols2 subcon2"><span id=header2>OLDER NEWS</span>
-            <% news.forEach( (a,index) => { %>    
-                <% if(index > 0) { %>
-                    <div class="border border-dark text">
-                        <h3>  <%= a.title %></h3>
+    <div class="col recent">
+        <h2>Recent News</h2>
+        <% news.forEach( (a,index) => { %>    
+            <% if(index > 0) { %>
+                <div class="recent-container">
+                    <span class="topline"> 
+                        <h3><%= a.title %></h3> 
+                    </span>
+                    <div class="content">
                         <p><%= a.body %></p>
-                        <p class = 'date'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
+                        <p class='text-muted'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
                     </div>
-        </div>
-    </div>
-    <% }})}} else { %> 
+                </div>
+            <% }})}} else { %> 
         <div id="sp-div">
             <p> Your landlord has not made an announcement yet.</p>
         </div>
