@@ -98,8 +98,7 @@ router.post('/', async (req,res) => {
             }
         });
         let user = await User.findOne({verString:newToken});
-        const link = `http://localhost:3000/reset/${user.verString}`;
-        resetPassword(remail,link);
+        resetPassword(remail,user.verString);
         res.redirect('/login')
     }else{
         console.log("Email not found.")

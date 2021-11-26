@@ -90,7 +90,8 @@ function sendVerification(email,code) {
 }
 //
 
-function resetPassword(email,link){
+function resetPassword(email,token){
+    let link = `http://localhost:3000/reset/${token}`;
     const rpOptions = {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
