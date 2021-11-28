@@ -61,15 +61,15 @@ router.post('/', checkAuthenticated, async (req,res) => {
     }else if(buttonValue == "reset"){
         const newToken = crypto.randomBytes(32).toString('hex');
         User.findByIdAndUpdate(req.user.id,{verString:newToken},function(err, docs){
-            if (err){
+            if(err){
                 console.log(err)
             }else{
                 console.log("Password Reset Requested")
             }
         });
-        let user = await User.findOne({verString:newToken});
-        resetPassword(req.user.email,user.verString);
-
+        const finduser = await User.findOne({verString:newToken});
+        resetPassword(req.user.email,finduser.verString);
+          
         res.redirect('/settings')
     }
 })

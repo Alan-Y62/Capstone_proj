@@ -86,19 +86,18 @@ router.post('/', async (req,res) => {
     const remail = req.body.email;
     let isuser = await User.findOne({email:remail});
 
-    console.log(buttonValue,remail)
-
     if(isuser && buttonValue == "reset"){
         const newToken = crypto.randomBytes(32).toString('hex');
-        User.findOneAndUpdate({email:remail},{verString:newToken},function(err, docs){
+        User.findOneAndUpdate({email:remail},{verString:newToken}).exec(function(err, docs){
             if (err){
                 console.log(err)
             }else{
                 console.log("Password Reset Requested")
             }
         });
-        let user = await User.findOne({verString:newToken});
-        resetPassword(remail,user.verString);
+        const finduser = await User.findOne({verString:newToken});
+        resetPassword(remail,finduser.verString); 
+
         res.redirect('/login')
     }else{
         console.log("Email not found.")

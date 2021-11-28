@@ -102,6 +102,19 @@
     font-size: 16px;
 }
 
+.reset{
+    margin: 0px 20% 100px; 
+}
+
+.reset button{
+    margin-top: 15px;
+    padding:6px 15px; 
+    color: white;
+    background: #089add; 
+    border-radius: 3px;
+    text-align: center;
+}
+
 /*Email Subscription*/
 .overlay{ 
     position: fixed; 
