@@ -1,4 +1,4 @@
-.request {
+/* .request {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -173,5 +173,82 @@ label {
 
   .request .panel .col {
     width: 34%
+  }
+} */
+
+.request {
+  margin-top: 5vh;
+  text-align: center;
+  font-weight: bold;
+  width: 80vw;
+  margin-left: 10vw;
+}
+
+h2 {
+  margin-left: 12.5%;
+  color: white;
+  border-style: solid 2px orange;
+  border-radius: 10px;
+  font-size: 50px;
+  width: 75%;
+}
+
+.request form {
+  margin-top: 5vh;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 3%;
+}
+
+.col {
+  width: 32%;
+  height: 300px;
+  text-align: left;
+  background-color: orange;
+  border-radius: 10px;
+  padding: 5px;
+  margin-left: 1.5%;
+  overflow: auto;
+  flex-grow: 1;
+}
+
+textarea {
+  width: 100%;
+  background-color: #df933d;
+  border-style: solid 2px white;
+  border-radius: 10px;
+  padding: 2px;
+
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#datepicker {
+  width: 50%;
+}
+
+#other {
+  width:100%;
+}
+
+@media only screen and (max-width: 940px) {
+  .row {
+    display: block;
+  }
+
+  .col {
+    width: 100%;
+    margin-bottom: 2%;
+  }
+
+  #only940row {
+    display: flex;
+  }
+
+  .only940col {
+    width: 50%;
   }
 }
