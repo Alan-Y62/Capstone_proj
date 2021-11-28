@@ -9,7 +9,7 @@ const Repair = require('../model/repairModel')
 const { checkAuthenticated, checkRolesAdmin } = require('../public/scripts/auth')
 const { addTwoWeeks, generateRepairs} = require('../public/scripts/miscFuncs');
 const { UserRefreshClient } = require('google-auth-library');
-const { sendUpdate } = require('../email/sendEmail')
+const { sendUpdate, sendEditUpdate } = require('../email/sendEmail')
 
 //image loading code for repairs
 const conn = mongoose.connection
@@ -49,7 +49,6 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
     await Promise.all(all_tenants.map(async(elements) => {
         if(String(elements._id) !== user) {
         const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
-             console.log("HELLO " + y[0].email)
              sendUpdate(y[0].email,title,body)
         })}
     }))
@@ -60,6 +59,16 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
 //page for editting an announcement
 router.get('/:id/edit/:a_id', checkAuthenticated, checkRolesAdmin, async (req, res) => {
     const announce = await Announce.findById(req.params.a_id)
+    const building_id = req.params.id;
+    const user = String(req.user._id)
+    const this_building = await Build.find({"_id":mongoose.Types.ObjectId(building_id)})
+    const all_tenants = this_building[0].tenants
+    await Promise.all(all_tenants.map(async(elements) => {
+        if(String(elements._id) !== user) {
+        const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
+             sendEditUpdate(y[0].email,announce.title,announce.body)
+        })}
+    }))
     res.render('./admin/edit_announce', { stuff: announce ,building_id:req.params.id})
 })
 

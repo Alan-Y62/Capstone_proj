@@ -75,17 +75,29 @@ function sendUpdate(email,subject,text){
 }
 
 //new code 
+
+function sendEditUpdate(email,subject,text){
+    const today = new Date()
+    const upOptions = {
+        from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
+        to: email,
+        subject: "Updated Announcement" + subject,
+        text: today.toLocaleDateString() + "\n" + subject + "\n" + text
+    };
+    sendEmail(upOptions);
+}
+
 function sendVerification(email,code) {
-    let link = `localhost:3000/confirmation/${code}`;
+    let url = `localhost:3000/confirmation/${code}`;
     const verOptions = {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
         subject: "Email Verification Link",
         text: 'Click this link to verify your email',
-        html: `<a href=${link}>${link}</a>`
-    }
+        html: "Confirm your Account with this link:" + "\n" + `<a href=${url}>${url}</a>`
+    };
     console.log(email)
-    console.log(link);
+    console.log(url);
     sendEmail(verOptions);
 }
 //
@@ -116,5 +128,6 @@ sendMail(toEmail,subject,text).then((result) => console.log('Email sent', result
 module.exports.sendMessage = sendMessage;
 module.exports.subMail = subMail;
 module.exports.sendUpdate = sendUpdate;
+module.exports.sendEditUpdate = sendEditUpdate;
 module.exports.sendVerification = sendVerification;
 module.exports.resetPassword = resetPassword;
