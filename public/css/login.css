@@ -1,4 +1,4 @@
-.form-container {
+.form-container-v1 {
     color: black;
     background: rgba(255,255,255,.5);
     border-top: 5px solid rgb(27, 74, 173);
@@ -15,7 +15,7 @@
     border-radius: 15px;
 }
 
-.form-container-2 {
+.form-container-v2 {
     color: black;
     background: rgba(255,255,255,.5);
     border-top: 5px solid rgb(27, 74, 173);
@@ -40,5 +40,30 @@
 .btn-r {
     position: relative;
     left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .form-container-v1 {
+        width: 95%;
+        margin-top: 45vh;
+        padding: 15px;
+        margin-left: 4%;
+    }
+
+    .form-container-v2 {
+        width: 95%;
+        margin-top: 45vh;
+        padding: 15px;
+        margin-left: 4%;
+    }
+
+    .row{
+        width:100%;
+    }
+    .col-md-4 {
+        padding: 0px;
+        
+    }
 }
 

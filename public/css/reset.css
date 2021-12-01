@@ -36,3 +36,12 @@ h1 {
     background: rgba(27, 74, 173, 0.7);
     color:white;
 }
+
+@media only screen and (max-width: 600px) { 
+
+    .resetForm {
+        width: 95%;
+        margin-top: 45vh;
+        padding: 15px;
+    }
+}

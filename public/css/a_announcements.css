@@ -62,6 +62,7 @@ h2 {
     margin-top: 10vh;
     font-size: 50px;
     margin-left: 5vw;
+    color: skyblue;
 }
 
 #sp-btn {
@@ -114,4 +115,43 @@ h2 {
         padding-left: 20px;
         padding-right: 20px;
     }
+}
+
+@media screen and (max-width: 600px) {
+
+    body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .row {
+        width: 100vw;
+        margin: 0px;
+        overflow:hidden;
+    }
+
+    .newest {
+        max-height: 40%;
+    }
+
+    .recent {
+        max-height: 40vh;
+    }
+
+    .nav-ann {
+        width: 100%;
+    }
+
+    #sp-div{
+        overflow:hidden;
+    }
+    
 }

@@ -33,6 +33,7 @@
     padding-top: 5%;
     transition: 0.2s;
 }
+
 .sidenav a{
     padding: 10px 10px 10px 30px;
     text-decoration: none;
@@ -84,7 +85,7 @@ html{
 .intro h2{
     font-weight: bold;
     font-size: 50px;
-    display:table-caption;
+    /* display:table-caption; */
     margin-left: 40px;
 }
 .intro p{
@@ -135,7 +136,6 @@ html{
 
 /*Our Team*/
 .team-list{
-    margin-left: 40px;
     white-space: nowrap;
     overflow-x: auto;
 }
@@ -156,4 +156,78 @@ html{
 
 #sign-con {
     padding: 10px;
+}
+
+#sign-con-m {
+    display: none;
+}
+
+.img1 {
+    position:relative;
+    margin-top: 20%;
+    border-radius:100%
+}
+
+@media only screen and (max-width: 600px) {
+    #sign-con {
+        display: none;
+    }
+
+    #sign-con-m {
+        display: flex;
+    }
+
+    #sign-con-m .log-btn {
+        margin-top: 5px;
+        margin-left: 1%;
+        width: 48%;
+    }
+
+    .title{
+        margin:auto;
+        text-align: center;
+        font-size:3rem;
+    }
+
+    .intro h2{
+        font-weight: bold;
+        font-size:2rem;
+        text-align:center;
+        margin:0;
+    }
+
+    .intro p {
+        text-align:center;
+    }
+
+    .intro a{
+        margin:0;
+        width:100%;
+        text-align:center;
+    }
+    
+    .about p {
+        width: 100%;
+        margin: 0px;
+        font-size: 1rem;
+    }
+
+    .features-content {
+        margin: 0px;
+    }
+
+    .features .ft-logo {
+        margin-left: -9vw;
+    }
+
+    .features .ft {
+        margin: 0px;
+        font-size: 15px;
+    }
+
+    .features .ft-des {
+        margin: 15px;
+    }
+
+
 }
