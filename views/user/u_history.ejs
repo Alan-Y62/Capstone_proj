@@ -29,31 +29,12 @@
         <div class="pending">
             <div class="reqContainer">
                 <h2>Pending Requests</h2>
-                <% problems.forEach( (a,index)=> { %>
-                    <% if(a.repairs.status==='pending' ) { %>
-                        <div class="reqSub" id="<%= index %>">
-                            <span class='c'>
-                                <h3>
-                                    <%= a.repairs.issue %>
-                                </h3>
-                                <a id="cancel-btn" href="/user/<%= building_id  %>/history/cancel/<%= a.repairs.id %>"
-                                    class="btns btn-warning">Cancel Request</a>
-                            </span>
-                            <% if(a.repairs.comments) { %>
-                                <p>
-                                    <%= a.comments %>
-                                </p>
-                                <% } %>
-                                    <% if(a.repairs.image !=='no' ) { %>
-                                        <img src="/user/<%= building_id  %>/image/<%= a.img._id%>" />
-                                        <% } %>
-                                            <p><span class="text-muted">Request Date: <%=
-                                                        a.repairs.date.toLocaleDateString() %> </span><span
-                                                    style="font-weight: bold;">Scheduled Repair Date:
-                                                    <%=a.repairs.sched_date.toLocaleDateString()%>
-                                                </span></p>
-                        </div>
-                        <% }}) %>
+                <% problems.forEach( (a) => { %>
+                    <% if(a.status === 'pending') { %> 
+                        <a class='btn btn-r btn-primary btn-block' href="/user/<%= building_id  %>/history/<%= a._id %>">
+                            <%= a.issue %> || Tenants name or Apt || Date
+                        </button></a>
+                    <% }}) %>
             </div>
         </div>
     </div>
@@ -63,25 +44,25 @@
             <div class="comcon">
                 <h2>Completed Requests</h2>
                 <% problems.forEach( (a,index)=> { %>
-                    <% if(a.repairs.status==='completed' ) { %>
+                    <% if(a.status==='completed' ) { %>
                         <div class="comSub" id='<%= index %>'>
                             <span class='c'>
                                 <h3>
-                                    <%= a.repairs.issue %>
+                                    <%= a.issue %>
                                 </h3>
                             </span>
-                            <% if(a.repairs.comments) { %>
+                            <% if(a.comments) { %>
                                 <p>
-                                    <%= a.repairs.comments %>
+                                    <%= a.comments %>
                                 </p>
                                 <% } %>
-                                    <% if(a.repairs.image !=='0x000000' ) { %>
-                                        <img src="/user/<%= building_id  %>/image/<%= a.img._id%>" />
+                                    <% if(a.image !=='0x000000' ) { %>
+                                        <img src="/user/<%= building_id  %>/image/<%= a._id%>" />
                                         <% } %>
                                             <p><span class="text-muted">Request Date: <%=
-                                                        a.repairs.date.toLocaleDateString() %> </span><span
+                                                        a.date.toLocaleDateString() %> </span><span
                                                     style="font-weight: bold;">Repair Finished:
-                                                    <%=a.repairs.sched_date.toLocaleDateString()%>
+                                                    <%=a.sched_date.toLocaleDateString()%>
                                                 </span></p>
                         </div>
                         <% }}) %>

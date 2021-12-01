@@ -6,6 +6,7 @@ const User = require('../model/user')
 const Announce = require('../model/announcement')
 const Build = require('../model/building')
 const Repair = require('../model/repairModel')
+const Comm = require('../model/comment')
 const { checkAuthenticated, checkRolesAdmin } = require('../public/scripts/auth')
 const { addTwoWeeks, generateRepairs} = require('../public/scripts/miscFuncs');
 const { UserRefreshClient } = require('google-auth-library');
@@ -85,27 +86,7 @@ router.post('/:id/edit/:an_id', checkAuthenticated, checkRolesAdmin, async(req, 
 //page for viewing requests
 router.get('/:id/requests', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const findrqs = await Repair.find({building: req.params.id})
-    const rqs = await Promise.all(findrqs.map(async (element) => {
-        const repairs = element;
-        const rqsimg = await gfs.find({"_id": mongoose.Types.ObjectId(element.image)}).toArray().then(y => {
-            if (!y || y.length === 0) {
-            } else{
-                y.map(file => {
-                    if(
-                        file.contentType === 'image/jpeg' ||
-                        file.contentType === 'image/png'
-                    ){
-                        file.isImage = true;
-                    } else{
-                        file.isImage = false;
-                    }
-            })}
-            const img = y[0]
-            return{repairs, img}
-        })
-        return rqsimg
-    }))
-    res.render('./admin/admin_repair', {problems: rqs, building_id:req.params.id})
+    res.render('./admin/admin_repair', {problems: findrqs, building_id:req.params.id})
 })
 
 //request post in the form of a get //pushes repair dates back
@@ -140,9 +121,28 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
 })
 
 router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
-    const repair = await Repair.find({"_id":req.params.r_id})
-    console.log(repair[0])
-    res.render('./admin/admin_repairdetails', {repair:repair[0]})
+    const repairID = mongoose.Types.ObjectId(req.params.r_id)
+    const rqs = await Repair.find({"_id": repairID})
+    /////////////////////////////////////////////////////////
+    console.log(rqs)
+    const id = req.params.r_id;
+    const comm = await Comm.find({"room_id": id})
+    res.render('./admin/admin_repairdetails', {problems: rqs[0], comm:comm, id:id})
+})
+
+// add another check later -- Any user can still access ur repair req
+router.post('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
+    const buildID = req.params.id;
+    const room_id = req.params.r_id;
+    console.log(req.body)
+    const comment = new Comm({room_id, comment:req.body.what})
+    await comment.save((err,comment) => {
+        const commID = comment._id;
+        console.log(commID)
+        req.io.to(room_id).emit('comment', {comment:req.body.what, id:commID})
+    });
+    // req.io.to(room_id).emit('comment', req.body.what)
+    res.redirect(`/admin/${buildID}/requests/${room_id}`)
 })
 
 //tempoary route delete later

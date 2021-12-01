@@ -17,55 +17,53 @@
 <body>
     <%- include("../partials/build_navGeneric", {title:"Repairs"})%>
     <% if(problems.length !== 0) { %>
-    <div class="body-page" onClick="closeSide()">
-        <div class="pending">
-            <h2>Pending Requests</h2>
-            <div class="reqContainer">
-            <% problems.forEach( (a) => { %>
-                <% if(a.repairs.status === 'pending') { %> 
-                    <a class='req-link btn btn-r btn-primary btn-block' href="/admin/<%= building_id  %>/requests/<%= a.repairs.id %>"><%= a.repairs.issue %> || Tenants name or Apt || Date</a>
-                <% }}) %>
-            </div> 
-        </div>
-    </div>
-    <% } else { %>
-        <div class="dflt-msg">
-            <p> No Active Requests</p>
-        </div>
-    <% } %>
-    <% if(problems.length !== 0) { %>
-    <div class='completedContainer'>
-        <div class="abc123">
-            <h2>Completed Requests</h2>
-            <div class="comcon">
+        <div class="body-page" onClick="closeSide()">
+            <div class="pending">
+                <h2>Pending Requests</h2>
+                <div class="reqContainer">
                 <% problems.forEach( (a) => { %>
-                    <% if(a.repairs.status === 'completed') { %>
-                    <div class="comSub">
-                        <span class='c'>
-                            <h3><%= a.repairs.issue %> </h3>
-                        </span>
-                        <p style="font-weight: bold;"><span id="tenant"><%=a.repairs.tenant%>,</span><span id="addr"> <%=a.repairs.address%> </span><span id="aptNum">APT <%=a.repairs.apt%></span></p>
-                    <% if(a.repairs.comments) { %>
-                    <p><%= a.repairs.comments %></p>
-                    <% } %>
-                    <% if(a.repairs.image !== 'no') { %>
-                        <img src="/admin/<%= building_id  %>/image/<%= a.img._id%>"/>
-                    <% } %>
-                    <p><span class="text-muted">Request Date: <%= a.repairs.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.repairs.sched_date.toLocaleDateString()%></span></p>
-                    </div>
-                <% }}) %>
+                    <% if(a.status === 'pending') { %> 
+                        <a class='btn btn-r btn-primary btn-block' href="/admin/<%= building_id  %>/requests/<%= a._id %>"><%= a.issue %> || Tenants name or Apt || Date</a>
+                    <% }}) %>
+                </div> 
             </div>
         </div>
-    </div>
-    <% } else { %>
-        <div class="dflt-msg">
-            <p> No Completed Requests Either</p>
+        <% } else { %>
+            <div class="dflt-msg">
+                <p> No Active Requests</p>
+            </div>
+        <% } %>
+        <div class='completedContainer'>
+            <div class="abc123">
+                <h2>Completed Requests</h2>
+                <div class="comcon">
+                    <% problems.forEach( (a) => { %>
+                        <% if(a.status === 'completed') { %>
+                        <div class="comSub">
+                            <span class='c'>
+                                <h3><%= a.issue %> </h3>
+                            </span>
+                            <p style="font-weight: bold;"><span id="tenant"><%=a.tenant%>,</span><span id="addr"> <%=a.apt%></span></p>
+                        <% if(a.comments) { %>
+                        <p><%= a.comments %></p>
+                        <% } %>
+                        <% if(a.image !== 'no') { %>
+                            <img src="/admin/<%= building_id  %>/image/<%= a._id%>"/>
+                        <% } %>
+                        <p><span class="text-muted">Request Date: <%= a.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.sched_date.toLocaleDateString()%></span></p>
+                        </div>
+                    <% }}) %>
+                </div>
+            </div>
         </div>
-    <% } %>
-</body>
-
-<script src="/public/scripts/scrollTop.js"></script>
-<script src="/public/scripts/navbar.js"></script>
+        
+        <div>
+        <i class="scroll-up" id="scroll-up"><img src="/public/images/upward.gif" class="side_bar up-arrow" alt="" /></i>
+        </div>
+    </body>
+    
+    <script src="/public/scripts/scrollTop.js"></script>
+    <script src="/public/scripts/navbar.js"></script>
 
 <!-- DATE SELECT SCRIPT-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
