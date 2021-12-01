@@ -26,10 +26,10 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.6.5",
     "passport": "^0.5.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
     "nodemon": "^2.0.13"
   }
 }
