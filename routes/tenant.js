@@ -6,6 +6,7 @@ const User = require('../model/user')
 const Announce = require('../model/announcement')
 const Build = require('../model/building')
 const Repair = require('../model/repairModel')
+const Comm = require('../model/comment')
 const { checkAuthenticated, checkRolesUser } = require('../public/scripts/auth')
 
 const conn = mongoose.connection
@@ -62,31 +63,29 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
 })
 
 router.get('/:id/history', checkAuthenticated, checkRolesUser, async(req,res) => {
-  const findrqs = await Repair.find({building: req.params.id, tenant:req.user.id})
-  const rqs = await Promise.all(findrqs.map(async (element) => {
-      const repairs = element;
-      console.log(mongoose.Types.ObjectId(element.image))
-      const rqsimg = await gfs.find({"_id": mongoose.Types.ObjectId(element.image)}).toArray().then(y => {
-          if (!y || y.length === 0) {
-              console.log(element.image)
-          } else{
-              y.map(file => {
-                  if(
-                      file.contentType === 'image/jpeg' ||
-                      file.contentType === 'image/png'
-                  ){
-                      file.isImage = true;
-                      console.log(file)
-                  } else{
-                      file.isImage = false;
-                  }
-          })}
-          const img = y[0]
-          return{repairs, img}
-      })
-      return rqsimg
-  }))
-  res.render('./user/u_history', {problems: rqs, building_id: req.params.id})
+  const findrqs = await Repair.find({building: req.params.id})
+  res.render('./user/u_history', {problems: findrqs, building_id: req.params.id})
+})
+
+router.get('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,res)=>{
+  const repairID = mongoose.Types.ObjectId(req.params.r_id)
+  const rqs = await Repair.find({"_id": repairID})
+  const id = req.params.r_id;
+  const comm = await Comm.find({"room_id": id})
+  res.render('./user/user_repairdetails', {problems: rqs[0], comm:comm, id:id})
+})
+
+///add another check -- repairs
+router.post('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,res)=>{
+  const buildID = req.params.id;
+  const room_id = req.params.r_id;
+  const comment = new Comm({room_id, comment:req.body.what})
+  await comment.save((err,comment) => {
+    const commID = comment._id;
+    console.log(commID)
+    req.io.to(room_id).emit('comment', {comment:req.body.what, id:commID})
+  });
+  res.redirect(`/user/${buildID}/history/${room_id}`)
 })
 
 router.get('/:id/history/cancel/:r_id', checkAuthenticated, checkRolesUser, async (req,res) => {

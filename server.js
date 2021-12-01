@@ -6,6 +6,8 @@ const passport = require('passport')
 const database = require('./config/database')
 const session = require('express-session')
 const flash = require('express-flash')
+const http = require('http')
+const socketio = require('socket.io')
 
 const app = express()
 
@@ -37,6 +39,17 @@ require('./config/passsport-config')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+//socketio
+const server = http.createServer(app);   
+const io = socketio(server);   
+
+app.use(function(req, res, next) {
+  req.io = io;
+  next();
+});
+
+const the_socket = require('./config/socketio')(io)
+
 //routes
 app.use('/', require('./routes/signin'));
 app.use('/home', require('./routes/home'));
@@ -57,5 +70,5 @@ app.get("*", (req,res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT)
+server.listen(PORT)
 
