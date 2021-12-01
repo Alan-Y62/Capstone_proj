@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ObjectID = require('mongoose').Types.ObjectId
 const path = require('path');
 // const User = require('/model/user')
 // const Announce = require('..../model/announcement')
@@ -22,6 +23,9 @@ function checkNotAuthenticated(req,res,next) {
 }
 
 async function checkRolesAdmin(req,res,next) {
+    if(!ObjectID.isValid(req.params.id)){
+        return res.redirect('/404')
+    }
     const buildID = mongoose.Types.ObjectId(req.params.id);
     const userID = mongoose.Types.ObjectId(req.user.id);
     const building = await Build.find({'_id': buildID});
@@ -33,6 +37,9 @@ async function checkRolesAdmin(req,res,next) {
 }
 
 async function checkRolesUser(req,res,next) {
+    if(!ObjectID.isValid(req.params.id)){
+        return res.redirect('/404')
+    }
     const buildID = mongoose.Types.ObjectId(req.params.id);
     const userID = mongoose.Types.ObjectId(req.user.id);
     const building = await Build.find({'_id': buildID});
