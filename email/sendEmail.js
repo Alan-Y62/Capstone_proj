@@ -82,19 +82,20 @@ function sendEditUpdate(email,subject,text){
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
         subject: "Updated Announcement" + subject,
-        text: today.toLocaleDateString() + "\n" + subject + "\n" + text
+        text: today.toLocaleDateString() + "\n" + subject + "\n" + text,
+        html: `<h2>${subject}</h2>` + `<p>${text}</p>`
     };
     sendEmail(upOptions);
 }
 
 function sendVerification(email,code) {
-    let url = `localhost:3000/confirmation/${code}`;
+    let url = `http://localhost:3000/confirmation/${code}`;
     const verOptions = {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
         subject: "Email Verification Link",
         text: 'Click this link to verify your email',
-        html: "Confirm your Account with this link:" + "\n" + `<a href=${url}>${url}</a>`
+        html: "Confirm your Account with this link:" + "\n" + `<a href="${url}">Confirm your Account</a>`
     };
     console.log(email)
     console.log(url);
