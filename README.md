@@ -1,7 +1,7 @@
 # Capstone Project - Daily Tenant
 
 ## Website Link
-[CLICK HERE FOR THE LIVE DEMO](https://dashboard.heroku.com/apps/dailytenant)
+[CLICK HERE FOR THE LIVE DEMO](https://dailytenant.herokuapp.com/)
 
 
 ## Overview
