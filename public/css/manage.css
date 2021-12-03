@@ -48,8 +48,8 @@ thead{
 
 @media screen and (max-width: 600px) {
     .tenant-list, .pending-list {
-        width: 100%;
-        margin: 0px;
+        width: 98%;
+        margin: 1%;
     }
 
     .table {
