@@ -1,0 +1,24 @@
+<% pending.forEach(a => { %> 
+        <div class="user-container">
+            <form class="form-a" action="/admin/<%= location._id %>/manage/useraccept" method="post">  
+                <div>
+                    <input type="hidden" id="ident" name="ident" value="<%= a.id %>"readonly>
+                    <div class="e-name"><%= a.name %></div>
+                
+                    <select class="e-space" name="chooseApt" id="chooseApt" required>
+                        <% tenants.forEach(p => { %>
+                            <% if(p.tenants_name === 'Vacant') { %>
+                            <option><%= p.tenants_apt %></option>
+                        <% }}) %>    
+                    </select>
+                    <button class="e-space" id='accept' type="submit" value='ACCEPT'>
+                        Accept
+                    </button>
+                </div>
+            </form>
+            <form class="form-a" id='deny' action="/admin/<%= location._id %>/manage/userdeny" method="post">
+                <input type="hidden" id="ident" name="ident" value="<%= a.id %>"readonly>
+                <button type="submit" value='DENY'>Deny</button>
+            </form >
+        </div>
+        <% }) %>

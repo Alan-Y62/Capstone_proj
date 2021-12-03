@@ -1,96 +1,102 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
-<link href="/public/css/homelcreate.css" type="text/css" rel="stylesheet"/>
-<link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>CREATE A BUILDING</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
+  <link href="/public/css/homelcreate.css" type="text/css" rel="stylesheet"/>
+  <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+</head>
 <body>
-  
-<form action="/home/create" method="POST" id="theform">
-  <p class="invalid" id="invalid">Missing fields</p>
-    <div class="tab">
-        <div class="form-group">
-            <label for="Location">Address</label>
-            <input type="text" class="form-control" id="location" name="location" placeholder="Address" 
-             required>
-        </div>
-        <div class="form-group">
-            <label for="country">Country</label>
-            <input type="text" class="form-control" id="country" name="country" placeholder="Country" 
+  <form action="/home/create" method="POST" id="theform">
+    <p class="invalid" id="invalid">Missing fields</p>
+      <div class="tab">
+          <div class="form-group">
+              <label for="Location">Address</label>
+              <input type="text" class="form-control" id="location" name="location" placeholder="Address" 
+              required>
+          </div>
+          <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" class="form-control" id="country" name="country" placeholder="Country" 
+              required>
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="City" 
             required>
         </div>
         <div class="form-group">
-          <label for="city">City</label>
-          <input type="text" class="form-control" id="city" name="city" placeholder="City" 
+          <label for="">Zip Code</label>
+          <input type="number" oninput="numcheck(this)" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code" 
           required>
       </div>
-      <div class="form-group">
-        <label for="">Zip Code</label>
-        <input type="number" oninput="numcheck(this)" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code" 
-        required>
-    </div>
-      </div>
-      <div class="tab" id="pg2">Apt Numbering Type<br>
-        <input type="radio" name ="numType" id ="onlyNum" value="onlyNum">
-        <label for="onlyNum">Numbers Only ex(1,2,3,4,5...)</label><br>
-        <input type="radio" name ="numType" id ="numLetter" value="numLetter">
-        <label for="numLetter">Numbers and Letters ex(1a,1b,2a,2b...)</label><br>
-        <input type="radio" name ="numType" id ="floorNum" value="floorNum">
-        <label for="floorNum">Floor Number and Number ex(101,102,103,201,202...)</label><br>
-      </div>
-      <div class="tab" id="pg3">
-        <div id = "num">
-          <div class="form-group">
-            <label for="nums"># of Apt</label>
-            <input type="number" oninput="numcheck(this)" class="form-control" id="nums" name="nums" placeholder="0" 
-             >
-          </div>
         </div>
-        <div id = "numalpha">
-          <div class="form-group">
-            <label for="numfora">Number</label>
-            <input type="number" oninput="numcheck(this)" class="form-control" id="numfora" name="numfora" placeholder="0" >
-          </div>    
-          <div class="form-group">
-              <label for="alpha">Apt letters</label>
-              <select id="alphabet">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-                <option value="H">H</option>
-                <option value="I">I</option>
-                <option value="J">J</option>
-              </select>
+        <div class="tab" id="pg2">Apt Numbering Type<br>
+          <input type="radio" name ="numType" id ="onlyNum" value="onlyNum">
+          <label for="onlyNum">Numbers Only ex(1,2,3,4,5...)</label><br>
+          <input type="radio" name ="numType" id ="numLetter" value="numLetter">
+          <label for="numLetter">Numbers and Letters ex(1a,1b,2a,2b...)</label><br>
+          <input type="radio" name ="numType" id ="floorNum" value="floorNum">
+          <label for="floorNum">Floor Number and Number ex(101,102,103,201,202...)</label><br>
+        </div>
+        <div class="tab" id="pg3">
+          <div id = "num">
+            <div class="form-group">
+              <label for="nums"># of Apt</label>
+              <input type="number" oninput="numcheck(this)" class="form-control" id="nums" name="nums" placeholder="0" 
+              >
             </div>
-        </div>
-        <div id ="numnum">
-          <div class="form-group">
-            <label for="startnum">Apt floors</label>
-            <input type="number" oninput="numcheck(this)" class="form-control" id="startnum" name="startnum" placeholder="0" 
-             >
           </div>
-          <div class="form-group">
-            <label for="endnum"># of Apt on floor</label>
-            <input type="number" oninput="numcheck(this)" class="form-control" id="endnum" name="endnum" placeholder="0" 
-             >
+          <div id = "numalpha">
+            <div class="form-group">
+              <label for="numfora">Number</label>
+              <input type="number" oninput="numcheck(this)" class="form-control" id="numfora" name="numfora" placeholder="0" >
+            </div>    
+            <div class="form-group">
+                <label for="alpha">Apt letters</label>
+                <select id="alphabet">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G</option>
+                  <option value="H">H</option>
+                  <option value="I">I</option>
+                  <option value="J">J</option>
+                </select>
+              </div>
+          </div>
+          <div id ="numnum">
+            <div class="form-group">
+              <label for="startnum">Apt floors</label>
+              <input type="number" oninput="numcheck(this)" class="form-control" id="startnum" name="startnum" placeholder="0" 
+              >
+            </div>
+            <div class="form-group">
+              <label for="endnum"># of Apt on floor</label>
+              <input type="number" oninput="numcheck(this)" class="form-control" id="endnum" name="endnum" placeholder="0" 
+              >
+            </div>
           </div>
         </div>
-      </div>
-      <div class="tab" id="pg4">
-        
-      </div>
-      <div style="overflow:auto;">
-        <div style="float:right;">
-          <button type="button" class="btn btn-default" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-          <button type="button" class="btn btn-default" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        <div class="tab" id="pg4">
+          
         </div>
-      </div>
-
-</form>
-<a class="btn btn-r btn-primary" href="/home" role="button">Previous Page</a>
+        <div style="overflow:auto;">
+          <div style="float:right;">
+            <button type="button" class="btn btn-default" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" class="btn btn-default" id="nextBtn" onclick="nextPrev(1)">Next</button>
+          </div>
+        </div>
+  </form>
+  <a class="btn btn-r btn-primary" href="/home" role="button">Previous Page</a>
 </body>
 
 <script src="/public/scripts/homelcreate.js"></script>    

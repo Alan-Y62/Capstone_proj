@@ -1,90 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/manage.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <title>Manage Tenants</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/manage.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/global.css" type="text/css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <%- include("../partials/build_navGeneric", {title:"Manage"})%>
-    <div class = "container mb-5 mt-5">
-        <div>
-            <h1><%= location.address %></h1>
-        </div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="width:10%">Apt#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th style="width:5%"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if(tenants) { %>
-                <% tenants.forEach(a => { %>
-                <tr>
-                    <td><%= a.tenants_apt %></td> 
-                    <%# a.tenants_id %>
-                    <td><%= a.tenants_name %></td>
-                    <td><%= a.tenants_email %></td>
-                    <td><button class="btn btn-danger" 
-                        onclick="postDelete('/admin/<%= location._id %>/manage/userdelete',
+    <div class="tenant-list">
+      <h1><%= location.address %></h1>
+      <input type="hidden" id="location" name="location" value="<%= location._id %>" readonly />
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10%">Apt#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th style="width: 5%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(tenants) { %> <% console.log(tenants) %> <% tenants.forEach(a =>
+          { %>
+          <tr>
+            <td><%= a.tenants_apt %></td>
+            <td><%= a.tenants_name %></td>
+            <td><%= a.tenants_email %></td>
+            <td>
+              <button
+                class="btn btn-danger"
+                onclick="postDelete('/admin/<%= location._id %>/manage/userdelete',
                         {name:'<%= a.tenants_name %>',
                         apt:'<%= a.tenants_apt %>',
-                        _id:'<%= a.tenants_id %>'})">Delete</button></td>
-                <% })} %>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <br>
+                        _id:'<%= a.tenants_id %>'})">Delete</button>
+            </td>
+            <% })} %>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <br />
     </div>
-    <div class ="pending-list border border-primary">
-        <h3>Pending</h3>
-        <% if(pending.length > 0) {%>
-    <% pending.forEach(a => { %> 
-    <div class="user-container">
-        <form action="/admin/<%= location._id %>/manage/useraccept" method="post">  
-            <div>
-            <input type="hidden" id="ident" name="ident" value="<%= a.id %>"readonly>
-            <span class="e"><%= a.name %></span>
-            
-            <select name="chooseApt" id="chooseApt" required>
-                <% tenants.forEach(p => { %>
-                    <option><%= p.tenants_apt %></option>
-                <% }) %>    
-            </select>
-                <button id='accept' type="submit" value='ACCEPT'>Accept</button>
-            </div>
-        </form>
-        <form id='deny' action="/admin/<%= location._id %>/manage/userdeny" method="post">
-            <input type="hidden" id="ident" name="ident" value="<%= a.id %>"readonly>
-            <button type="submit" value='DENY'>Deny</button>
-        </form >
+    <div class="pending-list">
+      <h3>Pending</h3>
+      <% if(pending.length > 0) {%> <% pending.forEach(a => { %>
+      <div class="individuals">
+        <div class="i-name i-sub"><%= a.name %></div>
+        <select class="i-sub ca" name="chooseApt" id="<%=a.id%>" required>
+          <% tenants.forEach(p => { %> <% if(p.tenants_name === 'Vacant') { %>
+          <option><%= p.tenants_apt %></option>
+          <% }}) %>
+        </select>
+        <button class="btn btn-primary i-sub" id="accept" 
+        onclick="pendAccept({ident:'<%= a.id %>'})">
+          Accept
+        </button>
+        <button class="btn btn-danger i-sub" id="deny"  
+        onclick="pendDeny({ident:'<%= a.id %>'})">>
+          Deny
+        </button>
+      </div>
+      <% })} else {%>
+      <p>No pending tenants</p>
+      <% } %>
     </div>
-        <% }) %>
-        <% } else {%>
-            <p>No pending tenants</p> 
-        <% } %>
-    </div> 
-</body>
+  </body>
 
-<style>
-    .mb-5 {
-        background: white;
-    }
-</style>
-
-<script src="/public/scripts/management.js"></script>
-
-<script src="/public/scripts/navbar.js"></script>
+  <script src="/public/scripts/management.js"></script>
+  <script src="/public/scripts/navbar.js"></script>
+</html>

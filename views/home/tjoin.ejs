@@ -14,41 +14,42 @@
 </head>
 <body>
     <a class="btn btn-r btn-primary" href="/home" role="button">Previous Page</a>
-    <div class='d-flex justify-content-center back'>
-        <h1 class=' text-nowrap title'>APPLY TO JOIN BUILDING</h1>
-    </div> 
-    <div class = 'd-flex justify-content-center mb-3'>
-        <label for="alpha" style="color:white">Search By &nbsp</label>
-        <select id="searchBy" onchange="refresh()">
-          <option value="0">Address</option>
-          <option value="1">Landlord</option>
-          <option value="2">ID</option>
-        </select>
-        <span>&nbsp</span>
-        <input class='col-8' type="text" id="search" name="search" onkeyup="search()" placeholder="Search">
-    </div>
-    <div class="joinTable m-5">
-    <table class = "table table-bordered table-dark">
-        <thead>
-            <tr>
-                <th style="width:45%">Address</th>
-                <th style="width:45%">Landlord</th>
-                <th></th>
-            </tr>
-        </thead>  
-        <tbody id="thetable">
-        <% if(ap) { %> 
-                <% ap.forEach(a => { %>
-            <tr>
-                <td><%= a.address %></td>
-                <td><%= a.landlord %></td>
-                <td style="display:none"><%= a.id %></td>
-                <td><button onclick="postJoin('/home/join',
-                    {id:'<%= a.id %>'})" class="btn btn-j btn-primary">JOIN</button></td>
-            </tr> 
-            <% })} %>
-        </tbody>
-    </table>
+    <div id="scdc">
+        <div class='d-flex justify-content-center back'>
+            <h1 class=' text-nowrap title'>APPLY TO JOIN BUILDING</h1>
+        </div> 
+        <div class='search-con d-flex justify-content-center mb-3'>
+            <select id="searchBy" onchange="refresh()">
+            <option value="0">Address</option>
+            <option value="1">Landlord</option>
+            <option value="2">ID</option>
+            </select>
+            <span>&nbsp</span>
+            <input class='col-8' type="text" id="search" name="search" onkeyup="search()" placeholder="Search">
+        </div>
+        <div class="joinTable">
+        <table class = "table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th style="width:45%">Address</th>
+                    <th style="width:45%">Landlord</th>
+                    <th></th>
+                </tr>
+            </thead>  
+            <tbody id="thetable">
+            <% if(ap) { %> 
+                    <% ap.forEach(a => { %>
+                <tr>
+                    <td><%= a.address %></td>
+                    <td><%= a.landlord %></td>
+                    <td style="display:none"><%= a.id %></td>
+                    <td><button onclick="postJoin('/home/join',
+                        {id:'<%= a.id %>'})" class="btn btn-j btn-primary">JOIN</button></td>
+                </tr> 
+                <% })} %>
+            </tbody>
+        </table>
+        </div>
     </div>
 </body>
 
