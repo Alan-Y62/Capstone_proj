@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <%- include("../partials/build_navUser", {title:"Request"})%>
     <div class="container">
         <div class="image">
             <% if(problems.image !=='no' ) { %>
@@ -26,20 +27,23 @@
         <div class="desc">
             <h4>
                 Issue: <%= problems.issue %>
-            </h4>
-
-            <h4>
-                Apt: <%= problems.apt %>
-            </h4>
-            <h4>
-                Additional Comments: <%= problems.comments %>
-            </h4>
-            <h4>
-                Date Requested:<%= problems.date.toLocaleDateString() %>
-            </h4>
-            <h4>
-                Date Scheduled:<%= problems.sched_date.toLocaleDateString() %>
-            </h4>
+             </h4>
+             
+             <h4>
+                 Apt: <%= problems.apt %>
+             </h4>
+             <h4>
+                 Additional Comments: <%= problems.comments %>
+             </h4>
+             <h4>
+                 Date Requested:<%= problems.date.toLocaleDateString() %>
+             </h4>
+             <h4>
+                 Date Scheduled:<%= problems.sched_date.toLocaleDateString() %>
+             </h4>
+             <h4>
+                 Status: <%= problems.status %>
+             </h4>
             <small id="ident">
                 <%= problems._id %>
             </small>
@@ -69,12 +73,10 @@
                 <% comm.reverse().forEach( e=> {%>
                     <div class="card  border-light mb-3 comment">
                         <div class="card-body">
-                            <h6>Put Name here</h6>
-                            <p>
-                                <%= e.comment %>
-                            </p>
+                            <p><strong><%= e.from %></strong></p>
+                            <p><%= e.comment %></p>
                             <div>
-                                <small>time</small>
+                                <small><%= e.date.toLocaleDateString() %></small>
                             </div>
                         </div>
                     </div>
@@ -103,7 +105,8 @@
     }
 
     img{
-        width:600px;
+        width:100%;
+        height: 100%;
         border: 5px solid #333;
     }
     
@@ -122,3 +125,4 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/public/scripts/comment.js"></script>
+<script src="/public/scripts/navbar.js"></script>

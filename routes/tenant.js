@@ -36,28 +36,38 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
     console.log(issue + " + " + date + " + " + ignore + " + " + comments );
     let sched_date = Date.now();
     sched_date = new Date(sched_date);
-    console.log(sched_date)
+    emer_date = new Date(date);
+    const stat = 'emergency';
     switch(date) {
       case 'Emergency':
         sched_date.setDate(sched_date.getDate()+4);
         break; 
-      case 'nothing':
-        sched_date.setDate(sched_date.getDate()+300);
+      case 'standard':
+        sched_date.setDate(sched_date.getDate()+14);
         break;
       default:
-        sched_date.setDate(sched_date.getDate()+14)
+        const building = mongoose.Types.ObjectId(req.params.id);
+        const tenant = mongoose.Types.ObjectId(req.user.id);
+        const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
+        const apt = match[0].tenants[0].apt;
+        const image = req.file.id;
+        const new_repair = new Repair({
+        building,apt,tenant, issue, image, comments, stat
+        })
+        new_repair.save()
         break;
     }
-    console.log(sched_date)
-    const building = mongoose.Types.ObjectId(req.params.id);
-    const tenant = mongoose.Types.ObjectId(req.user.id);
-    const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
-    const apt = match[0].tenants[0].apt;
-    const image = req.file.id;
-    const new_repair = new Repair({
-      building,apt,tenant, issue, image, comments
-    })
-    new_repair.save()
+    if(date === 'Emergency' || date === 'standard') {
+      const building = mongoose.Types.ObjectId(req.params.id);
+      const tenant = mongoose.Types.ObjectId(req.user.id);
+      const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
+      const apt = match[0].tenants[0].apt;
+      const image = req.file.id;
+      const new_repair = new Repair({
+        building,apt,tenant, issue, image, comments
+      })
+      new_repair.save()
+    }
     console.log('success')
     res.redirect(`/user/${req.params.id}/history`)
 })
@@ -72,14 +82,19 @@ router.get('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,r
   const rqs = await Repair.find({"_id": repairID})
   const id = req.params.r_id;
   const comm = await Comm.find({"room_id": id})
-  res.render('./user/user_repairdetails', {problems: rqs[0], comm:comm, id:id})
+  res.render('./user/user_repairdetails', {problems: rqs[0], comm:comm, id:id, building_id: req.params.id})
 })
 
 ///add another check -- repairs
 router.post('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,res)=>{
   const buildID = req.params.id;
   const room_id = req.params.r_id;
-  const comment = new Comm({room_id, comment:req.body.what})
+  const building = await Build.find({"_id": mongoose.Types.ObjectId(buildID)})
+  const landlord = building[0].landlord
+  const user = await User.find({"_id": mongoose.Types.ObjectId(req.user.id)});
+  const from = user[0].name;
+  console.log(req.body)
+  const comment = new Comm({room_id, to:landlord, from, comment:req.body.what})
   await comment.save((err,comment) => {
     const commID = comment._id;
     console.log(commID)

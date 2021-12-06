@@ -77,8 +77,6 @@ router.get('/:id/edit/:a_id', checkAuthenticated, checkRolesAdmin, async (req, r
 router.post('/:id/edit/:an_id', checkAuthenticated, checkRolesAdmin, async(req, res) => {
     const{title, body} = req.body
     const building_id = req.params.id;
-    //fixed the error, findandUpdate was taking the building 
-    //id and redirect had a ./admin when its just /admin
     await Announce.findByIdAndUpdate(req.params.an_id, {title,body});
     res.redirect(`/admin/${building_id}`);
 })
@@ -123,19 +121,21 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
 router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
     const repairID = mongoose.Types.ObjectId(req.params.r_id)
     const rqs = await Repair.find({"_id": repairID})
-    /////////////////////////////////////////////////////////
     console.log(rqs)
     const id = req.params.r_id;
     const comm = await Comm.find({"room_id": id})
-    res.render('./admin/admin_repairdetails', {problems: rqs[0], comm:comm, id:id})
+    res.render('./admin/admin_repairdetails', {problems: rqs[0], comm:comm, id:id,building_id:req.params.id})
 })
 
-// add another check later -- Any user can still access ur repair req
 router.post('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
     const buildID = req.params.id;
     const room_id = req.params.r_id;
+    const repair = await Repair.find({"_id": mongoose.Types.ObjectId(room_id)})
+    const tenant = repair[0].tenant;
+    const user = await User.find({"_id": mongoose.Types.ObjectId(req.user.id)});
+    const from = user[0].name;
     console.log(req.body)
-    const comment = new Comm({room_id, comment:req.body.what})
+    const comment = new Comm({room_id, to:tenant, from, comment:req.body.what})
     await comment.save((err,comment) => {
         const commID = comment._id;
         console.log(commID)

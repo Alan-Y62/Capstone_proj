@@ -17,6 +17,11 @@
         text-align: center;
     }
 
+    .btn-r {
+        width: 92%;
+        margin-left: 4%;
+    }
+
     .req-link {
         max-width: 92%;
         margin-left: 4%;
