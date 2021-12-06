@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Requests</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/global.css" type="text/css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+</head>
+
+<body>
+    <%- include("../partials/build_navUser", {title:"Request"})%>
+    <div class="container">
+        <div class="image">
+            <% if(problems.image !=='no' ) { %>
+                <img src="/admin/<%= problems.building  %>/image/<%= problems.image%>" />
+                <% } %>
+        </div>
+        <div class="desc">
+            <h4>
+                Issue: <%= problems.issue %>
+             </h4>
+             
+             <h4>
+                 Apt: <%= problems.apt %>
+             </h4>
+             <h4>
+                 Additional Comments: <%= problems.comments %>
+             </h4>
+             <h4>
+                 Date Requested:<%= problems.date.toLocaleDateString() %>
+             </h4>
+             <h4>
+                 Date Scheduled:<%= problems.sched_date.toLocaleDateString() %>
+             </h4>
+             <h4>
+                 Status: <%= problems.status %>
+             </h4>
+            <small id="ident">
+                <%= problems._id %>
+            </small>
+        </div>
+    </div>
+    <div class="comment_sec">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h4 class="border-bottom pb-2">Comments</h4>
+                </div>
+                <div class="col-md-12">
+                    <button id="submitBtn" class="btn btn-primary float-right" type="submit">Submit</button>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="comment_container">
+                    <% comm.reverse().forEach( e=> {%>
+                        <div class="card  border-light mb-3 comment">
+                            <div class="card-body">
+                                <p><strong><%= e.from %></strong></p>
+                                <p><%= e.comment %></p>
+                                <div>
+                                    <small><%= e.date.toLocaleDateString() %></small>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </body>
+
+    <script src="/public/scripts/navbar.js"></script>

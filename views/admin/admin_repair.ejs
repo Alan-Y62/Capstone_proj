@@ -23,7 +23,11 @@
                 <div class="reqContainer">
                 <% problems.forEach( (a) => { %>
                     <% if(a.status === 'pending') { %> 
-                        <a class='btn btn-r btn-primary btn-block' href="/admin/<%= building_id  %>/requests/<%= a._id %>"><%= a.issue %> || Tenants name or Apt || Date</a>
+                        <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>">
+                            <p>Issue: <%= a.issue %> </p>
+                            <p>From apt: <%= a.apt %></p>
+                            <p>Date Requested: <%= a.date.toLocaleDateString() %></p>
+                        </a>
                     <% }}) %>
                 </div> 
             </div>
@@ -39,19 +43,7 @@
                 <div class="comcon">
                     <% problems.forEach( (a) => { %>
                         <% if(a.status === 'completed') { %>
-                        <div class="comSub">
-                            <span class='c'>
-                                <h3><%= a.issue %> </h3>
-                            </span>
-                            <p style="font-weight: bold;"><span id="tenant"><%=a.tenant%>,</span><span id="addr"> <%=a.apt%></span></p>
-                        <% if(a.comments) { %>
-                        <p><%= a.comments %></p>
-                        <% } %>
-                        <% if(a.image !== 'no') { %>
-                            <img src="/admin/<%= building_id  %>/image/<%= a._id%>"/>
-                        <% } %>
-                        <p><span class="text-muted">Request Date: <%= a.date.toLocaleDateString() %> </span><span style="font-weight: bold;">Scheduled Repair Date: <%=a.sched_date.toLocaleDateString()%></span></p>
-                        </div>
+                            <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>"><%= a.issue %> || Tenants name or Apt || Date</a>
                     <% }}) %>
                 </div>
             </div>
