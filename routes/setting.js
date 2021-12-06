@@ -60,7 +60,7 @@ router.post('/', checkAuthenticated, async (req,res) => {
         }
     }else if(buttonValue == "reset"){
         const newToken = crypto.randomBytes(32).toString('hex');
-        User.findByIdAndUpdate(req.user.id,{verString:newToken},function(err, docs){
+        await User.findByIdAndUpdate(req.user.id,{verString:newToken},function(err, docs){
             if(err){
                 console.log(err)
             }else{

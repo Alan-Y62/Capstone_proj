@@ -89,7 +89,7 @@ function sendEditUpdate(email,subject,text){
 }
 
 function sendVerification(email,code) {
-    let url = `http://localhost:3000/confirmation/${code}`;
+    let url = `https://dailytenant.herokuapp.com/confirmation/${code}`;
     const verOptions = {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
@@ -104,7 +104,7 @@ function sendVerification(email,code) {
 //
 
 function resetPassword(email,token){
-    let link = `http://localhost:3000/reset/${token}`;
+    let link = `https://dailytenant.herokuapp.com/reset/${token}`;
     const rpOptions = {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
