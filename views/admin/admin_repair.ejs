@@ -17,20 +17,26 @@
 <body>
     <%- include("../partials/build_navGeneric", {title:"Repairs"})%>
     <% if(problems.length !== 0) { %>
-        <div class="body-page" onClick="closeSide()">
-            <div class="pending">
-                <h2>Pending Requests</h2>
-                <div class="reqContainer">
+        <div class="pendingContainer" onClick="closeSide()">
+            <h2>Pending Requests</h2>
+            <div class="reqContainer">
                 <% problems.forEach( (a) => { %>
-                    <% if(a.status === 'pending') { %> 
+                    <% if(a.status === 'emergency') { %> 
                         <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>">
-                            <p>Issue: <%= a.issue %> </p>
-                            <p>From apt: <%= a.apt %></p>
-                            <p>Date Requested: <%= a.date.toLocaleDateString() %></p>
+                            <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
+                        <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
+                        <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p>
                         </a>
-                    <% }}) %>
-                </div> 
-            </div>
+                <% }}) %>
+                <% problems.forEach( (a) => { %>
+                <% if(a.status === 'pending') { %> 
+                    <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>">
+                        <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
+                        <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
+                        <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p>
+                    </a>
+                <% }}) %>
+            </div> 
         </div>
         <% } else { %>
             <div class="dflt-msg">
@@ -38,28 +44,22 @@
             </div>
         <% } %>
         <div class='completedContainer'>
-            <div class="abc123">
-                <h2>Completed Requests</h2>
+                <h2>Finished Requests</h2>
                 <div class="comcon">
                     <% problems.forEach( (a) => { %>
                         <% if(a.status === 'completed') { %>
-                            <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>"><%= a.issue %> || Tenants name or Apt || Date</a>
+                            <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>">
+                                <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
+                        <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
+                        <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p></a>
                     <% }}) %>
                 </div>
             </div>
         </div>
-        
-        <div>
-        <i class="scroll-up" id="scroll-up"><img src="/public/images/upward.gif" class="side_bar up-arrow" alt="" /></i>
-        </div>
     </body>
     
-    <script src="/public/scripts/scrollTop.js"></script>
     <script src="/public/scripts/navbar.js"></script>
 
 <!-- DATE SELECT SCRIPT-->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<!---->
 <!--------------------------->

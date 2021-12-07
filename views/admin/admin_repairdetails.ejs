@@ -26,32 +26,32 @@
         </div>
         <div class="desc">
             <h4>
-               Issue: <%= problems.issue %>
+               Issue: <span class="subtext"><%= problems.issue %></span>
             </h4>
             
             <h4>
-                Apt: <%= problems.apt %>
+                Apt: <span class="subtext"> <%= problems.apt %> </span>
             </h4>
             <h4>
-                Additional Comments: <%= problems.comments %>
+                Additional Comments: <span class="subtext"> <%= problems.comments %> </span>
             </h4>
             <h4>
-                Date Requested:<%= problems.date.toLocaleDateString() %>
+                Date Requested: <span class="subtext"> <%= problems.date.toLocaleDateString() %> </span>
             </h4>
             <h4>
-                Date Scheduled:<%= problems.sched_date.toLocaleDateString() %>
+                Date Scheduled: <span class="subtext"> <%= problems.sched_date.toLocaleDateString() %> </span>
             </h4>
             <h4>
-                Status: <%= problems.status %>
+                Status: <span class="subtext"> <%= problems.status %> </span>
             </h4>
             <small id="ident">
                 <%= problems._id %>
             </small>
         </div>
     </div>
-    <div> 
-        <button class="btn btn-primary">REQUEST COMPLETED</button>
-        <button class="btn btn-warning">RESCHEDULE THIS</button>
+    <div class='booton'> 
+        <a href="/admin/<%= building_id  %>/requests/d/<%= id %>/" class="btn btn-primary">Mark as Completed</a> 
+        <a href="/admin/<%= building_id  %>/requests/p/<%= id %>/" class="btn btn-warning">Reschedule by 1 day</a> 
     </div>
     <div class="comment_sec">
         <form id="chat-form" action="/admin/<%= problems.building  %>/requests/<%= problems._id%>" method="post">
@@ -98,7 +98,7 @@
     
         .container {
             display: flex;
-            background-color: #404040;
+            background-color: rgb(125,206,255,0.8);
             border: 5px solid #333;
             margin-bottom: 2rem;
             margin-top: 2rem;
@@ -107,11 +107,16 @@
         .container .desc{
             margin:2rem;
         }
-    
+        
+        .subtext {
+            color: gold;
+        }
+
         img{
-            width:100%;
+            width: 100%;
             height: 100%;
             border: 5px solid #333;
+            margin-top: 5px;
         }
         
         .comment_sec{
@@ -122,8 +127,26 @@
             padding: 0;
         }
         .comment_container .comment {
-            background: #404040;
-            color: whitesmoke;
+            background-color: rgb(125,206,255);
+            color: black;
+        }
+
+        @media screen and (max-width: 800px) {
+            .container {
+                display: flex;
+                flex-direction: column;
+            }
+        
+            .container .desc h4{
+                font-size:15px;
+                margin:1rem;
+            }
+
+            .booton {
+                display: flex;
+                justify-content: space-around;
+            }
+    
         }
     </style>
 
