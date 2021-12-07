@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
+    <link href="/public/css/a_newann.css" type="text/css" rel="stylesheet"/>
     <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 <body>
+    <a class="btn btn-r btn-primary" href="/admin/<%= building_id %>" role="button">Home Page</a>
     <form action="/admin/<%= building_id %>/new" method="POST">
         <div class="form-group">
             <label for="title">Title</label>
@@ -21,10 +23,9 @@
         </div>
         <div class="form-group">
             <label for="body">Body</label>
-            <input type="text" class="form-control" id="body" name="body" placeholder="body" required>
+            <textarea class="form-control" rows="5" id="body" name="body" placeholder="body" required></textarea>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
     
-    <a class="btn btn-r btn-primary" href="/admin/<%= building_id %>" role="button">Home Page</a>
 </body>
