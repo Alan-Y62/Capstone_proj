@@ -1,57 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Announcements</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="/public/css/background.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/a_announcements.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet"/>
-    <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/public/css/background.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/navbar.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/a_announcements.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet" />
+    <link href="/public/css/global.css" type="text/css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
+
 <body>
+    <button>Subscribe</button>
+
+    <script>
+        // service worker
+        addEventListener("load", async () => {
+            let sw = await navigator.serviceWorker.register(
+                "./public/scripts/serviceWorker.js"
+            );
+        });
+
+        async function subscribe() {
+            let sw = await navigator.serviceWorker.ready;
+
+            let push = await sw.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey:
+                    "BMNM21ozV6RccT5cWPAdQDbUFUFueuHQobLVt4doDFKOjCISs3wwjxqmfZ0PSvSQ7Qt-k0V7eIrzCVYYrN6126g",
+            });
+        }
+    </script>
+
     <%- include("../partials/build_navUser", {title:"Announcement"})%>
-    <% if(Object.entries(news).length > 0) { %>
-    <div class="row" onClick="closeSide()">
-        <div class="col newest">
-            <h2>NEWEST ANNOUNCEMENT</h2>
-                <% news.reverse().forEach( (a,index) => { %>
-                    <% if(index === 0 )  { %>
-                        <div class="newest-container">
-                            <span class="topline"> 
-                                <h3><%= a.title %></h3>
-                            </span>
-                            <div class="content">
-                                <p><%= a.body %></p>
-                                <p class='text-muted'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
+        <% if(Object.entries(news).length> 0) { %>
+            <div class="row" onClick="closeSide()">
+                <div class="col newest">
+                    <h2>NEWEST ANNOUNCEMENT</h2>
+                    <% news.reverse().forEach( (a,index)=> { %>
+                        <% if(index===0 ) { %>
+                            <div class="newest-container">
+                                <span class="topline">
+                                    <h3>
+                                        <%= a.title %>
+                                    </h3>
+                                </span>
+                                <div class="content">
+                                    <p>
+                                        <%= a.body %>
+                                    </p>
+                                    <p class='text-muted'>
+                                        <%= a.date.toLocaleDateString() %> &nbsp; <%= a.date.toLocaleTimeString() %>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </div>        
-                <% }}) %>
-    <% if(Object.entries(news).length > 1) { %>
-    <div class="col recent">
-        <h2>Recent News</h2>
-        <% news.forEach( (a,index) => { %>    
-            <% if(index > 0) { %>
-                <div class="recent-container">
-                    <span class="topline"> 
-                        <h3><%= a.title %></h3> 
-                    </span>
-                    <div class="content">
-                        <p><%= a.body %></p>
-                        <p class='text-muted'><%= a.date.toLocaleDateString() %> &nbsp;   <%= a.date.toLocaleTimeString() %></p>
-                    </div>
                 </div>
-            <% }})}} else { %> 
-        <div id="sp-div">
-            <p> Your landlord has not made an announcement yet.</p>
-        </div>
-        <% } %>
+                <% }}) %>
+                    <% if(Object.entries(news).length> 1) { %>
+                        <div class="col recent">
+                            <h2>Recent News</h2>
+                            <% news.forEach( (a,index)=> { %>
+                                <% if(index> 0) { %>
+                                    <div class="recent-container">
+                                        <span class="topline">
+                                            <h3>
+                                                <%= a.title %>
+                                            </h3>
+                                        </span>
+                                        <div class="content">
+                                            <p>
+                                                <%= a.body %>
+                                            </p>
+                                            <p class='text-muted'>
+                                                <%= a.date.toLocaleDateString() %> &nbsp; <%=
+                                                        a.date.toLocaleTimeString() %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% }})}} else { %>
+                                        <div id="sp-div">
+                                            <p> Your landlord has not made an announcement yet.</p>
+                                        </div>
+                                        <% } %>
 </body>
 
 <script src="/public/scripts/navbar.js"></script>
