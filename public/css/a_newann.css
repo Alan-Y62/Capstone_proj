@@ -1,0 +1,26 @@
+form {
+    background: rgba(40, 174, 228, 0.459);
+    border-radius: 10px 10px 10px 10px;
+    position: relative;
+    top: 10vh;
+    color: white;
+    width: 95%;
+    padding: 5px;
+    margin-left: 2.5%;
+}
+
+label {
+    font-size: 3vh;
+}
+
+.btn-r {
+    position: relative;
+    margin-top: 3%;
+    left: 3%;
+}
+
+@media screen and (max-width: 600px) {
+    label {
+        font-size: 2rem;
+    }
+}
