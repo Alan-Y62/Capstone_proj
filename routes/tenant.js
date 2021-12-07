@@ -37,7 +37,7 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
     let sched_date = Date.now();
     sched_date = new Date(sched_date);
     emer_date = new Date(date);
-    const stat = 'emergency';
+    const status = 'emergency';
     switch(date) {
       case 'Emergency':
         sched_date.setDate(sched_date.getDate()+4);
@@ -46,25 +46,30 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
         sched_date.setDate(sched_date.getDate()+14);
         break;
       default:
-        const building = mongoose.Types.ObjectId(req.params.id);
-        const tenant = mongoose.Types.ObjectId(req.user.id);
-        const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
-        const apt = match[0].tenants[0].apt;
-        const image = req.file.id;
-        const new_repair = new Repair({
-        building,apt,tenant, issue, image, comments, stat
-        })
-        new_repair.save()
+        console.log('Someone chose a specific date');
         break;
     }
-    if(date === 'Emergency' || date === 'standard') {
-      const building = mongoose.Types.ObjectId(req.params.id);
-      const tenant = mongoose.Types.ObjectId(req.user.id);
-      const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
-      const apt = match[0].tenants[0].apt;
-      const image = req.file.id;
+    const building = mongoose.Types.ObjectId(req.params.id);
+    const tenant = mongoose.Types.ObjectId(req.user.id);
+    const match  = await Build.find({'_id':building}).select({"tenants":{$elemMatch:{"_id": tenant}}})
+    const apt = match[0].tenants[0].apt;
+    const image = req.file.id;
+    if(date === 'Emergency') {
       const new_repair = new Repair({
-        building,apt,tenant, issue, image, comments
+        building,apt,tenant, issue, image, comments, status
+      })
+      new_repair.save()
+    }
+    else if(date === 'standard') {
+        const new_repair = new Repair({
+          building,apt,tenant, issue, image, comments
+        })
+        new_repair.save()
+    }
+    else {
+      sched_date = emer_date;
+      const new_repair = new Repair({
+      building,apt,tenant, issue, image, comments, sched_date
       })
       new_repair.save()
     }

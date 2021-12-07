@@ -88,11 +88,16 @@ router.get('/:id/requests', checkAuthenticated, checkRolesAdmin, async (req,res)
 })
 
 //request post in the form of a get //pushes repair dates back
-router.get('/:id/requests/p/:r_id/:date', checkAuthenticated, checkRolesAdmin, async (req,res) => {
-    let sched_date = addTwoWeeks(req.params.date)
+router.get('/:id/requests/p/:r_id', checkAuthenticated, checkRolesAdmin, async (req,res) => {
+    const repID = mongoose.Types.ObjectId(req.params.r_id)
+    console.log(repID);
+    let dat = await Repair.find({"_id": repID})
+    console.log(dat[0]);
+    let sched_date = addTwoWeeks(dat[0].sched_date)
+    console.log(sched_date)
     const buildID = req.params.id
-    await Repair.findByIdAndUpdate(req.params.r_id, {sched_date})
-    res.redirect(`/admin/${buildID}/requests`)
+    await Repair.findByIdAndUpdate(repID, {sched_date})
+    res.redirect(`/admin/${buildID}/requests/${repID}`)
 })
 
 //request post for marking a request as complete
@@ -111,6 +116,7 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
                         console.log('nice')
                     }
                 })
+                await Comm.deleteMany({"room_id": String(req.params.r_id)})
                 await Repair.findByIdAndDelete(element._id)
             }
         })
@@ -121,7 +127,6 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
 router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
     const repairID = mongoose.Types.ObjectId(req.params.r_id)
     const rqs = await Repair.find({"_id": repairID})
-    console.log(rqs)
     const id = req.params.r_id;
     const comm = await Comm.find({"room_id": id})
     res.render('./admin/admin_repairdetails', {problems: rqs[0], comm:comm, id:id,building_id:req.params.id})

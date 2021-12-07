@@ -5,7 +5,6 @@
 
     h2 {
         border-radius: 2px 2px 2px 2px;
-        background: silver;
         color: black;
         font-size: 4vh;
         position: relative;
@@ -15,6 +14,10 @@
         top:10px;
         width: 90%;
         text-align: center;
+    }
+
+    a {
+        margin-bottom: 1%;
     }
 
     .btn-r {
@@ -31,7 +34,7 @@
     .Header {
         font-weight: bold;
         font-size: 50px;
-        color: white;
+        color: white
     }
 
     .dflt-msg {
@@ -41,53 +44,29 @@
         font-size: 50px;
     }
 
-    .body-page, .completedContainer{
-        border-radius: 50px 50px 50px 50px;
+    .pendingContainer, .completedContainer{
+        border-radius: 10px 10px 10px 10px;
         position: relative;
-        height: 400px;
+        height: 41vh;
         width: 90vw;
         margin-left:5vw;
         margin-right:5vw;
-        background: rgba(27, 25, 167, 0.705);
+        background: rgb(125,206,255,0.8);
     }
 
-    .pending, .completedContainer {
+    .completedContainer {
         margin-top: 5px;
     }
 
     .reqContainer, .comcon {
         position: relative;
-        top: 10px;
-        height: 800px;
-        overflow: auto;
+        height: 80%;
+        margin-top: 2%;
+        overflow-y: auto;
     }
 
-    .c {
-        display: flex;
+    .subtext {
+        color: gold;
     }
 
-    .btns {
-        position: relative;
-        left: 50px;
-    }
-    .reqSub, .comSub {
-        border-style: solid;
-        border-color: rgba(27, 25, 167, 0.705);
-        border-bottom: 500px;
-        width: 90%;
-        position: relative;
-        left: 5%;
-        right: 5%;
-    } 
 
-    .reqSub:nth-child(even), .comSub:nth-child(even) {
-        background: #b3e5fc;
-    }
-
-    .reqSub:nth-child(odd), .comSub:nth-child(odd) {
-        background: #e1f5fe;
-    }
-
-    .abc123 {
-        margin-top: 30px;
-    }

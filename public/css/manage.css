@@ -52,8 +52,16 @@ thead{
         margin: 1%;
     }
 
-    .table {
-        width: 100%;
+    .table td, .table th {
+        padding: 1px;
+        word-break: break-all;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    button {
+        height: 90%;
+        text-align:center;
     }
 }
 
