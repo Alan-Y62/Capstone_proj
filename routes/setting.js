@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 
 router.get('/', checkAuthenticated, async (req,res) => {
-    res.render('settings',{user:req.user})
+    res.render('settings',{user:req.user});
 })
 
 router.post('/', checkAuthenticated, async (req,res) => {
@@ -60,7 +60,7 @@ router.post('/', checkAuthenticated, async (req,res) => {
         }
     }else if(buttonValue == "reset"){
         const newToken = crypto.randomBytes(32).toString('hex');
-        await User.findByIdAndUpdate(req.user.id,{verString:newToken},function(err, docs){
+        User.findByIdAndUpdate(req.user.id,{verString:newToken},function(err, docs){
             if(err){
                 console.log(err)
             }else{

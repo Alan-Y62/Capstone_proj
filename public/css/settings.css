@@ -21,7 +21,7 @@
 
 .tab{
     float: left;
-    width: 30%;
+    width: 33%;
     height: 100%;
 }
 
@@ -29,12 +29,12 @@
     display: block;
     background-color: inherit;
     color: black;
-    padding: 22px 16px;
+    padding: 22px min(2vw, 16px);;
     width: 100%;
     text-align: left;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 18px;
+    font-size: min(3.2vw, 18px);
     text-transform: uppercase;   
     font-weight: bold;
 }
@@ -52,7 +52,7 @@
 .tabcontent{
     float: left;
     padding: 0px 12px;
-    width: 70%;
+    width: 67%;
     height: 100%;
     overflow-y: auto;
 }
@@ -72,6 +72,7 @@
     color: black;
     margin-bottom: 100px;
     margin-left: 8%;
+    white-space: nowrap;
 }
 
 .change{
@@ -79,9 +80,9 @@
 }
 
 .change input{
-    height: 40px; width: 40%; 
+    height: 40px; width: 240px; 
     border-radius: 3px;
-    margin: 0px 20px 10px; 
+    margin-bottom: 10px; 
     padding-left: 15px;
 }
 
@@ -91,8 +92,8 @@
     background: #089add; 
     border-radius: 3px; 
     margin: 15px 0px 0px;
-    margin-left: 70%;
     text-align: center;
+    white-space: nowrap;
 } 
 
 .change label{
@@ -113,6 +114,7 @@
     background: #089add; 
     border-radius: 3px;
     text-align: center;
+    white-space: nowrap;
 }
 
 /*Email Subscription*/
@@ -131,10 +133,10 @@
 
 #overlay .popup{
     margin: auto; 
-    padding: 50px 20px;
+    padding: min(6vw, 50px) 20px;
     background: white; 
     border-radius: 5px; 
-    height: 350px; width: 690px; 
+    height: min(63vw, 350px); width: min(75vw, 690px); 
     position: fixed;    
     top: 30%;   
     left: 0px; right: 0px; 
@@ -154,41 +156,41 @@
     color: #0696d8;
 }
 #overlay .poptitle{   
-    font-size: 24px;  
+    font-size: min(3.8vw, 24px); 
     text-transform: uppercase;  
     color: black;  
     font-weight: bold;  
     letter-spacing: 2px;  
-    margin-bottom: 15px;
+    margin-bottom: min(2.3vw, 15px);  
 }
 #overlay .boxcontent label{    
     /*max-width: 560px; */    
-    font-size: 14px;
+    font-size: min(2.8vw, 14px); 
 }
 #overlay #subForm #subemail{    
     background: #EBEBEB;    
     border-radius: 3px;   
-    height: 40px; width: 65%;    
-    margin: 20px;    
+    height: 40px; width: min(60vw, 450px);
+    margin: min(2.3vw, 20px);   
     padding-left: 15px;
 }
 #overlay #subForm #subname{    
     background: #EBEBEB;    
     border-radius: 3px;    
-    height: 40px; width: 65%;    
-    margin-bottom: 20px;    
+    height: 40px; width: min(60vw, 450px);   
+    margin-bottom: min(2.3vw, 20px);
     padding-left: 15px;
 }
 #overlay #subForm button{       
     background: #089add;    
-    padding: 3px 25px;    
+    padding: 2px 25px;    
     text-transform: uppercase;   
     font-size: 14px;    
-    color: white;
-    font-weight: bold;    
+    color: white; 
     line-height: 34px;      
-    border-radius: 3px;    
-    letter-spacing: 2px;
+    border-radius: 3px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
 }
 .openpop{
     padding: 6px 15px; 
@@ -199,6 +201,7 @@
     margin: 15px 20% 100px; 
     text-align: center;  
     display: inline-block;
+    white-space: nowrap;
 }
 
 /*Change Background*/
