@@ -68,8 +68,14 @@ function sendUpdate(email,subject,text){
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
         subject: "New Announcement: "+subject,
-        text: today.toLocaleDateString() + "\n" + text,
-        //html: html,
+        text: today.toDateString() + "\n" + text,
+        html: `
+        <p id="date"></p>
+        <p>${text}</p>
+        <br><br><br><br><br>
+        <a href="https://dailytenant.herokuapp.com/settings/unsubscribe">Unsubscribe from notifications</a>
+        <script> document.getElementById("date").innerHTML = new today.toDateString() </script>
+        `,
     };
     sendEmail(upOptions);
 }
@@ -81,9 +87,15 @@ function sendEditUpdate(email,subject,text){
     const upOptions = {
         from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
         to: email,
-        subject: "Updated Announcement" + subject,
-        text: today.toLocaleDateString() + "\n" + subject + "\n" + text,
-        html: `<h2>${subject}</h2>` + `<p>${text}</p>`
+        subject: "Updated Announcement: " + subject,
+        text: today.toDateString() + "\n" + text,
+        html: `
+        <p id="date"></p>
+        <p>${text}</p>
+        <br><br><br><br><br>
+        <a href="https://dailytenant.herokuapp.com/settings/unsubscribe">Unsubscribe from notifications</a>
+        <script> document.getElementById("date").innerHTML = new today.toDateString() </script>
+        `,
     };
     sendEmail(upOptions);
 }
@@ -110,9 +122,11 @@ function resetPassword(email,token){
         to: email,
         subject: "Account Password Reset",
         text: "The following link will expire in 60 minutes:" + "\n" + link,
-        html: `<p>A request has been received to change the password for your Daily Tenant account.</p>
+        html: `
+        <p>A request has been received to change the password for your Daily Tenant account.</p>
         <a href="${link}">RESET YOUR PASSWORD</a>
-        <p>Thank you,<br>The Daily Tenant Team</p>`
+        <p>Thank you,<br>The Daily Tenant Team</p>
+        `
     };
     sendEmail(rpOptions);
 }

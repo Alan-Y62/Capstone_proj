@@ -49,8 +49,10 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
     const all_tenants = this_building[0].tenants
     await Promise.all(all_tenants.map(async(elements) => {
         if(String(elements._id) !== user) {
-        const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
-             sendUpdate(y[0].email,title,body)
+        await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
+            if(y[0].subscribed){
+                sendUpdate(y[0].email,title,body)
+            }
         })}
     }))
     // const emails = await User.find({email})
@@ -60,16 +62,6 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
 //page for editting an announcement
 router.get('/:id/edit/:a_id', checkAuthenticated, checkRolesAdmin, async (req, res) => {
     const announce = await Announce.findById(req.params.a_id)
-    const building_id = req.params.id;
-    const user = String(req.user._id)
-    const this_building = await Build.find({"_id":mongoose.Types.ObjectId(building_id)})
-    const all_tenants = this_building[0].tenants
-    await Promise.all(all_tenants.map(async(elements) => {
-        if(String(elements._id) !== user) {
-        const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
-             sendEditUpdate(y[0].email,announce.title,announce.body)
-        })}
-    }))
     res.render('./admin/edit_announce', { stuff: announce ,building_id:req.params.id})
 })
 
@@ -78,6 +70,18 @@ router.post('/:id/edit/:an_id', checkAuthenticated, checkRolesAdmin, async(req, 
     const{title, body} = req.body
     const building_id = req.params.id;
     await Announce.findByIdAndUpdate(req.params.an_id, {title,body});
+    const announce = await Announce.findById(req.params.an_id)
+    const user = String(req.user._id)
+    const this_building = await Build.find({"_id":mongoose.Types.ObjectId(building_id)})
+    const all_tenants = this_building[0].tenants
+    await Promise.all(all_tenants.map(async(elements) => {
+        if(String(elements._id) !== user) {
+        await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
+            if(y[0].subscribed){
+                sendEditUpdate(y[0].email,announce.title,announce.body)
+            }
+        })}
+    }))
     res.redirect(`/admin/${building_id}`);
 })
 
