@@ -26,31 +26,34 @@
         </div>
         <div class="desc">
             <h4>
-                Issue: <%= problems.issue %>
+                Issue: <span class="subtext"> <%= problems.issue %></span>
              </h4>
              
              <h4>
-                 Apt: <%= problems.apt %>
+                Apt: <span class="subtext"><%= problems.apt %></span>
              </h4>
              <h4>
-                 Additional Comments: <%= problems.comments %>
+                Additional Comments: <span class="subtext"><%= problems.comments %></span> 
              </h4>
              <h4>
-                 Date Requested:<%= problems.date.toLocaleDateString() %>
+                Date Requested: <span class="subtext"><%= problems.date.toLocaleDateString() %></span>
              </h4>
              <h4>
-                 Date Scheduled:<%= problems.sched_date.toLocaleDateString() %>
+                Date Scheduled: <span class="subtext"><%= problems.sched_date.toLocaleDateString() %> </span>
              </h4>
              <h4>
-                 Status: <%= problems.status %>
+                Status: <%= problems.status %>
              </h4>
             <small id="ident">
                 <%= problems._id %>
             </small>
         </div>
-        <div class='booton'> 
+        <!-- <div class='booton'> 
             <a href="/user/<%= building_id  %>/history/cancel/<%= id %>/" class="btn btn-warning">Cancel Request</a>
-        </div>
+        </div> -->
+        <form action="/user/<%= building_id %>/history/<%=id%>/cancel" method="POST"> 
+            <button type="submit" class="btn btn-danger">Cancel Request</button>
+        </form>
     </div>
     <div class="comment_sec">
     <form id="chat-form" action="/user/<%= problems.building  %>/history/<%= problems._id%>" method="post">
@@ -117,6 +120,17 @@
         border: 5px solid #333;
         margin-top: 5px;
     }
+
+    form {
+        display: flex;
+        justify-content: center;
+    }
+
+    form .btn {
+        position: relative;
+        top:45%;
+        height: 10%;
+    }
     
     .comment_sec{
         margin:2rem;
@@ -141,9 +155,8 @@
             margin:1rem;
         }
 
-        .booton {
-            display: flex;
-            justify-content: space-around;
+        form {
+            justify-content: center;
         }
 
     }
