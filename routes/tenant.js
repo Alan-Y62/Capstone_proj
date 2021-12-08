@@ -108,7 +108,7 @@ router.post('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,
   res.redirect(`/user/${buildID}/history/${room_id}`)
 })
 
-router.get('/:id/history/cancel/:r_id', checkAuthenticated, checkRolesUser, async (req,res) => {
+router.post('/:id/history/:r_id/cancel', checkAuthenticated, checkRolesUser, async (req,res) => {
   const e = await Repair.findById(req.params.r_id);
   gfs.delete(new mongoose.Types.ObjectId(e.image), (err,data) =>{
     if(err){
