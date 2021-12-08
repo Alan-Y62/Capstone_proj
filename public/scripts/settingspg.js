@@ -13,6 +13,7 @@ function changeBG3(){
     const bg = images[2];
     document.querySelector("body").style.backgroundImage = bg;
 }
+
 // Shows the selected tab and its contents
 function showSection(evt, cityName) {
     var i, tabcontent, tablinks;

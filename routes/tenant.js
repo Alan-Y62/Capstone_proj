@@ -79,6 +79,7 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
 
 router.get('/:id/history', checkAuthenticated, checkRolesUser, async(req,res) => {
   const findrqs = await Repair.find({building: req.params.id})
+  console.log(findrqs);
   res.render('./user/u_history', {problems: findrqs, building_id: req.params.id})
 })
 

@@ -36,7 +36,7 @@ router.get('/:id/new', checkAuthenticated, checkRolesAdmin, (req,res) => {
     res.render('./admin/create_announce' , {building_id:req.params.id})
 })
 
-//post
+//post request to add new announcement to database
 router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const{title, body} = req.body
     const building_id = req.params.id;
@@ -58,6 +58,7 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
     // const emails = await User.find({email})
     res.redirect(`/admin/${building_id}`);
 })
+
 
 //page for editting an announcement
 router.get('/:id/edit/:a_id', checkAuthenticated, checkRolesAdmin, async (req, res) => {
@@ -109,10 +110,10 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
     await Repair.findByIdAndUpdate(req.params.r_id, {status: 'completed', sched_date: Date.now()})
     const buildID = req.params.id
     const sht = await Repair.find({'status':'completed'}).sort({'sched_date': -1})
-    if (sht.length > 10){
+    if (sht.length > 10){ //runs if there are more than 10 completed requests, starts by deleting the oldest ones until there are only 10 left
         sht.forEach(async (element,index) => {
             if(index > 10){
-                gfs.delete(new mongoose.Types.ObjectId(element.image), (err,data) =>{
+                gfs.delete(new mongoose.Types.ObjectId(element.image), (err,data) =>{ //deletes the image chunks associated with the request
                     if(err){
                         console.log(err)
                     }
@@ -120,7 +121,7 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
                         console.log('nice')
                     }
                 })
-                await Comm.deleteMany({"room_id": String(req.params.r_id)})
+                await Comm.deleteMany({"room_id": String(req.params.r_id)}) //deletes the comments associated with the request
                 await Repair.findByIdAndDelete(element._id)
             }
         })
@@ -128,6 +129,7 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
     res.redirect(`/admin/${buildID}/requests`)
 })
 
+//GET request to the page for the specific request
 router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
     const repairID = mongoose.Types.ObjectId(req.params.r_id)
     const rqs = await Repair.find({"_id": repairID})
@@ -136,6 +138,7 @@ router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req
     res.render('./admin/admin_repairdetails', {problems: rqs[0], comm:comm, id:id,building_id:req.params.id})
 })
 
+//POST request to add comment to the specifc request
 router.post('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
     const buildID = req.params.id;
     const room_id = req.params.r_id;
@@ -154,13 +157,8 @@ router.post('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (re
     res.redirect(`/admin/${buildID}/requests/${room_id}`)
 })
 
-//tempoary route delete later
-router.get('/:id/generate', checkAuthenticated, checkRolesAdmin, async (req,res) => {
-    const re = await generateRepairs(req.params.id)
-    res.send('<h1>generated data</h1>')
-})
-
-//page for managing tenants //add and remove tenants and prospective tenants
+//GET page for managing tenants 
+//for add and remove tenants and prospective tenants
 router.get('/:id/manage', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     let value = mongoose.Types.ObjectId(req.params.id)
     const buildID = req.params.id
@@ -200,7 +198,7 @@ router.get('/:id/manage', checkAuthenticated, checkRolesAdmin, async (req,res) =
     res.render('./admin/management', {pending:pending, tenants:curr_tenants, location:curr_build[0], building_id: buildID})
 })
 
-//post for removing users
+//POST for removing users
 router.post('/:id/manage/userdelete', checkAuthenticated, checkRolesAdmin, async (req,res) =>{
     const buildingid = mongoose.Types.ObjectId(req.params.id);
     const acceptpendingbuilding = await Build.find({"_id": buildingid});
@@ -217,7 +215,7 @@ router.post('/:id/manage/userdelete', checkAuthenticated, checkRolesAdmin, async
     res.redirect(`/admin/${buildingid}/manage`)
 })
 
-//post for adding users from pending list
+//POST for adding users from pending list
 router.post('/:id/manage/useraccept', checkAuthenticated, checkRolesAdmin, async (req,res) =>{
     const buildingID = mongoose.Types.ObjectId(req.params.id);
     const userID = mongoose.Types.ObjectId(req.body.ident);
@@ -242,7 +240,7 @@ router.post('/:id/manage/useraccept', checkAuthenticated, checkRolesAdmin, async
     res.redirect(`/admin/${buildingID}/manage`)
 })
 
-//reject pending user from joining
+//POST reject pending user from joining
 router.post('/:id/manage/userdeny', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const buildingID = mongoose.Types.ObjectId(req.params.id);
     const userID = mongoose.Types.ObjectId(req.body.ident);
@@ -262,9 +260,9 @@ router.get('/:id/image/:a_id', checkAuthenticated, checkRolesAdmin, (req, res) =
         return res.status(400).send('no files exist');
       gfs.openDownloadStream(_id).pipe(res);
     });
-  });
+});
 
-  //delete building post request
+//DELETE current building
 router.post('/:id/delBuild', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const buildID = mongoose.Types.ObjectId(req.params.id);
     const building = await Build.find({"_id": buildID})
