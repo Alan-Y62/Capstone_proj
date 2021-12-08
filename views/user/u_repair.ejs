@@ -161,7 +161,10 @@
             msg.textContent = 'Warning: This is for serious emergencies. If not a serious emergency choose a different option'
             msg.setAttribute('id','warningMsg')
             msg.style['color'] = 'red';
-            document.getElementById('emer').appendChild(msg);
+            // prevents multiple warningMsg popups if pressed more than once
+            if (!document.getElementById('warningMsg')) {
+                document.getElementById('emer').appendChild(msg);
+            }
         }
 
         function shutMsg() {
