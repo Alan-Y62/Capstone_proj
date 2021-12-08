@@ -1,16 +1,3 @@
-function sendMessage(){
-    /*
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let message = document.getElementById("message").value;
-    */
-    alert("EMAIL SENT");
-}
-
-function confirmSub(){
-    alert("YOU ARE SUBSCRIBED");
-}
-
 function changeBG1(){
     const images = ['url("../public/images/1186048.jpg")','url("../public/images/hi_res_landscape.jpg")','url("../public/images/unknown.png")']
     const bg = images[0];
