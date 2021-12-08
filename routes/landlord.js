@@ -49,8 +49,10 @@ router.post('/:id/new', checkAuthenticated, checkRolesAdmin, async (req,res) => 
     const all_tenants = this_building[0].tenants
     await Promise.all(all_tenants.map(async(elements) => {
         if(String(elements._id) !== user) {
-        const user = await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
-             sendUpdate(y[0].email,title,body)
+        await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
+            if(y[0].subscribed){
+                sendUpdate(y[0].email,title,body)
+            }
         })}
     }))
     // const emails = await User.find({email})
@@ -75,8 +77,10 @@ router.post('/:id/edit/:an_id', checkAuthenticated, checkRolesAdmin, async(req, 
     const all_tenants = this_building[0].tenants
     await Promise.all(all_tenants.map(async(elements) => {
         if(String(elements._id) !== user) {
-            await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
-            sendEditUpdate(y[0].email,announce.title,announce.body)
+        await User.find({"_id":mongoose.Types.ObjectId(elements._id)}).then(y=>{
+            if(y[0].subscribed){
+                sendEditUpdate(y[0].email,announce.title,announce.body)
+            }
         })}
     }))
     res.redirect(`/admin/${building_id}`);
