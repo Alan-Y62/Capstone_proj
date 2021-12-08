@@ -22,7 +22,7 @@
         <div class="image">
             <% if(problems.image !=='no' ) { %>
                 <img src="/user/<%= problems.building  %>/image/<%= problems.image%>" />
-                <% } %>
+            <% } %>
         </div>
         <div class="desc">
             <h4>
@@ -52,7 +52,7 @@
             <a href="/user/<%= building_id  %>/history/cancel/<%= id %>/" class="btn btn-warning">Cancel Request</a>
         </div> -->
         <form action="/user/<%= building_id %>/history/<%=id%>/cancel" method="POST"> 
-            <button type="submit" class="btn btn-danger">Cancel Request</button>
+            <button type="submit" class="btn btn-c btn-danger">Cancel Request</button>
         </form>
     </div>
     <div class="comment_sec">
@@ -126,7 +126,7 @@
         justify-content: center;
     }
 
-    form .btn {
+    form .btn-c {
         position: relative;
         top:45%;
         height: 10%;
