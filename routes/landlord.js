@@ -8,7 +8,7 @@ const Build = require('../model/building')
 const Repair = require('../model/repairModel')
 const Comm = require('../model/comment')
 const { checkAuthenticated, checkRolesAdmin } = require('../public/scripts/auth')
-const { addTwoWeeks, generateRepairs} = require('../public/scripts/miscFuncs');
+const { addTwoWeeks} = require('../public/scripts/miscFuncs');
 const { UserRefreshClient } = require('google-auth-library');
 const { sendUpdate, sendEditUpdate } = require('../email/sendEmail')
 
