@@ -84,7 +84,10 @@ router.post('/:id/edit/:an_id', checkAuthenticated, checkRolesAdmin, async(req, 
 //page for viewing requests
 router.get('/:id/requests', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const findrqs = await Repair.find({building: req.params.id})
-    res.render('./admin/admin_repair', {problems: findrqs, building_id:req.params.id})
+    const msg = await Promise.all(findrqs.map(async(elements) =>{
+        return await Comm.findOne({"room_id":String(elements._id), "isRead": false, to:req.user._id})
+    }))
+    res.render('./admin/admin_repair', {problems: findrqs, building_id:req.params.id, msg:msg})
 })
 
 //request post in the form of a get //pushes repair dates back
@@ -126,6 +129,7 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
 
 router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req,res)=>{
     const repairID = mongoose.Types.ObjectId(req.params.r_id)
+    await Comm.updateMany({"room_id": req.params.r_id},{'isRead': true})
     const rqs = await Repair.find({"_id": repairID})
     const id = req.params.r_id;
     const comm = await Comm.find({"room_id": id})
@@ -139,15 +143,31 @@ router.post('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (re
     const tenant = repair[0].tenant;
     const user = await User.find({"_id": mongoose.Types.ObjectId(req.user.id)});
     const from = user[0].name;
+    let isRead = true;
+    const clients = req.io.sockets.adapter.rooms.get(room_id);
+    const numClients = clients ? clients.size : 0;
+    if(numClients <= 1){
+        isRead = false;
+    }
     console.log(req.body)
-    const comment = new Comm({room_id, to:tenant, from, comment:req.body.what})
+    const comment = new Comm({room_id, to:tenant, from, comment:req.body.what, isRead})
     await comment.save((err,comment) => {
         const commID = comment._id;
-        console.log(commID)
-        req.io.to(room_id).emit('comment', {comment:req.body.what, id:commID})
+        const from = comment.from;
+        req.io.to(room_id).emit('comment', {comment:req.body.what, id:commID, buildID:buildID, to:'tenant', from:from})
     });
     // req.io.to(room_id).emit('comment', req.body.what)
     res.redirect(`/admin/${buildID}/requests/${room_id}`)
+})
+
+router.post('/:id/requests/:r_id/read',checkAuthenticated, checkRolesAdmin, async (req)=>{
+    console.log('hellll')
+    const tf = req.body.tf;
+    console.log(req.body.tf)
+    const buildID = req.params.id;
+    const r_id = req.params.r_id;
+    const commID = mongoose.Types.ObjectId(req.body.id)
+    await Comm.findByIdAndUpdate(commID,{'isRead': tf})
 })
 
 //tempoary route delete later
