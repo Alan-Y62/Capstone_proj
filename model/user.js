@@ -27,6 +27,10 @@ const Userschema = new mongoose.Schema({
     verString: {
         type: String,
         required: true
+    },
+    subscribed: {
+        type: Boolean,
+        default: false
     }
 });
 

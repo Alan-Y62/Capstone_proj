@@ -79,9 +79,11 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
 
 router.get('/:id/history', checkAuthenticated, checkRolesUser, async(req,res) => {
   const findrqs = await Repair.find({building: req.params.id})
+
   const msg = await Promise.all(findrqs.map(async(elements) =>{
     return await Comm.findOne({"room_id":String(elements._id), "isRead": false, to:req.user._id})
 }))
+
   res.render('./user/u_history', {problems: findrqs, building_id: req.params.id})
 })
 
@@ -116,6 +118,7 @@ router.post('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,
   res.redirect(`/user/${buildID}/history/${room_id}`)
 })
 
+
 router.post('/:id/history/:r_id/read',checkAuthenticated, checkRolesUser, async (req,res)=>{
   console.log('hellll')
   const tf = req.body.tf;
@@ -127,7 +130,7 @@ router.post('/:id/history/:r_id/read',checkAuthenticated, checkRolesUser, async 
   res.redirect(`/admin/${buildID}/requests/${r_id}`)
 })
 
-router.get('/:id/history/cancel/:r_id', checkAuthenticated, checkRolesUser, async (req,res) => {
+router.post('/:id/history/:r_id/cancel', checkAuthenticated, checkRolesUser, async (req,res) => {
   const e = await Repair.findById(req.params.r_id);
   gfs.delete(new mongoose.Types.ObjectId(e.image), (err,data) =>{
     if(err){

@@ -1,119 +1,67 @@
+h2 {
+    border-radius: 2px 2px 2px 2px;
+    color: black;
+    font-size: 4vh;
+    position: relative;
+    left:50%;
+    right: 50%;
+    transform: translate(-50%);
+    top:10px;
+    width: 90%;
+    text-align: center;
+}
 
-    .body-page {
-        margin-top: 10vh;
-    }
+a {
+    margin-bottom: 1%;
+}
 
-    .pending {
-        margin-top: 20px;
-    }
+.btn-r {
+    width: 92%;
+    margin-left: 4%;
+}
 
-    .reqContainer {
-        border-radius: 50px 50px 50px 50px;
-        position: relative;
-        min-height: 300px;
-        max-height:900px;
-        width:90vw;
-        top: -6vh;
-        margin-left:5vw;
-        margin-right:5vw;
-        background: rgba(27, 25, 167, 0.705);
-        overflow-y: auto;
-    }
+.req-link {
+    max-width: 92%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
 
-    h2 {
-        border-radius: 2px 2px 2px 2px;
-        background: silver;
-        color: black;
-        font-size: 4vh;
-        position: relative;
-        left:50%;
-        right: 50%;
-        transform: translate(-50%);
-        top:10px;
-        margin-bottom: 20px;
-        width: 90%;
-        text-align: center;
-    }
+.Header {
+    font-weight: bold;
+    font-size: 50px;
+    color: white
+}
 
-    .c {
-        display: flex;
-    }
-    .btns {
-        position: relative;
-        left: 50px;
-    }
-    .reqSub {
-        border-style: solid;
-        border-color: rgba(27, 25, 167, 0.705);
-        border-bottom: 500px;
-        width: 90%;
-        position: relative;
-        left: 5%;
-        right: 5%;
-    } 
+.dflt-msg {
+    text-align: center;
+    background: black;
+    color: white;
+    font-size: 50px;
+}
 
-    .reqSub:nth-child(even) {
-        background: #b3e5fc;
-    }
+.pendingContainer, .completedContainer{
+    border-radius: 10px 10px 10px 10px;
+    position: relative;
+    height: 41vh;
+    width: 90vw;
+    margin-left:5vw;
+    margin-right:5vw;
+    background: rgb(125,206,255,0.8);
+}
 
-    .reqSub:nth-child(odd) {
-        background: #e1f5fe;
-    }
+.completedContainer {
+    margin-top: 5px;
+}
 
-    img {
-        max-width: 100%;
-        max-height: 500px;
-    }
+.reqContainer, .comcon {
+    position: relative;
+    height: 80%;
+    margin-top: 2%;
+    overflow-y: auto;
+}
 
-    .completedContainer {
-        margin-top: 30px;
-    }
+.subtext {
+    color: gold;
+}
 
-    .abc123 {
-        margin-top: 30px;
-    }
 
-    .comcon {
-        position: relative;
-        border-radius: 50px 50px 50px 50px;
-        position: relative;
-        height:800px;
-        width:90vw;
-        margin-left:5vw;
-        margin-right:5vw;
-        background: rgba(27, 25, 167, 0.705);
-        top: 10px;
-        overflow: auto;
-    }
-
-    .comSub {
-        border-style: solid;
-        border-color: rgba(27, 25, 167, 0.705);
-        border-bottom: 500px;
-        width: 90%;
-        position: relative;
-        left: 5%;
-        right: 5%;
-    }
-
-    .comSub:nth-child(even) {
-        background: #b3e5fc;
-    }
-
-    .comSub:nth-child(odd) {
-        background: #e1f5fe;
-    }
-
-    .Header {
-        font-weight: bold;
-        font-size: 50px;
-        color: white;
-    }
-
-    #cancel-btn {
-        position: relative;
-        font-size: 25px;
-        bottom: -90%;
-        right: 10%;
-        border-radius: 5px 5px 5px 5px;
-    }

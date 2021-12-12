@@ -18,7 +18,24 @@
 </head>
     
 <body>
-    <%- include("./partials/home_nav")%>
+    <%- include("../partials/home_nav")%>
+
+    <% if(smessage.length > 0) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= smessage %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
+    <% if(emessage.length > 0) { %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <%= emessage %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
     <div class="body-page" onClick="closeSide()">
         <div class="bg-text">
             <div class="tab">
@@ -79,7 +96,7 @@
                                         <input type="text" id="subemail" name="subemail" placeholder="Email" value=<%= user.email %> required>
                                         <input type="text" id="subname" name="subname" placeholder="Name" value=<%= user.name %> required>
                                         <br>
-                                        <button type="submit" name="button" value="subscribe" onclick="confirmSub()">Submit</button>
+                                        <button type="submit" name="button" value="subscribe">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -145,7 +162,7 @@
                         <div class="md:flex md:items-center">
                             <div class="md:w-1/3"></div>
                             <div class="md:w-2/3">
-                                <button type="submit" class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded" name="button" value="message" onclick="sendMessage()">SEND</button>
+                                <button type="submit" class="shadow bg-blue-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded" name="button" value="message">SEND</button>
                             </div>
                         </div>
                         <br>

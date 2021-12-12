@@ -30,6 +30,7 @@ Therefore, we created this website, which is a new way for landlords and tenants
 - MongoDB
 
 ### Dependencies
+- socket.io
 - bcrypt
 - gridfs
 - mongoose

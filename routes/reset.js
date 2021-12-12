@@ -102,7 +102,7 @@ router.post('/', async (req,res) => {
         res.redirect('/login')
     }else{
         console.log("Email not found.")
-        res.redirect('/reset')
+        res.render('/reset')
     }
 })
 

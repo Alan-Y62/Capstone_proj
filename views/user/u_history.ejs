@@ -25,12 +25,12 @@
     <div class="history">
         <h2>YOUR REQUEST HISTORY</h2>
     </div>
-    <div class="body-page">
+    <div class="pendingContainer">
         <div class="pending">
             <div class="reqContainer">
                 <h2>Pending Requests</h2>
                 <% problems.forEach( (a) => { %>
-                    <% if(a.status === 'pending') { %> 
+                    <% if(a.status === 'pending' || a.status === 'emergency') { %> 
                         <a class='btn btn-r btn-primary btn-block' href="/user/<%= building_id  %>/history/<%= a._id %>">
                             <%= a.issue %> || Tenants name or Apt || Date
                         </button></a>
@@ -40,40 +40,19 @@
     </div>
     </div>
     <div class='completedContainer'>
-        <div class="abc123">
-            <div class="comcon">
-                <h2>Completed Requests</h2>
-                <% problems.forEach( (a,index)=> { %>
-                    <% if(a.status==='completed' ) { %>
-                        <div class="comSub" id='<%= index %>'>
-                            <span class='c'>
-                                <h3>
-                                    <%= a.issue %>
-                                </h3>
-                            </span>
-                            <% if(a.comments) { %>
-                                <p>
-                                    <%= a.comments %>
-                                </p>
-                                <% } %>
-                                    <% if(a.image !=='0x000000' ) { %>
-                                        <img src="/user/<%= building_id  %>/image/<%= a._id%>" />
-                                        <% } %>
-                                            <p><span class="text-muted">Request Date: <%=
-                                                        a.date.toLocaleDateString() %> </span><span
-                                                    style="font-weight: bold;">Repair Finished:
-                                                    <%=a.sched_date.toLocaleDateString()%>
-                                                </span></p>
-                        </div>
-                        <% }}) %>
-            </div>
+        <h2>Finished Requests</h2>
+        <div class="comcon">
+            <% problems.forEach( (a) => { %>
+                <% if(a.status === 'completed') { %>
+                    <a class='btn btn-r btn-primary' href="/user/<%= building_id  %>/history/<%= a._id %>">
+                        <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
+                        <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
+                        <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p>
+                    </a>
+            <% }}) %>
         </div>
     </div>
-
-    <i class="scroll-up" id="scroll-up"><img src="/public/images/upward.gif" class="side_bar up-arrow" alt="" /></i>
-
-    <script src="/public/scripts/scrollTop.js"></script>
-    <script src="/public/scripts/navbar.js"></script>
+</div>
 </body>
-
+<script src="/public/scripts/navbar.js"></script>
 </html>

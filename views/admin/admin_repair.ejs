@@ -49,16 +49,15 @@
             </div>
         <% } %>
         <div class='completedContainer'>
-                <h2>Finished Requests</h2>
-                <div class="comcon">
-                    <% problems.forEach( (a) => { %>
-                        <% if(a.status === 'completed') { %>
-                            <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>">
-                                <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
-                        <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
-                        <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p></a>
-                    <% }}) %>
-                </div>
+            <h2>Finished Requests</h2>
+            <div class="comcon">
+                <% problems.forEach( (a) => { %>
+                    <% if(a.status === 'completed') { %>
+                        <a class='btn btn-r btn-primary' href="/admin/<%= building_id  %>/requests/<%= a._id %>">
+                            <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
+                    <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
+                    <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p></a>
+                <% }}) %>
             </div>
         </div>
     </body>

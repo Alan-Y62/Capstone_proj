@@ -34,7 +34,7 @@
     text-align: left;
     cursor: pointer;
     transition: 0.3s;
-    font-size: min(3.2vw, 18px);
+    font-size: min(3.1vw, 18px);
     text-transform: uppercase;   
     font-weight: bold;
 }
