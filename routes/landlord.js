@@ -28,7 +28,8 @@ conn.once('open', () => {
 router.get('/:id', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const buildID = req.params.id; //UNIQUE ID NUMBER FOR THE BUILDING
     const announce = await Announce.find({"building_id":buildID}) //LOADS THE RESULTING MONGODB QUERY INTO ANNOUNCE USING BUILDING ID AS THE FILTER
-    res.render('./admin/admin_announce', {news:announce, building_id:req.params.id})
+    const user = String(req.user._id)
+    res.render('./admin/admin_announce', {news:announce, building_id:req.params.id, user: user})
 })
 
 //page for creating a new announcement
@@ -89,7 +90,8 @@ router.post('/:id/edit/:an_id', checkAuthenticated, checkRolesAdmin, async(req, 
 //page for viewing requests
 router.get('/:id/requests', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const findrqs = await Repair.find({building: req.params.id})
-    res.render('./admin/admin_repair', {problems: findrqs, building_id:req.params.id})
+    const user = String(req.user._id)
+    res.render('./admin/admin_repair', {problems: findrqs, building_id:req.params.id, user: user})
 })
 
 //request post in the form of a get //pushes repair dates back
@@ -135,7 +137,8 @@ router.get('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (req
     const rqs = await Repair.find({"_id": repairID})
     const id = req.params.r_id;
     const comm = await Comm.find({"room_id": id})
-    res.render('./admin/admin_repairdetails', {problems: rqs[0], comm:comm, id:id,building_id:req.params.id})
+    const user = String(req.user._id)
+    res.render('./admin/admin_repairdetails', {problems: rqs[0], comm:comm, id:id,building_id:req.params.id, user: user})
 })
 
 //POST request to add comment to the specifc request
@@ -166,6 +169,7 @@ router.get('/:id/manage', checkAuthenticated, checkRolesAdmin, async (req,res) =
     let request = curr_build[0].pending;
     let current = curr_build[0].tenants
     let landlord = mongoose.Types.ObjectId(curr_build[0].landlord)
+    const user = String(req.user._id)
     let pending = await Promise.all(request.map(async (x)=>{ //get list of pending users for building
         let pend_tenants = await User.find({"_id": x._id}).then(y =>{
             let name = y[0].name;
@@ -195,7 +199,7 @@ router.get('/:id/manage', checkAuthenticated, checkRolesAdmin, async (req,res) =
         const tenants_apt = x.apt
         return {tenants_name, tenants_id, tenants_apt,tenants_email}
     }))
-    res.render('./admin/management', {pending:pending, tenants:curr_tenants, location:curr_build[0], building_id: buildID})
+    res.render('./admin/management', {pending:pending, tenants:curr_tenants, location:curr_build[0], building_id: buildID, user: user})
 })
 
 //POST for removing users

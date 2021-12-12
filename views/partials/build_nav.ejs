@@ -13,11 +13,10 @@
     <a href="/admin/<%= building_id  %>"><i class="fa fa-newspaper"></i> Announcements</a>
     <a href="/admin/<%= building_id %>/manage"><i class="fa fa-address-book" aria-hidden="true"></i> Manage Tenants</a>
     <a href="/admin/<%= building_id %>/requests"><i class="fa fa-wrench"></i> Repair Requests</a>
-    <a href="#"><i class="fa fa-comments"></i>FUTURE UPDATE</a>
     <a href="/settings"><i class="fa fa-cog"></i> Settings</a>          
     
     <span class="border-bottom" style="display:block"></span>
-
+    <p style="color: gray">Landlord ID: <%=user%></p>
     <button id="del-btn" onclick="confirmation('<%= building_id %>')"><i class="fas fa-trash"" aria-hidden="true"></i> Delete Building?</button>
     <div id="confirming">
 
