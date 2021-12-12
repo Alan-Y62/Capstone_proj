@@ -19,26 +19,6 @@
 </head>
 
 <body>
-    <button>Subscribe</button>
-
-    <script>
-        // service worker
-        addEventListener("load", async () => {
-            let sw = await navigator.serviceWorker.register(
-                "./public/scripts/serviceWorker.js"
-            );
-        });
-
-        async function subscribe() {
-            let sw = await navigator.serviceWorker.ready;
-
-            let push = await sw.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey:
-                    "BMNM21ozV6RccT5cWPAdQDbUFUFueuHQobLVt4doDFKOjCISs3wwjxqmfZ0PSvSQ7Qt-k0V7eIrzCVYYrN6126g",
-            });
-        }
-    </script>
 
     <%- include("../partials/build_navUser", {title:"Announcement"})%>
         <% if(Object.entries(news).length> 0) { %>
