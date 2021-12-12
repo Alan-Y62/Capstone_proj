@@ -4,7 +4,7 @@ const commSchema = new mongoose.Schema({
     to:      { type:String, required: true},
     from:    { type:String, required: true},
     comment: { type: String, required: true },
-    isRead:  { type: Boolean, default: true },
+    isRead:  { type: Boolean, required: true },
     date:    { type: Date, default: Date.now()}
 })
 

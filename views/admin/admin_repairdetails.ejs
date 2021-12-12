@@ -54,7 +54,7 @@
         <a href="/admin/<%= building_id  %>/requests/p/<%= id %>/" class="btn btn-warning">Reschedule by 1 day</a> 
     </div>
     <div class="comment_sec">
-        <form id="chat-form" action="/admin/<%= problems.building  %>/requests/<%= problems._id%>" method="post">
+        <form id="chat-form">
             <div class="row mb-4">
                 <div class="col-md-12">
                     <h4 class="border-bottom pb-2">Comments</h4>
@@ -67,7 +67,7 @@
     
                 </div>
                 <div class="col-md-12">
-                    <button id="submitBtn" class="btn btn-primary float-right" type="submit">Submit</button>
+                    <button id="submitBtn" class="btn btn-primary float-right" type="submit" onclick="tosubmit(event,'<%= building_id  %>','<%= id %>', 'admin')">Submit</button>
                 </div>
             </div>
         </form>

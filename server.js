@@ -22,6 +22,7 @@ app.use('/public', express.static(path.join(__dirname)))
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 //session
 app.use(session({ 

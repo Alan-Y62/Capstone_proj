@@ -79,7 +79,11 @@ router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('
 
 router.get('/:id/history', checkAuthenticated, checkRolesUser, async(req,res) => {
   const findrqs = await Repair.find({building: req.params.id})
-  console.log(findrqs);
+
+  const msg = await Promise.all(findrqs.map(async(elements) =>{
+    return await Comm.findOne({"room_id":String(elements._id), "isRead": false, to:req.user._id})
+}))
+
   res.render('./user/u_history', {problems: findrqs, building_id: req.params.id})
 })
 
@@ -99,14 +103,31 @@ router.post('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,
   const landlord = building[0].landlord
   const user = await User.find({"_id": mongoose.Types.ObjectId(req.user.id)});
   const from = user[0].name;
-  console.log(req.body)
-  const comment = new Comm({room_id, to:landlord, from, comment:req.body.what})
+  let isRead = true;
+    const clients = req.io.sockets.adapter.rooms.get(room_id);
+    const numClients = clients ? clients.size : 0;
+    if(numClients <= 1){
+        isRead = false;
+    }
+  const comment = new Comm({room_id, to:landlord, from, comment:req.body.what, isRead})
   await comment.save((err,comment) => {
     const commID = comment._id;
     console.log(commID)
-    req.io.to(room_id).emit('comment', {comment:req.body.what, id:commID})
+    req.io.to(room_id).emit('comment', {comment:req.body.what, id:commID, buildID:buildID, to:'landlord', from:from})
   });
   res.redirect(`/user/${buildID}/history/${room_id}`)
+})
+
+
+router.post('/:id/history/:r_id/read',checkAuthenticated, checkRolesUser, async (req,res)=>{
+  console.log('hellll')
+  const tf = req.body.tf;
+  console.log(req.body.tf)
+  const buildID = req.params.id;
+  const r_id = req.params.r_id;
+  const commID = mongoose.Types.ObjectId(req.body.id)
+  await Comm.findByIdAndUpdate(commID,{'isRead': tf})
+  res.redirect(`/admin/${buildID}/requests/${r_id}`)
 })
 
 router.post('/:id/history/:r_id/cancel', checkAuthenticated, checkRolesUser, async (req,res) => {
