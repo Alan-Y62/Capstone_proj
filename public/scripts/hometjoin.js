@@ -20,7 +20,6 @@ function search(){
     let filter = searchVal.value.toUpperCase();
     let table = document.getElementById('thetable');
     let searchBy = document.getElementById('searchBy').value;
-    console.log(searchBy)
     let tr = table.getElementsByTagName('tr');
     for(let i = 0;  i < tr.length; i++){
         let td = tr[i].getElementsByTagName('td')[searchBy];

@@ -102,11 +102,8 @@ router.get('/:id/requests', checkAuthenticated, checkRolesAdmin, async (req,res)
 //request post in the form of a get //pushes repair dates back
 router.get('/:id/requests/p/:r_id', checkAuthenticated, checkRolesAdmin, async (req,res) => {
     const repID = mongoose.Types.ObjectId(req.params.r_id)
-    console.log(repID);
     let dat = await Repair.find({"_id": repID})
-    console.log(dat[0]);
     let sched_date = addTwoWeeks(dat[0].sched_date)
-    console.log(sched_date)
     const buildID = req.params.id
     await Repair.findByIdAndUpdate(repID, {sched_date})
     res.redirect(`/admin/${buildID}/requests/${repID}`)
@@ -125,7 +122,7 @@ router.get('/:id/requests/d/:r_id/', checkAuthenticated, checkRolesAdmin, async 
                         console.log(err)
                     }
                     else{
-                        console.log('nice')
+                        console.log('deleted')
                     }
                 })
                 await Comm.deleteMany({"room_id": String(req.params.r_id)}) //deletes the comments associated with the request
@@ -161,7 +158,6 @@ router.post('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (re
     if(numClients <= 1){
         isRead = false;
     }
-    console.log(req.body)
     const comment = new Comm({room_id, to:tenant, from, comment:req.body.what, isRead})
     await comment.save((err,comment) => {
         const commID = comment._id;
@@ -174,9 +170,7 @@ router.post('/:id/requests/:r_id',checkAuthenticated, checkRolesAdmin, async (re
 
 
 router.post('/:id/requests/:r_id/read',checkAuthenticated, checkRolesAdmin, async (req)=>{
-    console.log('hellll')
     const tf = req.body.tf;
-    console.log(req.body.tf)
     const buildID = req.params.id;
     const r_id = req.params.r_id;
     const commID = mongoose.Types.ObjectId(req.body.id)
@@ -248,7 +242,6 @@ router.post('/:id/manage/useraccept', checkAuthenticated, checkRolesAdmin, async
     const buildingID = mongoose.Types.ObjectId(req.params.id);
     const userID = mongoose.Types.ObjectId(req.body.ident);
     const userApt = req.body.chooseApt;
-    console.log(userApt)
     // await User.findByIdAndUpdate(userApt,{$pull:{building:{building_id:buildingID}}}) //DELETE PERSON IN THAT POSITION
     const acceptpendingbuilding = await Build.find({"_id":buildingID});
     const match  = await Build.find({'_id':buildingID}).select({"tenants":{$elemMatch:{"apt": userApt}}});
@@ -307,7 +300,7 @@ router.post('/:id/delBuild', checkAuthenticated, checkRolesAdmin, async (req,res
                     console.log(err)
                 }
                 else{
-                    console.log('nice')
+                    console.log('deleted')
                 }
             })
             await Repair.findByIdAndDelete(element._id)

@@ -8,12 +8,10 @@ socket.emit('joining', { the_id })
 
 socket.on('check', (check) => {
     console.log(check)
-    console.log(the_id)
 })
 
 socket.on('comment', (obj) => {
     post(obj.comment, obj.id, obj.to, obj.from, obj.buildID)
-    console.log('hellt')
 })
 
 
@@ -21,7 +19,6 @@ function post(comment, ID, to, from, buildID) {
     let the_comment = document.createElement('div')
     the_comment.classList.add('card', 'border-light', 'mb-3', 'comment')
     const date = new Date().toLocaleDateString();
-    console.log(date)
     let comment_sec = `
         <div class="card-body">
             <p><strong> ${from} </strong></p>
@@ -37,10 +34,7 @@ function post(comment, ID, to, from, buildID) {
 }
 
 const checkVisible = (element, ID, to, buildID) => {
-    console.log('heuy')
     const rect = element.getBoundingClientRect();
-    console.log(rect.bottom)
-    console.log(window.innerHeight)
     if (rect.top < 0) {
         isRead(ID,to,buildID,"false");
         let button = document.createElement("Button");
@@ -58,7 +52,6 @@ const checkVisible = (element, ID, to, buildID) => {
 const isRead = (ID,to, buildID, read) => {
     const xhr = new XMLHttpRequest();
     const tf = {tf: read, id:ID};
-    console.log(tf)
     if(to == 'landlord'){
         xhr.open("POST", `/admin/${buildID}/requests/${the_id}/read`, true);
     }

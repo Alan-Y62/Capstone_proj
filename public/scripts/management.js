@@ -2,10 +2,8 @@ const lo = document.getElementById('location').value
 
 function postDelete(path,params,method='post'){
     const form = document.createElement('form');
-    console.log(path)
     form.method = method;
     form.action = path;
-    console.log(params)
     for(const keys in params){
         if(params.hasOwnProperty(keys)){
             const input = document.createElement('input');
@@ -21,7 +19,6 @@ function postDelete(path,params,method='post'){
 
  function pendAccept(params,method="post"){
     const chooseApt = document.getElementById(String(params.ident)).value
-    console.log(chooseApt)
     const form = document.createElement('form');
     form.method = method;
     form.action = `/admin/${lo}/manage/useraccept`;

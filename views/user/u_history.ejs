@@ -32,8 +32,10 @@
                 <% problems.forEach( (a) => { %>
                     <% if(a.status === 'pending' || a.status === 'emergency') { %> 
                         <a class='btn btn-r btn-primary btn-block' href="/user/<%= building_id  %>/history/<%= a._id %>">
-                            <%= a.issue %> || Tenants name or Apt || Date
-                        </button></a>
+                            <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
+                            <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
+                            <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p>
+                        </a>
                     <% }}) %>
             </div>
         </div>

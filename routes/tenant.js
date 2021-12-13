@@ -33,7 +33,6 @@ router.get('/:id/requests', checkAuthenticated, checkRolesUser, async (req,res) 
 router.post('/:id/requests', checkAuthenticated, checkRolesUser, upload.single('file'), async (req,res) => {
     const{issue,date, ignore, comments} = req.body;
     //const imageID = req.file.id;
-    console.log(issue + " + " + date + " + " + ignore + " + " + comments );
     let sched_date = Date.now();
     sched_date = new Date(sched_date);
     emer_date = new Date(date);
@@ -112,7 +111,6 @@ router.post('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,
   const comment = new Comm({room_id, to:landlord, from, comment:req.body.what, isRead})
   await comment.save((err,comment) => {
     const commID = comment._id;
-    console.log(commID)
     req.io.to(room_id).emit('comment', {comment:req.body.what, id:commID, buildID:buildID, to:'landlord', from:from})
   });
   res.redirect(`/user/${buildID}/history/${room_id}`)
@@ -120,9 +118,7 @@ router.post('/:id/history/:r_id',checkAuthenticated, checkRolesUser, async (req,
 
 
 router.post('/:id/history/:r_id/read',checkAuthenticated, checkRolesUser, async (req,res)=>{
-  console.log('hellll')
   const tf = req.body.tf;
-  console.log(req.body.tf)
   const buildID = req.params.id;
   const r_id = req.params.r_id;
   const commID = mongoose.Types.ObjectId(req.body.id)
@@ -137,7 +133,7 @@ router.post('/:id/history/:r_id/cancel', checkAuthenticated, checkRolesUser, asy
         console.log(err)
     }
     else{
-        console.log('nice')
+        console.log('deleted')
     }
   })
   await Repair.findByIdAndDelete(req.params.r_id)
@@ -146,7 +142,6 @@ router.post('/:id/history/:r_id/cancel', checkAuthenticated, checkRolesUser, asy
 
 router.get('/:id/image/:a_id', checkAuthenticated, checkRolesUser, (req, res) => {
   const id = req.params.a_id;
-  console.log(id)
   if (!id || id === 'undefined') 
   return res.status(400).send('no image id');
   const _id = new mongoose.Types.ObjectId(id);

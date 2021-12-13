@@ -26,7 +26,6 @@ display(tab_num);
 
 function nextPrev(n){
    let x = document.getElementsByClassName('tab');
-   console.log("current tab:" + tab_num);
    if(n === 1 && !validateForm()){
      return false;
    }
@@ -76,7 +75,6 @@ function nextPrev(n){
 
 function numtype(){
     let selected = getType();
-    console.log("s"+selected)
     let parent = document.getElementById("pg3")
     if(selected === "onlyNum"){
       document.getElementById("num").style.display = "block"
@@ -110,7 +108,6 @@ function getType(){
 function createApt(){
     let type = getType();
     let parent = document.getElementById("pg4")
-    console.log("stuff" + type)
     if(type === "onlyNum"){
       let choice = document.getElementById('nums')
       let number = choice.value;
@@ -127,11 +124,8 @@ function createApt(){
       let numchoice = document.getElementById('numfora')
       let alphachoice = document.getElementById('alphabet')
       let num = alphachoice.value.charCodeAt(0) - 65;
-      console.log(numchoice)
-      console.log(num)
       for (let i = 1; i <= numchoice.value; i++){
         for (let j = 0; j <= num; j++){
-          console.log('hi')
           const number = i;
           const aptnum = number.toString();
           const aptletter = String.fromCharCode(65 + j);
@@ -172,7 +166,6 @@ function numcheck(input){
   if (input.value < 0){
     input.setCustomValidity('Must be a valid number')
     input.reportValidity();
-    event.preventDefault()
     input.value = '';
   }
   else{
@@ -182,11 +175,9 @@ function numcheck(input){
 
 function zipCheck(){
   const zip = document.getElementById('zipcode')
-  console.log(zip.value)
   if(zip.value < 10000 || zip.value > 99999){
     zip.setCustomValidity('Must be a valid Zip Code')
     zip.reportValidity();
-    event.preventDefault()
     zip.value = '';
     return false;
   }

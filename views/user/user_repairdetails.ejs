@@ -51,28 +51,30 @@
         <!-- <div class='booton'> 
             <a href="/user/<%= building_id  %>/history/cancel/<%= id %>/" class="btn btn-warning">Cancel Request</a>
         </div> -->
-        <form action="/user/<%= building_id %>/history/<%=id%>/cancel" method="post"> 
-            <button type="submit" class="btn btn-c btn-danger">Cancel Request</button>
-        </form>
     </div>
-    <div class="comment_sec">
-    <form id="chat-form">
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <h4 class="border-bottom pb-2">Comments</h4>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for=""></label>
-                    <textarea id="textarea" name="what" rows="3" class="form-control"></textarea>
-                </div>
-
-            </div>
-            <div class="col-md-12">
-                <button id="submitBtn" class="btn btn-primary float-right" type="submit" onclick="tosubmit(event,'<%= building_id  %>','<%= id %>', 'user')">Submit</button>
-            </div>
+    <div class="cancel-btn">
+        <form action="/user/<%= building_id %>/history/<%=id%>/cancel" method="post"> 
+            <button type="submit" class="btn btn-danger">Cancel Request</button>
+        </form>
         </div>
-    </form>
+    <div class="comment_sec">
+        <form id="chat-form">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h4 class="border-bottom pb-2">Comments</h4>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for=""></label>
+                        <textarea id="textarea" name="what" rows="3" class="form-control"></textarea>
+                    </div>
+    
+                </div>
+                <div class="col-md-12">
+                    <button id="submitBtn" class="btn btn-primary float-right" type="submit" onclick="tosubmit(event,'<%= building_id  %>','<%= id %>', 'admin')">Submit</button>
+                </div>
+            </div>
+        </form>
     <div class="row">
         <div class="col-md-12">
             <ul class="comment_container">
@@ -121,12 +123,12 @@
         margin-top: 5px;
     }
 
-    form {
+    .cancel-btn{
         display: flex;
         justify-content: center;
     }
 
-    form .btn-c {
+    form .btn-c { 
         position: relative;
         top:45%;
         height: 10%;
@@ -155,9 +157,6 @@
             margin:1rem;
         }
 
-        form {
-            justify-content: center;
-        }
 
     }
 </style>
