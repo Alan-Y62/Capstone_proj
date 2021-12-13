@@ -10,7 +10,7 @@ const Comm = require('../model/comment')
 const { checkAuthenticated, checkRolesAdmin } = require('../public/scripts/auth')
 const { addTwoWeeks} = require('../public/scripts/miscFuncs');
 const { UserRefreshClient } = require('google-auth-library');
-const { sendUpdate, sendEditUpdate } = require('../email/sendEmail')
+const { sendUpdate, sendEditUpdate, joinResponse } = require('../email/sendEmail')
 
 //image loading code for repairs
 const conn = mongoose.connection
@@ -233,7 +233,6 @@ router.post('/:id/manage/userdelete', checkAuthenticated, checkRolesAdmin, async
     if(String(userID) !== acceptpendingbuilding[0].landlord){
         await User.findByIdAndUpdate(userID,{$pull:{building:{building_id:buildingid}}})
     }
-    
     res.redirect(`/admin/${buildingid}/manage`)
 })
 
@@ -257,7 +256,9 @@ router.post('/:id/manage/useraccept', checkAuthenticated, checkRolesAdmin, async
     })
     await Build.findByIdAndUpdate(acceptpendingbuilding[0]._id,{$pull:{pending:{_id:userID}}}) //pulling out of pending system
     await User.findByIdAndUpdate(userID,{$push:{building:{building_id:buildingID}}}) //pushing into building
-
+    const user = await User.find({'_id': userID});
+    const email = user[0].email;
+    joinResponse(email,"ACCEPTED");
     res.redirect(`/admin/${buildingID}/manage`)
 })
 
@@ -267,6 +268,9 @@ router.post('/:id/manage/userdeny', checkAuthenticated, checkRolesAdmin, async (
     const userID = mongoose.Types.ObjectId(req.body.ident);
     const acceptpendingbuilding = await Build.find({"_id":buildingID});
     await Build.findByIdAndUpdate(acceptpendingbuilding[0]._id,{$pull:{pending:{_id:userID}}})
+    const user = await User.find({'_id': userID});
+    const email = user[0].email;
+    joinResponse(email,"REJECTED");
     res.redirect(`/admin/${buildingID}/manage`)
 })
 

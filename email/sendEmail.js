@@ -131,6 +131,27 @@ function resetPassword(email,token){
     sendEmail(rpOptions);
 }
 
+function joinResponse(email, decision) {
+    if(decision === 'ACCEPTED') {
+        const rpOptions = {
+            from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
+            to: email,
+            subject: "Application was "+decision,
+            text: "Your application was accepted to the join the building",
+            html: `<h3>Your application was accepted to the join the building</h3>`
+        };
+        sendEmail(rpOptions);
+    }
+    const rpOptions = {
+        from: 'The Daily Tenant <capstoneprojfall21@gmail.com>',
+        to: email,
+        subject: "Application was "+decision,
+        text: "If you think this was a mistake, please contact your landlord for questions",
+        html: `<h3>If you think this was a mistake, please contact your landlord for questions</h3>`
+    };
+    sendEmail(rpOptions);
+}
+
 /*
 sendMail().then((result) => console.log('Email sent...', result)).catch((error) => console.log(error.message));
 const toEmail = "huangtoby90@gmail.com";
@@ -146,3 +167,4 @@ module.exports.sendUpdate = sendUpdate;
 module.exports.sendEditUpdate = sendEditUpdate;
 module.exports.sendVerification = sendVerification;
 module.exports.resetPassword = resetPassword;
+module.exports.joinResponse = joinResponse;
