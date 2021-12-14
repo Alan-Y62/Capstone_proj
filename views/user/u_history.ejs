@@ -14,7 +14,6 @@
     <link href="/public/css/background.css" type="text/css" rel="stylesheet" />
     <link href="/public/css/navbar.css" type="text/css" rel="stylesheet" />
     <link href="/public/css/u_history.css" type="text/css" rel="stylesheet" />
-    <link href="/public/css/upArrow.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
     <link href="/public/css/global.css" type="text/css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
@@ -26,18 +25,16 @@
         <h2>YOUR REQUEST HISTORY</h2>
     </div>
     <div class="pendingContainer">
-        <div class="pending">
-            <div class="reqContainer">
-                <h2>Pending Requests</h2>
-                <% problems.forEach( (a) => { %>
-                    <% if(a.status === 'pending' || a.status === 'emergency') { %> 
-                        <a class='btn btn-r btn-primary btn-block' href="/user/<%= building_id  %>/history/<%= a._id %>">
-                            <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
-                            <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
-                            <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p>
-                        </a>
-                    <% }}) %>
-            </div>
+        <h2>Pending Requests</h2>
+        <div class="reqContainer">
+            <% problems.forEach( (a) => { %>
+                <% if(a.status === 'pending' || a.status === 'emergency') { %> 
+                    <a class='btn btn-r btn-primary btn-block' href="/user/<%= building_id  %>/history/<%= a._id %>">
+                        <p>Issue: <span class="subtext"> <%= a.issue %> </span> </p>
+                        <p>From apt: <span class="subtext"><%= a.apt %> </span> </p>
+                        <p>Date Requested: <span class="subtext"> <%= a.date.toLocaleDateString() %> </span> </p>
+                    </a>
+                <% }}) %>
         </div>
     </div>
     </div>
