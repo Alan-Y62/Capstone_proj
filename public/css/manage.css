@@ -46,6 +46,10 @@ thead{
     flex-grow: 1;
 }
 
+p{
+    color:white;
+}
+
 @media screen and (max-width: 600px) {
     .tenant-list, .pending-list {
         width: 98%;
