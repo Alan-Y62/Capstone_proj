@@ -32,7 +32,7 @@ Therefore, we created this website, which is a new way for landlords and tenants
 3. Implementing Progressive Web Apps (PWAs) and push notifications.
 4. Too much useless css code.
 
-## Tools/Technologies
+## Technologies/Tools
 ### Languages
 - HTML
 - CSS
