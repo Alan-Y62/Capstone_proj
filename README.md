@@ -5,7 +5,7 @@
 
 
 ## Overview
-### Ideas
+### Idea
 Landlords trying to communicate with their tenants is slow and has no guarantee to reach everyone. 
 Hassle for tenants to try to contact their landlords who may only be available at certain times.
 Therefore, we created this website, which is a new way for landlords and tenants to interact with each other about home-related information.
