@@ -50,14 +50,12 @@ router.post('/', async (req,res) => {
                 token: crypto.randomBytes(32).toString('hex'),
             }).save()
         }
-
         const link = 'localhost:3000/passwordreset/${user._id}/${token.token}'
         resetPassword(user.email, link);
     }catch(error){
         console.log(error)
     }
 })
-
 router.post('/:userID/:token', async (req,res) => {
     const{ newpass } = req.body;
     try {
@@ -66,11 +64,9 @@ router.post('/:userID/:token', async (req,res) => {
             userID: user._id,
             token: req.params.token
         });
-
         user.password = newpass;
         await user.save();
         await token.delete();
-
     }catch(error){
         console.log(error)
     }
@@ -89,10 +85,12 @@ router.post('/', async (req,res) => {
     console.log(isuser)
     if(isuser && buttonValue == "reset"){
         const newToken = crypto.randomBytes(32).toString('hex');
-        await User.findOneAndUpdate({email:remail},{verString:newToken})
-        const email = await User.find({email:remail});
-        resetPassword(remail,email[0].verString); 
-        res.redirect('/login')
+        await User.findOneAndUpdate({email:remail},{verString:newToken},function(err, docs){
+            if (err){
+                console.log(err)
+            }else{
+                console.log("Password Reset Requested")
+            }
         });
         const email = await User.find({email:remail});
         resetPassword(remail,email[0].verString); 
