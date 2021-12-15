@@ -69,15 +69,9 @@ router.post('/', checkAuthenticated, async (req,res) => {
         }
     }else if(buttonValue == "reset"){
         const newToken = crypto.randomBytes(32).toString('hex');
-        User.findByIdAndUpdate(req.user.id,{verString:newToken},function(err, docs){
-            if(err){
-                console.log(err)
-            }else{
-                console.log('Password Reset Requested')
-            }
-        });
-        const finduser = await User.findOne({verString:newToken});
-        resetPassword(req.user.email,finduser.verString);
+        await User.findByIdAndUpdate(req.user.id,{verString:newToken})
+        const finduser = await User.find({email:req.user.email});
+        resetPassword(req.user.email,finduser[0].verString);
         
         res.render('./settings/settings', {user:req.user, smessage:'RESET LINK SENT', emessage:req.flash('message')});
     }
