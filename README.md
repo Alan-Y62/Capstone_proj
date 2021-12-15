@@ -14,17 +14,17 @@ Therefore, we created this website, which is a new way for landlords and tenants
 ![architecture](https://user-images.githubusercontent.com/58491408/146209424-ace0699a-1bb7-4f43-939d-6c4509e082a8.png)
 
 ### Goals
-- Register and login to an account.
-- Email verification. 
-- Password reset. 
-- Create a building list on the landlord side. 
-- Find and filter the building lists on the tenant side. 
-- Request and schedule a repair request on the tenant side. 
-- Drag and drop to upload an image. 
-- Add additonal comments or cancel the request on the tenant side. 
-- Post an announcement that is viewable by all tenants and landlords. 
-- Send email notifications to the tenants whenever the landlords make an update. 
-- Delete the tenants or buildings on the landlord side. 
+1. Register and login to an account.
+2. Email verification. 
+3. Password reset. 
+4. Create a building list on the landlord side. 
+5. Find and filter the building lists on the tenant side. 
+6. Request and schedule a repair request on the tenant side. 
+7. Drag and drop to upload an image. 
+8. Add additonal comments or cancel the request on the tenant side. 
+9. Post an announcement that is viewable by all tenants and landlords. 
+10. Send email notifications to the tenants whenever the landlords make an update. 
+11. Delete the tenants or buildings on the landlord side. 
 
 ### Challenges and Lessons Learned
 1. How to store and retrieve images.
@@ -49,16 +49,23 @@ Therefore, we created this website, which is a new way for landlords and tenants
 - MongoDB Atlas
 
 ### Dependencies
-- mongoose (ODM library for MongoDB)
-- nodemailer (for emails)
-- Google APIs (OAuth2, for emails)
-- bcrypt (for passwords)
-- passport (for authentications)
-- gridFS (for repairs)
-- multer (for repairs)
-- socket.io (for repairs)
-- nodemon (for development)
-- dotenv (for development)
+- ODM library for MongoDB
+  - mongoose
+- For emails
+  - nodemailer
+  - Google APIs
+    - OAuth2
+- For passwords
+  - bcrypt
+- For authentications
+  - passport
+- For repairs
+  - gridFS
+  - multer
+  - socket.io
+- For development
+  - nodemon
+  - dotenv
 
 ## Run on local machine
 ### 1. Clone the project
