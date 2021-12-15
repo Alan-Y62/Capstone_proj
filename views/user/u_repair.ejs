@@ -5,6 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
+    
+    <!-- for making sure the page scrolls properly regardless of screen size -->
+    <script type="text/javascript">
+        window.onload=function(){
+            var viewportWidth  = document.documentElement.clientWidth;
+            if(viewportWidth < 600){ 
+                document.getElementsByName("viewport")[0].setAttribute("content","width=601, initial-scale=1.0");
+            }
+        };
+
+        window.addEventListener("resize", function(event) {
+            var viewportWidth  = document.documentElement.clientWidth;
+            if(viewportWidth < 600){ 
+                document.getElementsByName("viewport")[0].setAttribute("content","width=601, initial-scale=1.0");
+            }
+        });
+    </script>
+
     <title>Announcements</title>
     <%- include("../partials/css_partials/user_rep_css")%>
 
@@ -231,7 +249,7 @@
                         submitPressed = true;
                     }
 
-                    // 
+                    // error messages based on whether issues/date and time were selected
                     else if (checkedIssue == null || checkedDate == null) {
                         error = '<div class="alert alert-danger">A';
                         if (checkedIssue == null) {
@@ -251,9 +269,9 @@
                         // converts image to blob
                         fetch("../../public/images/logo.jpg")
                         .then(res => res.blob())
-                        .then((currentBlob) => {
-                            const defaultImage = new File([currentBlob], "filename.jpg", {
-                                type: currentBlob.type,
+                        .then((convertedBlob) => {
+                            const defaultImage = new File([convertedBlob], "filename.jpg", {
+                                type: convertedBlob.type,
                             });
                             dzClosure.addFile(defaultImage);
                             dzClosure.processQueue();
