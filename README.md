@@ -49,14 +49,14 @@ Therefore, we created this website, which is a new way for landlords and tenants
 - MongoDB Atlas
 
 ### Dependencies
-- socket.io (for repairs)
-- bcrypt (for passwords)
-- gridFS (for repairs)
 - mongoose (ODM library for MongoDB)
 - nodemailer (for emails)
-- passport (for authentication)
 - Google APIs (OAuth2, for emails)
+- bcrypt (for passwords)
+- passport (for authentications)
+- gridFS (for repairs)
 - multer (for repairs)
+- socket.io (for repairs)
 - nodemon (for development)
 - dotenv (for development)
 
