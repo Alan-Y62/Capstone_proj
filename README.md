@@ -10,6 +10,9 @@ Landlords trying to communicate with their tenants is slow and has no guarantee 
 Hassle for tenants to try to contact their landlords who may only be available at certain times.
 Therefore, we created this website, which is a new way for landlords and tenants to interact with each other about home-related information.
 
+### Architecture
+![architecture](https://user-images.githubusercontent.com/58491408/146209424-ace0699a-1bb7-4f43-939d-6c4509e082a8.png)
+
 ### Goals
 - Register and login to an account.
 - Email verification. 
