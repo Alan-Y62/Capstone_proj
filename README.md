@@ -41,7 +41,7 @@ Therefore, we created this website, which is a new way for landlords and tenants
 ### View Engine
 - EJS
 
-### Frontend / Backend
+### Environment/Frameworks
 - Node.js
 - Express.js
 
